@@ -1,4 +1,4 @@
-.PHONY: setup setup-py setup-web data sample train evaluate simulate narratives all api web demo test lint clean-artifacts
+.PHONY: setup setup-py setup-web data sample train evaluate simulate plots narratives all api web demo test lint clean-artifacts
 
 VENV   := .venv
 PY     := $(abspath $(VENV))/bin/python
@@ -29,10 +29,13 @@ evaluate:        ## metrics + forecasts + model card -> artifacts/
 simulate:        ## backtest status quo vs FloatWise -> artifacts/simulation_default.json
 	cd $(BACK) && $(PY) -m floatwise.simulation.backtest
 
+plots:           ## synthetic-data check charts -> artifacts/plots/
+	cd $(BACK) && $(PY) scripts/plot_data_checks.py
+
 narratives:      ## pre-generate bn/en explanations -> artifacts/narratives_cache.json
 	cd $(BACK) && $(PY) scripts/build_narratives.py
 
-all: data train evaluate simulate narratives
+all: data train evaluate simulate plots narratives
 
 api:
 	cd $(BACK) && $(PY) -m uvicorn floatwise.api.main:app --reload --port 8000

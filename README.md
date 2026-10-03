@@ -39,6 +39,17 @@ These per-1,000 figures use illustrative business assumptions.
 
 **Known weakness:** P10–P90 coverage on Eid days is only 55 %; the model is over-confident at peaks. The policy compensates with a high service level, chosen on validation data. Details are in [`artifacts/model_card.md`](artifacts/model_card.md).
 
+## The synthetic data at a glance
+`make plots` regenerates these charts from the data, so they show the patterns the model has to learn. Shocks and noise make the data realistic, not easy.
+
+| Eid spike by area type | Salary-day cycle | Today's stockouts by event |
+|---|---|---|
+| ![Eid spike](artifacts/plots/eid_spike.png) | ![Salary cycle](artifacts/plots/salary_cycle.png) | ![Stockouts by event](artifacts/plots/stockouts_by_event.png) |
+
+- **Eid spike:** rural-remittance cash-out reaches ×2.6 the normal level just before Eid-ul-Fitr.
+- **Salary cycle:** garment-belt cash-out peaks at ×1.6 on days 5–8 of each month.
+- **Stockouts under today's rule of thumb:** 30 % of agent-days stock out in the week before Eid-ul-Fitr, against 2 % on normal days.
+
 ## What it does
 1. **Forecasts** each agent's cash-out and cash-in demand 1–7 days ahead as P10/P50/P90. It uses global LightGBM quantile models with leakage-safe features: days to Eid, salary window, previous-Eid jump, recent volume and more.
 2. **Decides** with a deterministic engine:
@@ -60,7 +71,7 @@ Requirements: Python 3.11+, Node 20+. An LLM key is optional.
 
 ```bash
 make setup     # Python venv + npm install
-make all       # generate data, train, evaluate, backtest (~3 min)
+make all       # generate data, train, evaluate, backtest, plots (~3 min)
 make demo      # builds the web app and serves app + API on http://localhost:8000
 ```
 

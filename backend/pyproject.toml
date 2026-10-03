@@ -21,7 +21,7 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-dev = ["pytest==9.1.1", "ruff==0.16.10", "httpx==0.28.1"]
+dev = ["pytest==9.1.1", "ruff==0.16.10", "httpx==0.28.1", "matplotlib==3.11.2"]
 
 [tool.setuptools.packages.find]
 include = ["floatwise*"]

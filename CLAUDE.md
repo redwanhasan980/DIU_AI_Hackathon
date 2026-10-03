@@ -62,8 +62,9 @@ make data        # generate synthetic data → data/generated/
 make train       # train baselines + LightGBM quantile models
 make evaluate    # metrics → artifacts/metrics.json, model_card.md
 make simulate    # backtest status quo vs FloatWise → artifacts/simulation_default.json
+make plots       # synthetic-data check charts → artifacts/plots/
 make narratives  # pre-generate bn/en explanations → artifacts/narratives_cache.json
-make all         # data train evaluate simulate narratives
+make all         # data train evaluate simulate plots narratives
 make api         # uvicorn floatwise.api.main:app --reload (port 8000)
 make web         # vite dev server (port 5173)
 make demo        # api + web using cached artifacts, works offline

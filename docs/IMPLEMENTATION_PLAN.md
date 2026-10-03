@@ -91,7 +91,7 @@ D starts with **mock JSON fixtures** that match the schemas, so it never waits o
 - [x] `data/simulate_status_quo.py`: day-by-day balances under the status-quo policy → served/unserved, stockout flags, rebalances (FR-DATA-4)
 - [x] `data/generate.py` CLI: writes `data/generated/{agents.csv, calendar.csv, daily.parquet, shocks.csv}`, deterministic by seed (FR-DATA-6)
 - [x] Data quality checks from SRS §5.4 as `tests/test_data_quality.py`
-- [ ] `scripts/plot_data_checks.py`: Eid spike, salary window and archetype comparison PNGs in `artifacts/plots/` (FR-DATA-7) [P1]
+- [x] `scripts/plot_data_checks.py`: Eid spike, salary window and archetype comparison PNGs in `artifacts/plots/` (FR-DATA-7) [P1]
 - [x] `docs/DATA_ASSUMPTIONS.md`: every parameter and why (R-DATA-3)
 - [x] Commit the small sample `data/sample/` (50 agents, ≤ 5 MB) for tests (FR-DATA-8) [P1]
 - [ ] **DoD:** `make data` < 3 min; quality tests pass; the plots visibly show the injected patterns

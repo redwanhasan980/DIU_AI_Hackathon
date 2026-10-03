@@ -385,13 +385,17 @@ Defaults: s = 0.99, θ = 0.10 (chosen on validation by `scripts/tune_policy.py`;
 3. Sort by priority, descending. Add agents while visits < K and cumulative cash carried ≤ M.
 4. Output the ordered plan plus the excluded list.
 
-### 7.4 Business-value assumptions (config, labelled "assumption" in UI)
-- Cash-out fee to customer: 1.85 % of amount.
-- Agent + distributor share of that fee: 0.6 %.
-- Lost-customer probability after a failed cash-out: 5 %.
-- Opportunity cost of idle cash: 10 % annual.
-
-All of these are **illustrative**, not upay tariffs.
+### 7.4 Business values (config; sources in DATA_ASSUMPTIONS §8)
+- **Cash-out fee:** upay's published fee at agents by wallet type: primary 1.4 %, salary 1.0 %, remittance 1.0 %, disbursement 0.7 %. It is mapped to area types by their wallet mix.
+- **Commissions:** agent 0.41 % and distributor 0.10 % of every cash-in and cash-out amount. upay keeps the fee minus 0.51 %.
+- **Reported losses on failed transactions:**
+  - upay fee revenue (net of commission);
+  - agent + distributor commission;
+  - customers at risk.
+- **Network scale-up:** the losses are also scaled to upay's ~1,54,000 agents (end-2023, public).
+- **Assumptions (labelled in the UI):**
+  - 5 % chance a customer leaves after a failed cash-out;
+  - 10 % annual opportunity cost of idle cash.
 
 ---
 

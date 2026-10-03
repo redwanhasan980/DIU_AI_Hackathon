@@ -145,12 +145,17 @@ class PolicyCfg(_Strict):
 
 
 class BusinessCfg(_Strict):
-    cashout_fee_rate: float
-    channel_share_rate: float
-    cashin_channel_rate: float
+    cashout_fee_rate: dict[str, float]
+    agent_commission_rate: float
+    distributor_commission_rate: float
     churn_prob_after_fail: float
-    customer_monthly_value: float
     idle_cash_annual_cost: float
+    upay_agents: int
+
+    @property
+    def channel_rate(self) -> float:
+        """Agent + distributor commission per taka of cash-in or cash-out."""
+        return self.agent_commission_rate + self.distributor_commission_rate
 
 
 class ModelCfg(_Strict):

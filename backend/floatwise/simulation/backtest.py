@@ -182,6 +182,10 @@ def policy_metrics(cfg: Config, inp: SimInputs, tr: SimTrace, mask: np.ndarray |
     fail_co = tr.unserved_co[sel].sum()
     fail_ci = tr.unserved_ci[sel].sum()
     fail_co_cnt = (tr.unserved_co / ticket)[sel].sum()
+    # upay keeps the cash-out fee minus the agent + distributor commission
+    fee = inp.agents["archetype"].map(b.cashout_fee_rate).to_numpy()
+    upay_margin = np.maximum(fee - b.channel_rate, 0.0)
+    lost_upay_fee = (tr.unserved_co.sum(axis=1) * upay_margin)[sel].sum()
     fail_ci_cnt = (tr.unserved_ci / ticket)[sel].sum()
     demand = inp.co_demand[sel].sum() + inp.ci_demand[sel].sum()
     return {
@@ -192,7 +196,8 @@ def policy_metrics(cfg: Config, inp: SimInputs, tr: SimTrace, mask: np.ndarray |
         "failed_cashout_bdt": int(round(fail_co)),
         "failed_cashin_count": int(round(fail_ci_cnt)),
         "failed_cashin_bdt": int(round(fail_ci)),
-        "lost_commission_bdt": int(round(fail_co * b.channel_share_rate + fail_ci * b.cashin_channel_rate)),
+        "lost_commission_bdt": int(round((fail_co + fail_ci) * b.channel_rate)),
+        "lost_upay_fee_bdt": int(round(lost_upay_fee)),
         "customers_at_risk": int(round(fail_co_cnt * b.churn_prob_after_fail)),
         "avg_cash_held_bdt": int(round(tr.open_cash[sel].mean())),
         "rebalancing_trips": int(tr.trips[sel].sum()),
@@ -252,6 +257,7 @@ def simulate(
             "failed_total_bdt": _pct(a["failed_cashout_bdt"] + a["failed_cashin_bdt"],
                                      b["failed_cashout_bdt"] + b["failed_cashin_bdt"]),
             "lost_commission_bdt": _pct(a["lost_commission_bdt"], b["lost_commission_bdt"]),
+            "lost_upay_fee_bdt": _pct(a["lost_upay_fee_bdt"], b["lost_upay_fee_bdt"]),
             "avg_cash_held_bdt": _pct(a["avg_cash_held_bdt"], b["avg_cash_held_bdt"]),
             "rebalancing_trips": _pct(a["rebalancing_trips"], b["rebalancing_trips"]),
         },
@@ -264,10 +270,12 @@ def simulate(
                 (a["failed_cashout_bdt"] + a["failed_cashin_bdt"]
                  - b["failed_cashout_bdt"] - b["failed_cashin_bdt"]) * per)),
             "commission_recovered_bdt": int(round((a["lost_commission_bdt"] - b["lost_commission_bdt"]) * per)),
+            "upay_fee_recovered_bdt": int(round((a["lost_upay_fee_bdt"] - b["lost_upay_fee_bdt"]) * per)),
             "customers_retained": int(round((a["customers_at_risk"] - b["customers_at_risk"]) * per)),
             "extra_trips": int(round((b["rebalancing_trips"] - a["rebalancing_trips"]) * per)),
-            "idle_cash_cost_saved_bdt": int(round(idle_cost * 1000.0 / len(inp.agents) * 30.0 / 30.4)),
+            "idle_cash_cost_saved_bdt": int(round(idle_cost * 1000.0)),
         },
+        "upay_network_month": {},  # filled below
         "timeline": [
             {
                 "date": inp.dates[d].date().isoformat(),
@@ -281,6 +289,13 @@ def simulate(
         "by_archetype": [_segment(cfg, inp, sq, fw, x, arch == x) for x in cfg.archetypes],
         "by_area_type": [_segment(cfg, inp, sq, fw, "rural", rural), _segment(cfg, inp, sq, fw, "urban", ~rural)],
         "sweep": [],
+    }  # fmt: skip
+    # linear scale-up to upay's whole agent network (public agent count; an ASSUMPTION, labelled in the UI)
+    scale = cfg.business.upay_agents / 1000.0
+    result["upay_network_month"] = {"agents": cfg.business.upay_agents} | {
+        k: int(round(result["per_1000_agents_month"][k] * scale))
+        for k in ("stockout_days_avoided", "failed_value_avoided_bdt", "upay_fee_recovered_bdt",
+                  "commission_recovered_bdt", "customers_retained")
     }  # fmt: skip
     for s in sweep or []:
         t = run_policy(

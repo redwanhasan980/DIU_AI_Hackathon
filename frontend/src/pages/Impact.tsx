@@ -87,7 +87,31 @@ export function Impact() {
         <Compare label={t.failedValue} sq={a.failed_cashout_bdt + a.failed_cashin_bdt} fw={b.failed_cashout_bdt + b.failed_cashin_bdt} fmt={(v) => takaShort(v, lang)} />
         <Compare label={t.cashHeld} sq={a.avg_cash_held_bdt} fw={b.avg_cash_held_bdt} fmt={(v) => takaShort(v, lang)} />
         <Compare label={t.trips} sq={a.rebalancing_trips} fw={b.rebalancing_trips} fmt={(v) => num(v, lang)} />
+        <Compare label={lang === "bn" ? "upay-এর হারানো ফি আয়" : "upay fee revenue lost"} sq={a.lost_upay_fee_bdt} fw={b.lost_upay_fee_bdt} fmt={(v) => takaShort(v, lang)} />
+        <Compare label={lang === "bn" ? "এজেন্ট + ডিস্ট্রিবিউটরের হারানো কমিশন" : "Agent + distributor commission lost"} sq={a.lost_commission_bdt} fw={b.lost_commission_bdt} fmt={(v) => takaShort(v, lang)} />
+        <Compare label={lang === "bn" ? "ঝুঁকিতে গ্রাহক" : "Customers at risk of leaving"} sq={a.customers_at_risk} fw={b.customers_at_risk} fmt={(v) => num(v, lang)} />
+        <Compare label={lang === "bn" ? "ব্যর্থ ক্যাশ আউট" : "Failed cash-outs"} sq={a.failed_cashout_count} fw={b.failed_cashout_count} fmt={(v) => num(v, lang)} />
       </div>
+
+      {sim.upay_network_month?.agents ? (
+        <Card title={lang === "bn" ? `upay নেটওয়ার্কে (${num(sim.upay_network_month.agents, lang)} এজেন্ট) প্রতি মাসে` : `Across upay's network (${num(sim.upay_network_month.agents, lang)} agents), per month`}
+          subtitle={<>{lang === "bn" ? "ব্যাকটেস্টের রৈখিক হিসাব; এজেন্ট সংখ্যা ২০২৩ সালের প্রকাশিত তথ্য" : "Linear scale-up of the backtest; agent count as published for end-2023"}<AssumptionTag /></>}>
+          <dl className="grid grid-cols-2 gap-x-4 gap-y-3 text-sm md:grid-cols-5">
+            {[
+              [lang === "bn" ? "ফেরত upay ফি আয়" : "upay fee revenue protected", taka(sim.upay_network_month.upay_fee_recovered_bdt, lang)],
+              [lang === "bn" ? "রক্ষা পাওয়া লেনদেন মূল্য" : "Transaction value served", takaShort(sim.upay_network_month.failed_value_avoided_bdt, lang)],
+              [lang === "bn" ? "ফেরত কমিশন" : "Agent + distributor commission", taka(sim.upay_network_month.commission_recovered_bdt, lang)],
+              [lang === "bn" ? "এড়ানো ঘাটতি-দিন" : "Stockout days avoided", num(sim.upay_network_month.stockout_days_avoided, lang)],
+              [lang === "bn" ? "ধরে রাখা গ্রাহক" : "Customers retained", num(sim.upay_network_month.customers_retained, lang)],
+            ].map(([k, v]) => (
+              <div key={k}>
+                <dt className="text-xs text-muted">{k}</dt>
+                <dd className="tabular text-base font-semibold">{v}</dd>
+              </div>
+            ))}
+          </dl>
+        </Card>
+      ) : null}
 
       <Card title={lang === "bn" ? "দৈনিক তুলনা — ঈদ ২০২৬ সহ" : "Day by day — including Eid 2026"}
         right={<Toggle label="Metric" value={metric} onChange={setMetric} options={[{ value: "stockouts", label: t.stockoutDays }, { value: "failed", label: t.failedValue }]} />}>
@@ -102,6 +126,7 @@ export function Impact() {
               [lang === "bn" ? "এড়ানো ব্যর্থ লেনদেন" : "Failed transactions avoided", num(per.failed_transactions_avoided, lang)],
               [lang === "bn" ? "রক্ষা পাওয়া লেনদেন মূল্য" : "Transaction value served", taka(per.failed_value_avoided_bdt, lang)],
               [lang === "bn" ? "ফেরত কমিশন (এজেন্ট+ডিস্ট্রি.)" : "Commission recovered (agent+distributor)", taka(per.commission_recovered_bdt, lang)],
+              [lang === "bn" ? "ফেরত upay ফি আয়" : "upay fee revenue protected", taka(per.upay_fee_recovered_bdt ?? 0, lang)],
               [lang === "bn" ? "ধরে রাখা গ্রাহক" : "Customers retained", num(per.customers_retained, lang)],
               [lang === "bn" ? "অতিরিক্ত ট্রিপ" : "Extra rebalancing trips", num(per.extra_trips, lang)],
             ].map(([k, v]) => (

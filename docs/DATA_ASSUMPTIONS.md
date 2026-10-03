@@ -92,15 +92,37 @@ A trailing average lags behind sudden spikes, which is the weakness FloatWise ta
 | Lead time | Advice at close of day *t* is executed at the opening of *t + 1* | Same as status quo |
 | Policy defaults | Service level 0.99, risk threshold 0.10 | Selected on the validation period (`scripts/tune_policy.py`, `artifacts/policy_tuning.json`) |
 
-## 8. Business assumptions (illustrative, NOT upay tariffs)
+## 8. upay alignment: public facts and remaining assumptions
+These values come from upay's published tariffs and press coverage (checked October 2026). **Verify them with upay before any real use**: tariffs change.
+
+| Item | Value used | Source |
+|---|---|---|
+| Customer cash-out fee at an agent | Primary wallet **1.4 %**, salary wallet **1.0 %**, remittance wallet **1.0 %**, disbursement (G2P) wallet **0.7 %** | upay limits & charges ([UCB upay docs](https://www.ucb.com.bd/reports/downloads/Upay/Upay%20Limits%20and%20Frequencies.pdf)); [Financial Express, 2021](https://today.thefinancialexpress.com.bd/stock-corporate/upay-offers-lowest-cash-out-charge-in-mobile-money-transactions-1619026261) |
+| Fee by area type | Urban, market, university: 1.4 % (primary). Garment belt: 1.0 % (salary wallet). Rural remittance: 1.1 % (blend of remittance, G2P and primary wallets: **assumption**) | Derived from the row above |
+| Agent commission | **0.41 %** of each cash-in and cash-out amount | upay agent information ([upaybd.com](https://www.upaybd.com/services/details/upay-agent)) |
+| Distributor commission | **0.10 %** of each cash-in and cash-out amount | Same |
+| upay's net margin on a cash-out | Fee − 0.51 % (e.g. 0.89 % on the primary wallet) | Derived |
+| Cash-out at UCB ATMs | 0.8 % (not modelled; a possible overflow channel when an agent is short) | [TBS, 2021](https://www.tbsnews.net/companies/upay-rolls-out-its-lowest-cash-out-charge-atms-244996) |
+| Customer cash-out limits | ৳50–25,000 per transaction, ৳25,000 per day, ৳1,50,000 per month (upay); Bangladesh Bank's 2025 cap is ৳30,000 per day | upay limits & charges; [TBS, 2025](https://www.tbsnews.net/economy/mfs-transaction-limit-refixed-daily-maximum-cash-tk50000-cash-out-tk30000-1103256) |
+| Network size | ~1,54,000 retail agents, ~85 lakh customers (end of 2023) | [TBS, 2024](https://www.tbsnews.net/economy/stocks/upays-accumulated-losses-cross-tk300cr-2023-877946) |
+| Services that move agent liquidity | Cash-in, cash-out, salary disbursement, inward remittance, government allowance (G2P) disbursement | upay service list ([Google Play](https://play.google.com/store/apps/details?id=bd.com.upay.customer&hl=en)) |
+
+**How these values are used:**
+- Synthetic ticket sizes (৳1,500–৳3,000 mean) sit well inside the per-transaction limits.
+- The backtest reports three kinds of loss on failed transactions:
+  - lost **upay fee revenue**: fee − agent − distributor commission, on failed cash-outs;
+  - lost **agent + distributor commission**: 0.51 % on failed cash-ins and cash-outs;
+  - **customers at risk**.
+- These are then scaled to upay's network size.
+
+**Still assumptions (no public source):**
+
 | Assumption | Value |
 |---|---|
-| Cash-out fee | 1.85 % |
-| Agent + distributor share of cash-out fee | 0.6 % of amount |
-| Agent commission on cash-in | 0.4 % of amount |
-| Probability a customer churns after a failed cash-out | 5 % |
-| Fee revenue per active customer per month | ৳120 |
+| Probability a customer leaves after a failed cash-out | 5 % |
 | Opportunity cost of idle cash | 10 % per year |
+| Daily volumes per agent, area mix, Eid / salary / G2P multipliers | Sections 1–4 |
+| G2P disbursement dates | Synthetic quarterly schedule |
 
 ## 9. Known limitations
 - Daily granularity with a fixed intraday profile; real intraday patterns vary by agent.

@@ -67,3 +67,21 @@ def test_cached_artifacts_written(tiny_artifacts):
     fair = json.loads((tiny_artifacts / "fairness.json").read_text())
     assert sim["source"] == "cache" and "improvement_pct" in sim
     assert {"segments", "flagged_segments", "all_segments_ok"} <= fair.keys()
+
+
+def test_upay_revenue_metrics(tiny_cfg, inputs):
+    res = simulate(tiny_cfg, inputs, PolicyParams.from_config(tiny_cfg))
+    b = tiny_cfg.business
+    for policy in ("status_quo", "floatwise"):
+        m = res[policy]
+        max_margin = max(b.cashout_fee_rate.values()) - b.channel_rate
+        assert 0 <= m["lost_upay_fee_bdt"] <= m["failed_cashout_bdt"] * max_margin + 1
+        assert m["lost_commission_bdt"] == round(
+            (m["failed_cashout_bdt"] + m["failed_cashin_bdt"]) * b.channel_rate
+        )
+    net = res["upay_network_month"]
+    assert net["agents"] == b.upay_agents
+    scale = b.upay_agents / 1000
+    assert net["upay_fee_recovered_bdt"] == round(
+        res["per_1000_agents_month"]["upay_fee_recovered_bdt"] * scale
+    )

@@ -204,13 +204,20 @@ policy:
     allocator: greedy        # greedy | optimal — compared by scripts/compare_allocators.py
   sweep_service_levels: [0.80, 0.85, 0.90, 0.95, 0.97, 0.99]
 
-business:                      # ILLUSTRATIVE assumptions, not upay tariffs
-  cashout_fee_rate: 0.0185
-  channel_share_rate: 0.006    # agent + distributor share of the cash-out fee
-  cashin_channel_rate: 0.004   # agent commission on cash-in
-  churn_prob_after_fail: 0.05
-  customer_monthly_value: 120  # taka of fee revenue per active customer per month
-  idle_cash_annual_cost: 0.10
+business:   # upay published tariffs (sources: docs/DATA_ASSUMPTIONS.md §8) + marked behaviour assumptions
+  # customer cash-out fee at an agent, by the wallet mix of each area type:
+  # primary wallet 1.4 %, salary wallet 1.0 %, remittance wallet 1.0 %, disbursement (G2P) wallet 0.7 %
+  cashout_fee_rate:
+    urban_residential: 0.014     # primary wallet
+    garment_belt: 0.010          # salary wallet (payroll disbursement)
+    rural_remittance: 0.011      # blend of remittance 1.0 %, G2P 0.7 % and primary 1.4 % wallets (assumption)
+    market_hub: 0.014            # primary wallet
+    university_area: 0.014       # primary wallet
+  agent_commission_rate: 0.0041        # per cash-in and per cash-out amount
+  distributor_commission_rate: 0.0010  # per cash-in and per cash-out amount
+  churn_prob_after_fail: 0.05          # ASSUMPTION: chance a customer leaves after a failed cash-out
+  idle_cash_annual_cost: 0.10          # ASSUMPTION: opportunity cost of idle cash
+  upay_agents: 154000                  # upay retail agents, end of 2023 (public)
 
 model:
   quantiles: [0.1, 0.5, 0.9]

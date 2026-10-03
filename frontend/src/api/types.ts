@@ -193,6 +193,7 @@ export interface PolicyMetrics {
   failed_cashin_count: number;
   failed_cashin_bdt: number;
   lost_commission_bdt: number;
+  lost_upay_fee_bdt: number;
   customers_at_risk: number;
   avg_cash_held_bdt: number;
   rebalancing_trips: number;
@@ -234,6 +235,7 @@ export interface SimulationResult {
   floatwise: PolicyMetrics;
   improvement_pct: Record<string, number>;
   per_1000_agents_month: Record<string, number>;
+  upay_network_month: Record<string, number>;
   timeline: TimelinePoint[];
   by_archetype: SegmentResult[];
   by_area_type: SegmentResult[];

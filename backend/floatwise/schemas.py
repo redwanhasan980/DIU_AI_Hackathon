@@ -200,7 +200,10 @@ class PolicyMetrics(BaseModel):
     failed_cashout_bdt: int
     failed_cashin_count: int
     failed_cashin_bdt: int
-    lost_commission_bdt: int
+    lost_commission_bdt: int = Field(description="agent + distributor commission lost on failed transactions")
+    lost_upay_fee_bdt: int = Field(
+        description="upay's cash-out fee net of channel commission, lost on failed cash-outs"
+    )
     customers_at_risk: int
     avg_cash_held_bdt: int
     rebalancing_trips: int
@@ -242,6 +245,9 @@ class SimulationResult(BaseModel):
     floatwise: PolicyMetrics
     improvement_pct: dict[str, float]
     per_1000_agents_month: dict[str, int]
+    upay_network_month: dict[str, int] = Field(
+        default_factory=dict, description="per-1,000 scaled to upay's agents"
+    )
     timeline: list[TimelinePoint]
     by_archetype: list[SegmentResult]
     by_area_type: list[SegmentResult]

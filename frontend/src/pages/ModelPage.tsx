@@ -21,7 +21,7 @@ export function ModelPage() {
   return (
     <div className="space-y-4">
       <Card title={lang === "bn" ? "গ্রহণযোগ্যতা (SRS §6.4)" : "Acceptance checks (SRS §6.4)"}
-        subtitle={`model ${metrics.version} · ${metrics.generated_at} · ${lang === "bn" ? "টেস্ট: ২০২৬ জানু–জুন, প্রকৃত চাহিদার বিপরীতে" : "test: Jan–Jun 2026, against true demand"}`}>
+        subtitle={`model ${metrics.version} · ${lang === "bn" ? "টেস্ট: ২০২৬ জানু–জুন, প্রকৃত চাহিদার বিপরীতে" : "test: Jan–Jun 2026, against true demand"}`}>
         <ul className="grid gap-2 sm:grid-cols-2">
           {Object.entries(metrics.acceptance.checks).map(([k, ok]) => (
             <li key={k} className="flex items-center gap-2 text-sm">

@@ -300,7 +300,6 @@ export interface FairnessSegment extends SegmentResult {
 export interface ModelReport {
   metrics: {
     version: string;
-    generated_at: string;
     test: Record<"cashout" | "cashin", Record<string, SliceMetrics>>;
     acceptance: { checks: Record<string, boolean>; all_passed: boolean };
   };

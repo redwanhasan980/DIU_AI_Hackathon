@@ -31,7 +31,7 @@ export function taka(n: number, lang: Lang = "en"): string {
 export function takaShort(n: number, lang: Lang = "en"): string {
   const a = Math.abs(n);
   let s: string;
-  if (a >= 1e7) s = `${(n / 1e7).toFixed(a >= 1e8 ? 0 : 1)}Cr`;
+  if (a >= 1e7) s = a >= 1e8 ? `${lakh(n / 1e7)}Cr` : `${(n / 1e7).toFixed(1)}Cr`;
   else if (a >= 1e5) s = `${(n / 1e5).toFixed(a >= 1e6 ? 0 : 1)}L`;
   else if (a >= 1e3) s = `${Math.round(n / 1e3)}k`;
   else s = String(Math.round(n));

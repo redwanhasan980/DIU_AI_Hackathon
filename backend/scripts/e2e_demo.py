@@ -12,11 +12,31 @@ from __future__ import annotations
 
 import argparse
 import asyncio
+import json
 import sys
+import urllib.request
 
 from playwright.async_api import Page, async_playwright
 
-DEMO_AGENT = "AG00433"
+DEMO_AGENT = "AG00471"  # Rahmania Bhandar, Sylhet — rural remittance (see CLAUDE.md)
+BN = str.maketrans("0123456789", "০১২৩৪৫৬৭৮৯")
+
+
+def lakh(n: int) -> str:
+    s = str(n)
+    if len(s) <= 3:
+        return s
+    head, tail = s[:-3], s[-3:]
+    groups = []
+    while len(head) > 2:
+        groups.insert(0, head[-2:])
+        head = head[:-2]
+    return ",".join(([head] if head else []) + groups) + "," + tail
+
+
+def api(url: str, path: str) -> dict:
+    with urllib.request.urlopen(f"{url}/api/v1{path}") as r:
+        return json.loads(r.read())
 
 
 async def check(name: str, ok: bool, detail: str = "") -> None:
@@ -52,28 +72,37 @@ async def run(url: str, chrome: str | None) -> None:
         markers = await page.locator("path.leaflet-interactive").count()
         await check("network: agent markers on the map", markers >= 400, f"{markers} markers")
 
+        # expected values come from the API, so the script never goes stale when the model is retrained
+        agent = api(url, f"/agents/{DEMO_AGENT}")["agent"]
+        rec = api(url, f"/agents/{DEMO_AGENT}/recommendation")
+        amount = "৳" + lakh(rec["amount"])
+
         # 2. Risk list -> demo agent
-        t = await go("/risk?district=Noakhali")
-        await check("risk list: filtered to Noakhali", "Notun Bazar Store" in t)
-        # two Noakhali shops share this generic name, so pick the row by agent id
+        t = await go(f"/risk?district={agent['district']}")
+        await check(f"risk list: filtered to {agent['district']}", agent["shop_name"] in t)
+        # shops can share a generic name, so pick the row by agent id
         await page.locator("tr", has_text=DEMO_AGENT).get_by_role("link").click()
         await page.wait_for_load_state("networkidle")
         await page.wait_for_timeout(800)
         t = await text(page)
-        await check("agent: recommendation", "Top up cash" in t and "৳1,92,000" in t)
+        await check(
+            "agent: recommendation",
+            rec["action"] == "TOP_UP_CASH" and "Top up cash" in t and amount in t,
+            amount,
+        )
         await check("agent: reason codes + outlook", "Eid-ul-Fitr in 5 days" in t and "7-day outlook" in t)
         await check(
             "agent: forecast and drivers charts", await page.locator(".recharts-surface").count() >= 2
         )
         await check(
-            "agent: explanation labelled and grounded", "explanation" in t.lower() and "৳1,92,000" in t
+            "agent: explanation labelled and grounded", "explanation" in t.lower() and t.count(amount) >= 2
         )
 
         # 3. Bangla
         await page.get_by_role("button", name="বাংলা").click()
         await page.wait_for_timeout(1200)
         t = await text(page)
-        await check("agent: Bangla explanation", "ঈদুল ফিতর" in t and "৳১,৯২,০০০" in t)
+        await check("agent: Bangla explanation", "ঈদুল ফিতর" in t and amount.translate(BN) in t)
         await page.get_by_role("button", name="EN").click()
         await page.wait_for_timeout(600)
 

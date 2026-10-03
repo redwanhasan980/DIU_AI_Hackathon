@@ -133,7 +133,7 @@ D starts with **mock JSON fixtures** that match the schemas, so it never waits o
 - [x] Service-level sweep (0.80 → 0.99) → trade-off curve data (FR-SIM-3) [P1]
 - [x] Per-1,000-agents-per-month extrapolation using config assumptions (FR-SIM-5) [P1]
 - [x] Cache the default scenario in `artifacts/simulation_default.json` (FR-SIM-4)
-- [x] **DoD:** KPI table in SRS §12 filled with real numbers; idle cash not above status quo (if it is, tune s/buffer on **validation**, not test). ⚠ Idle cash is +2.5 %: tuned on validation with a ≤ +5 % cap, reported as missed in SRS §12
+- [x] **DoD:** KPI table in SRS §12 filled with real numbers; idle cash not above status quo (if it is, tune s/buffer on **validation**, not test). ⚠ Idle cash is +2.3 %: tuned on validation with a ≤ +5 % cap, reported as missed in SRS §12
 
 ## Phase 7 — Explainability & LLM Narrative (H+6 → H+18) [P0] · Stream C
 

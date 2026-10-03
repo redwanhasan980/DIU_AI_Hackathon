@@ -2,33 +2,33 @@
   "holdout": "2025-03-01 \u2192 2025-06-30 (Eid-ul-Fitr and Eid-ul-Adha 2025)",
   "results": {
     "keep": {
-      "overall_wape": 0.2643,
-      "event_wape": 0.4464,
-      "event_coverage": 0.529,
-      "pre_eid_wape": 0.3608,
-      "pre_eid_bias_p50": -0.3389,
-      "pre_eid_above_p90": 0.597,
-      "pre_eid_coverage": 0.377
+      "overall_wape": 0.254,
+      "event_wape": 0.4204,
+      "event_coverage": 0.512,
+      "pre_eid_wape": 0.3415,
+      "pre_eid_bias_p50": -0.3126,
+      "pre_eid_above_p90": 0.571,
+      "pre_eid_coverage": 0.396
     },
     "exclude": {
-      "overall_wape": 0.2644,
-      "event_wape": 0.4492,
-      "event_coverage": 0.507,
-      "pre_eid_wape": 0.3754,
-      "pre_eid_bias_p50": -0.354,
-      "pre_eid_above_p90": 0.61,
-      "pre_eid_coverage": 0.371
+      "overall_wape": 0.2523,
+      "event_wape": 0.4196,
+      "event_coverage": 0.508,
+      "pre_eid_wape": 0.3554,
+      "pre_eid_bias_p50": -0.3304,
+      "pre_eid_above_p90": 0.574,
+      "pre_eid_coverage": 0.407
     },
     "inflate": {
-      "overall_wape": 0.2589,
-      "event_wape": 0.425,
-      "event_coverage": 0.494,
-      "pre_eid_wape": 0.3308,
-      "pre_eid_bias_p50": -0.2922,
-      "pre_eid_above_p90": 0.574,
-      "pre_eid_coverage": 0.377
+      "overall_wape": 0.251,
+      "event_wape": 0.4094,
+      "event_coverage": 0.46,
+      "pre_eid_wape": 0.3231,
+      "pre_eid_bias_p50": -0.2745,
+      "pre_eid_above_p90": 0.595,
+      "pre_eid_coverage": 0.355
     }
   },
-  "selected": "inflate",
+  "selected": "keep",
   "criterion": "lowest share of pre-Eid demand above P90, then event WAPE"
 }

@@ -1,1 +1,1 @@
-{"status": "ok", "model_version": "fw-34e31047", "data_start": "2024-01-01", "data_end": "2026-06-30", "forecast_start": "2025-06-30", "forecast_end": "2026-06-30", "demo_date": "2026-03-15", "llm_available": false}
+{"status": "ok", "model_version": "fw-c078f4bb", "data_start": "2024-01-01", "data_end": "2026-06-30", "forecast_start": "2025-06-30", "forecast_end": "2026-06-30", "demo_date": "2026-03-15", "llm_available": false}

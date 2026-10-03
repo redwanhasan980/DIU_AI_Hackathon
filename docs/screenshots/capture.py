@@ -7,11 +7,11 @@ from pathlib import Path
 from playwright.async_api import async_playwright
 OUT = str(Path(__file__).resolve().parent)
 SHOTS=[("/", "light", "en", 1280, 900, False, "01-network.png"),
-       ("/agents/AG00433", "light", "en", 1280, 1180, False, "02-agent-detail.png"),
-       ("/agents/AG00433", "dark", "bn", 1280, 720, False, "03-agent-detail-bangla-dark.png"),
-       ("/dso?dso=DSO025", "light", "en", 1280, 900, False, "04-dso-plan.png"),
+       ("/agents/AG00471", "light", "en", 1280, 1180, False, "02-agent-detail.png"),
+       ("/agents/AG00471", "dark", "bn", 1280, 720, False, "03-agent-detail-bangla-dark.png"),
+       ("/dso?dso=DSO028", "light", "en", 1280, 900, False, "04-dso-plan.png"),
        ("/impact", "light", "en", 1280, 1100, False, "05-impact.png"),
-       ("/card/AG00433", "light", "bn", 390, 800, False, "06-agent-card-bangla.png")]
+       ("/card/AG00471", "light", "bn", 390, 800, False, "06-agent-card-bangla.png")]
 async def main():
     async with async_playwright() as p:
         b = await p.chromium.launch(executable_path=os.environ.get("CHROME") or None)

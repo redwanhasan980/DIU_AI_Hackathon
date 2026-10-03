@@ -1,40 +1,40 @@
 {
   "validation": {
     "greedy": {
-      "stockout_agent_days": 1590,
-      "failed_cashout_bdt": 115005448,
-      "failed_cashin_bdt": 107120,
-      "avg_cash_held_bdt": 354976,
-      "rebalancing_trips": 48652,
-      "seconds": 0.4
+      "stockout_agent_days": 1692,
+      "failed_cashout_bdt": 121837772,
+      "failed_cashin_bdt": 94735,
+      "avg_cash_held_bdt": 355983,
+      "rebalancing_trips": 48610,
+      "seconds": 0.5
     },
     "optimal": {
-      "stockout_agent_days": 1602,
-      "failed_cashout_bdt": 116188149,
-      "failed_cashin_bdt": 107120,
-      "avg_cash_held_bdt": 355082,
-      "rebalancing_trips": 48661,
-      "seconds": 2.5
+      "stockout_agent_days": 1689,
+      "failed_cashout_bdt": 121361379,
+      "failed_cashin_bdt": 94735,
+      "avg_cash_held_bdt": 355920,
+      "rebalancing_trips": 48618,
+      "seconds": 3.1
     }
   },
   "test": {
     "greedy": {
-      "stockout_agent_days": 3730,
-      "failed_cashout_bdt": 288012488,
-      "failed_cashin_bdt": 5546186,
-      "avg_cash_held_bdt": 360630,
-      "rebalancing_trips": 51280,
-      "seconds": 0.4
+      "stockout_agent_days": 3664,
+      "failed_cashout_bdt": 279503468,
+      "failed_cashin_bdt": 6012897,
+      "avg_cash_held_bdt": 360550,
+      "rebalancing_trips": 51816,
+      "seconds": 0.5
     },
     "optimal": {
-      "stockout_agent_days": 3713,
-      "failed_cashout_bdt": 287423684,
-      "failed_cashin_bdt": 5546186,
-      "avg_cash_held_bdt": 360587,
-      "rebalancing_trips": 51345,
-      "seconds": 2.5
+      "stockout_agent_days": 3664,
+      "failed_cashout_bdt": 278371578,
+      "failed_cashin_bdt": 5958890,
+      "avg_cash_held_bdt": 360653,
+      "rebalancing_trips": 51860,
+      "seconds": 3.3
     }
   },
-  "selected": "greedy",
+  "selected": "optimal",
   "rule": "choose the allocator with fewer stockout agent-days on the validation period"
 }

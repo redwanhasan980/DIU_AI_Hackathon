@@ -4,42 +4,42 @@
   "results": {
     "independent": {
       "cashout": {
-        "wape_overall": 0.2589,
-        "wape_event": 0.425,
-        "coverage_overall": 0.738,
-        "coverage_event": 0.494,
-        "event_above_p90": 0.368,
-        "mean_pinball_event": 46143,
-        "raw_crossing_rate": 0.0318
+        "wape_overall": 0.254,
+        "wape_event": 0.4204,
+        "coverage_overall": 0.702,
+        "coverage_event": 0.512,
+        "event_above_p90": 0.37,
+        "mean_pinball_event": 44790,
+        "raw_crossing_rate": 0.0454
       },
       "cashin": {
-        "wape_overall": 0.2145,
-        "wape_event": 0.3235,
-        "coverage_overall": 0.763,
-        "coverage_event": 0.597,
-        "event_above_p90": 0.263,
-        "mean_pinball_event": 26552,
-        "raw_crossing_rate": 0.0262
+        "wape_overall": 0.2202,
+        "wape_event": 0.3428,
+        "coverage_overall": 0.757,
+        "coverage_event": 0.583,
+        "event_above_p90": 0.265,
+        "mean_pinball_event": 27217,
+        "raw_crossing_rate": 0.0189
       }
     },
     "spread": {
       "cashout": {
-        "wape_overall": 0.2564,
-        "wape_event": 0.4136,
-        "coverage_overall": 0.702,
-        "coverage_event": 0.423,
-        "event_above_p90": 0.342,
-        "mean_pinball_event": 42764,
-        "raw_crossing_rate": 0.0367
+        "wape_overall": 0.2549,
+        "wape_event": 0.4222,
+        "coverage_overall": 0.698,
+        "coverage_event": 0.421,
+        "event_above_p90": 0.344,
+        "mean_pinball_event": 43642,
+        "raw_crossing_rate": 0.0176
       },
       "cashin": {
-        "wape_overall": 0.2164,
-        "wape_event": 0.3315,
-        "coverage_overall": 0.739,
-        "coverage_event": 0.609,
-        "event_above_p90": 0.269,
-        "mean_pinball_event": 23016,
-        "raw_crossing_rate": 0.0085
+        "wape_overall": 0.2205,
+        "wape_event": 0.3439,
+        "coverage_overall": 0.747,
+        "coverage_event": 0.6,
+        "event_above_p90": 0.237,
+        "mean_pinball_event": 22757,
+        "raw_crossing_rate": 0.0202
       }
     }
   },

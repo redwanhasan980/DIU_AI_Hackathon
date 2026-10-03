@@ -91,8 +91,9 @@ Scripts (run from `backend/` after `make all`):
 - **Demo date: 2026-03-15** (Eid-ul-Fitr ≈ 2026-03-20).
 - 500 agents, 5 archetypes: `urban_residential`, `garment_belt`, `rural_remittance`, `market_hub`, `university_area`.
 - Policy defaults: service level s = 0.99 and risk threshold θ = 0.10 (tuned on validation by `scripts/tune_policy.py`), overlap α = 0.5, min buffer ৳5,000, DSO K = 10 visits, M = ৳10,00,000, app-advice compliance 70 %.
-- Censoring mode `inflate` (chosen by `scripts/censoring_experiment.py`); quantile mode `independent` (kept by `scripts/quantile_experiment.py`).
-- Demo agent for the pitch: **AG00433** (Notun Bazar Store, Noakhali, rural remittance).
+- Censoring mode `keep` (chosen by `scripts/censoring_experiment.py`); quantile mode `independent` (kept by `scripts/quantile_experiment.py`); DSO allocator `optimal` (chosen by `scripts/compare_allocators.py`). Re-run these scripts whenever the data generator changes.
+- Business values follow upay's published tariffs (cash-out fee by wallet, agent 0.41 %, distributor 0.10 %); see `docs/DATA_ASSUMPTIONS.md` §8.
+- Demo agent for the pitch: **AG00471** (Rahmania Bhandar, Sylhet, rural remittance).
 
 ## Working conventions for agents
 - Start every task by reading the relevant SRS section and the plan checklist item. Work on **P0 before P1 before P2**.

@@ -179,7 +179,7 @@ Synthetic data ─▶ Feature layer ─▶ ML engine (quantile forecasts)
 | FR-FCST-3 | Features use only information known at origin t (lags/rolling stats ≤ t) plus calendar features of the target date (known in advance) | P0 |
 | FR-FCST-4 | Enforce non-crossing quantiles (sort or clip after prediction) | P0 |
 | FR-FCST-5 | Evaluation report: WAPE, MAE, pinball loss, P10–P90 coverage. Overall, on **event days** (±7 days of Eid, salary window), per archetype, per horizon, vs baselines. Saved to `artifacts/metrics.json` | P0 |
-| FR-FCST-6 | Censoring handling: compare keep / exclude / inflate on a held-out Eid (`scripts/censoring_experiment.py`); the selected mode (`inflate`) lifts stockout-day labels to the P75 ratio of uncensored peers. Evaluate against true demand | P1 |
+| FR-FCST-6 | Censoring handling: compare keep / exclude / inflate on a held-out Eid (`scripts/censoring_experiment.py`), rule: fewest pre-Eid misses above P90. Current data selects `keep` (57.1 % vs 57.4 % exclude, 59.5 % inflate). Evaluate against true demand | P1 |
 | FR-FCST-7 | Cold-start: forecast for agents with < 28 days of history using archetype/area priors | P2 |
 
 ### 4.3 Risk and recommendation (FR-REC)
@@ -199,7 +199,7 @@ Synthetic data ─▶ Feature layer ─▶ ML engine (quantile forecasts)
 | FR-ALLOC-1 | For a DSO and date, produce an ordered visit list under constraints: max visits K (default 10) and max cash carried M (default ৳10,00,000) | P0 |
 | FR-ALLOC-2 | Priority = expected failed value prevented = p_stockout × expected shortfall (৳). Greedy by priority, respecting capacity (§7.3) | P0 |
 | FR-ALLOC-3 | Agents left out are listed with the reason "capacity" and the advice "self-rebalance at distributor point" | P1 |
-| FR-ALLOC-4 | Exact allocation (two-constraint 0/1 knapsack, dynamic programming; never worse than greedy), compared with greedy in the backtest (`scripts/compare_allocators.py`). Greedy stays the default: within 1 % of optimal | P2 |
+| FR-ALLOC-4 | Exact allocation (two-constraint 0/1 knapsack, dynamic programming; never worse than greedy), compared with greedy in the backtest (`scripts/compare_allocators.py`). Chosen on validation: `optimal` (1,689 vs 1,692 stockout days, practically equal) | P2 |
 
 ### 4.5 Impact simulator (FR-SIM)
 
@@ -341,12 +341,12 @@ Rule: no feature may use data from after t (leakage test required, R-ML-2).
 
 ### 6.4 Evaluation and acceptance
 
-| Metric | Acceptance (test set) | Result (model fw-34e31047, `artifacts/metrics.json`) |
+| Metric | Acceptance (test set) | Result (model fw-c078f4bb, `artifacts/metrics.json`) |
 |---|---|---|
-| WAPE P50 cash-out vs seasonal-naive | ≥ 20 % relative improvement overall | ✅ **53.1 %** better (18.6 % vs 39.6 %) |
-| WAPE P50 cash-out on event days | ≥ 35 % relative improvement | ✅ **65.1 %** better (20.6 % vs 58.9 %) |
-| P10–P90 empirical coverage | 72–88 % (target 80 %) | ✅ **74 %** overall. ⚠ Only 55 % on event days: intervals are too narrow at Eid peaks; the policy compensates with service level 0.99 |
-| Per-archetype WAPE | No archetype worse than the baseline (fairness) | ✅ All five better (17.0–21.2 % vs 32.1–49.0 %) |
+| WAPE P50 cash-out vs seasonal-naive | ≥ 20 % relative improvement overall | ✅ **53.0 %** better (18.7 % vs 39.8 %) |
+| WAPE P50 cash-out on event days | ≥ 35 % relative improvement | ✅ **64.0 %** better (21.2 % vs 58.9 %) |
+| P10–P90 empirical coverage | 72–88 % (target 80 %) | ✅ **75 %** overall. ⚠ Only 60 % on event days: intervals are too narrow at Eid peaks; the policy compensates with service level 0.99 |
+| Per-archetype WAPE | No archetype worse than the baseline (fairness) | ✅ All five better (17.2–21.4 % vs 32.1–49.0 %) |
 
 If an acceptance target is missed, report the true number honestly (R-ML-5). Never tune on the test set.
 
@@ -476,11 +476,11 @@ UI rules:
 
 | KPI | Target (test period incl. Eid 2026) | Result (`artifacts/simulation_default.json`) |
 |---|---|---|
-| Stockout agent-days | ≥ 40 % reduction vs status quo | ✅ **−44.6 %** (6,736 → 3,730) |
-| Failed cash-out value (৳) | ≥ 40 % reduction | ✅ **−43.6 %** (৳51.1 Cr → ৳28.8 Cr) |
-| Average idle cash | ≤ status quo (no "solve it by hoarding cash") | ❌ **+2.5 %** (৳3,51,692 → ৳3,60,630). Missed: the validation-tuned policy allows up to +5 % |
-| Rebalancing trips | ≤ +15 % vs status quo | ✅ **+3.9 %** |
-| Forecast WAPE (P50 CO) | ≥ 20 % better than seasonal-naive; ≥ 35 % on event days | ✅ 53.1 % / 65.1 % better |
+| Stockout agent-days | ≥ 40 % reduction vs status quo | ✅ **−47.5 %** (6,973 → 3,664) |
+| Failed cash-out value (৳) | ≥ 40 % reduction | ✅ **−46.7 %** (৳52.2 Cr → ৳27.8 Cr); upay fee revenue lost −53.7 % (৳33.8 L → ৳15.6 L) |
+| Average idle cash | ≤ status quo (no "solve it by hoarding cash") | ❌ **+2.3 %** (৳3,52,509 → ৳3,60,653). Missed: the validation-tuned policy allows up to +5 % |
+| Rebalancing trips | ≤ +15 % vs status quo | ✅ **+4.1 %** |
+| Forecast WAPE (P50 CO) | ≥ 20 % better than seasonal-naive; ≥ 35 % on event days | ✅ 53.0 % / 64.0 % better |
 
 **Release (demo) acceptance:**
 - All P0 requirements pass. ✅

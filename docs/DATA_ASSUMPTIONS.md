@@ -91,6 +91,7 @@ A trailing average lags behind sudden spikes, which is the weakness FloatWise ta
 | App-advice compliance | 70 % of agents not visited by a DSO follow the in-app advice and self-rebalance at the distributor point (as agents already do today); 30 % keep their own rule | Conservative; adoption is never 100 % |
 | Lead time | Advice at close of day *t* is executed at the opening of *t + 1* | Same as status quo |
 | Policy defaults | Service level 0.99, risk threshold 0.10 | Selected on the validation period (`scripts/tune_policy.py`, `artifacts/policy_tuning.json`) |
+| DSO route allocator | Exact (knapsack) optimiser; practically equal to greedy | Selected on the validation period (`scripts/compare_allocators.py`) |
 
 ## 8. upay alignment: public facts and remaining assumptions
 These values come from upay's published tariffs and press coverage (checked October 2026). **Verify them with upay before any real use**: tariffs change.

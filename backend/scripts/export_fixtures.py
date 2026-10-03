@@ -15,7 +15,7 @@ from fastapi.testclient import TestClient
 from floatwise.api.main import create_app
 from floatwise.config import REPO_ROOT, get_config
 
-DEMO_AGENT = "AG00433"  # rural remittance agent, Noakhali — the pitch walkthrough agent
+DEMO_AGENT = "AG00471"  # Rahmania Bhandar, Sylhet — rural remittance agent for the pitch walkthrough
 
 
 def key(path: str) -> str:

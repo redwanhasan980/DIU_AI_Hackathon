@@ -12,6 +12,8 @@ import pandas as pd
 
 from floatwise.config import Config
 
+SPREAD_FLOOR = 0.05  # minimum median ratio used as the base of spread quantiles
+
 
 def model_path(models_dir: Path, target: str, q: float) -> Path:
     return models_dir / f"{target}_q{int(round(q * 100)):02d}.txt"
@@ -24,6 +26,7 @@ class QuantileModels:
     quantiles: list[float]
     targets: list[str]
     version: str
+    mode: str = "independent"
 
     @classmethod
     def load(cls, cfg: Config, models_dir: Path | None = None) -> QuantileModels:
@@ -34,16 +37,20 @@ class QuantileModels:
             for t in meta["targets"]
             for q in meta["quantiles"]
         }
-        return cls(boosters, meta["features"], meta["quantiles"], meta["targets"], meta["version"])
+        return cls(boosters, meta["features"], meta["quantiles"], meta["targets"], meta["version"],
+                   meta.get("quantile_mode", "independent"))  # fmt: skip
 
     def predict_ratio(self, panel: pd.DataFrame, target: str) -> np.ndarray:
         """(n_rows, n_quantiles) predicted ratios to the trailing scale, sorted to be non-crossing."""
         x = panel[self.features]
-        preds = np.column_stack([self.boosters[(target, q)].predict(x) for q in self.quantiles])
-        return np.sort(preds, axis=1)
+        raw = {q: self.boosters[(target, q)].predict(x) for q in self.quantiles}
+        if self.mode == "spread":
+            base = np.maximum(raw[0.5], SPREAD_FLOOR)
+            raw = {q: (v if q == 0.5 else v * base) for q, v in raw.items()}
+        preds = np.column_stack([raw[q] for q in self.quantiles])
+        return np.sort(preds, axis=1)  # rearrangement: enforce P10 <= P50 <= P90 (R-ML-4)
 
     def predict_amount(self, panel: pd.DataFrame, target: str) -> np.ndarray:
         ratio = self.predict_ratio(panel, target)
-        if target == "cashout" or target == "cashin":
-            ratio = np.maximum(ratio, 0.0)
+        ratio = np.maximum(ratio, 0.0)
         return ratio * panel[f"scale_{target}"].to_numpy()[:, None]

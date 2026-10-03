@@ -72,6 +72,12 @@ make lint        # ruff check backend; tsc --noEmit + eslint in frontend
 ```
 Run a single test: `cd backend && pytest tests/test_engine.py -k recommend -q`.
 
+Scripts (run from `backend/` after `make all`):
+- `scripts/censoring_experiment.py`, `scripts/quantile_experiment.py` — model choices on a held-out 2025 Eid.
+- `scripts/tune_policy.py` — policy defaults on the validation period (copy the selection into `config.yaml`).
+- `scripts/build_narratives.py` — cache LLM explanations (needs `ANTHROPIC_API_KEY`).
+- `scripts/export_fixtures.py` — refresh `frontend/src/fixtures/` (offline demo); re-run after any API change.
+
 ## Architecture rules of thumb
 - **Data flow:** synthetic data → features → ML quantile forecasts → **deterministic engine** (risk, amount, allocation) → SHAP + LLM narrative → API → UI → human approval.
 - **The LLM explains; it never decides.** Amounts come from `engine/`. The LLM gets structured JSON only, and its output passes a numeric post-check with a template fallback.
@@ -83,7 +89,8 @@ Run a single test: `cd backend && pytest tests/test_engine.py -k recommend -q`.
 - **Demo date: 2026-03-15** (Eid-ul-Fitr ≈ 2026-03-20).
 - 500 agents, 5 archetypes: `urban_residential`, `garment_belt`, `rural_remittance`, `market_hub`, `university_area`.
 - Policy defaults: service level s = 0.99 and risk threshold θ = 0.10 (tuned on validation by `scripts/tune_policy.py`), overlap α = 0.5, min buffer ৳5,000, DSO K = 10 visits, M = ৳10,00,000, app-advice compliance 70 %.
-- Censoring mode `inflate` (chosen by `scripts/censoring_experiment.py`).
+- Censoring mode `inflate` (chosen by `scripts/censoring_experiment.py`); quantile mode `independent` (kept by `scripts/quantile_experiment.py`).
+- Demo agent for the pitch: **AG00433** (Notun Bazar Store, Noakhali, rural remittance).
 
 ## Working conventions for agents
 - Start every task by reading the relevant SRS section and the plan checklist item. Work on **P0 before P1 before P2**.

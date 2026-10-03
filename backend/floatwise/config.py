@@ -157,6 +157,7 @@ class ModelCfg(_Strict):
     min_history_days: int
     train_horizons_per_origin: int
     censoring: str
+    quantile_mode: str
     event_window: tuple[int, int]
     lgbm: dict[str, Any]
 

@@ -1,6 +1,6 @@
 # FloatWise Model Card — fw-34e31047
 
-Generated 2026-10-03T08:17:45 by `make evaluate`. All numbers come from code (R-ML-5).
+Generated 2026-10-03T08:58:39 by `make evaluate`. All numbers come from code (R-ML-5).
 
 ## Model
 - Global LightGBM quantile regression, one model per target (cash-out, cash-in) and quantile [0.1, 0.5, 0.9].
@@ -35,6 +35,12 @@ Generated 2026-10-03T08:17:45 by `make evaluate`. All numbers come from code (R-
 - ✅ event_improvement_vs_seasonal_naive_ge_35pct
 - ✅ coverage_p10_p90_between_72_and_88pct
 - ✅ no_archetype_worse_than_baseline
+
+## Model selection (never on the test period)
+- Censoring mode on 2025-03-01 → 2025-06-30 (Eid-ul-Fitr and Eid-ul-Adha 2025): keep: 60% above P90, exclude: 61% above P90, inflate: 57% above P90 → selected **inflate**.
+- Quantile architecture on 2025-03-01 → 2025-06-30 (Eid-ul-Fitr and Eid-ul-Adha 2025), trained on data before it: event pinball independent 46,143 vs spread 42,764; event P10–P90 coverage 49% vs 42%. Rule: adopt spread only if cash-out event pinball improves AND event P10-P90 coverage does not drop → selected **independent**.
+- Policy (service level 0.99, risk threshold 0.1) chosen on 2025-07-01 → 2025-12-31 (validation) by: max stockout reduction s.t. trips <= +15.0% and cash held <= +5.0%.
+- Raw quantile models can cross around Eid peaks; predictions are re-ordered (rearrangement) so P10 ≤ P50 ≤ P90. SHAP drivers explain the raw median model.
 
 ## Intended use & limits
 - Operational liquidity planning for agents; recommendations always need human approval.

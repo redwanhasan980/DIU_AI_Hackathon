@@ -335,7 +335,7 @@ Other rules:
 Rule: no feature may use data from after t (leakage test required, R-ML-2).
 
 ### 6.3 Models
-- LightGBM `objective="quantile"`, one model per (target, q).
+- LightGBM `objective="quantile"`, one model per (target, q) (`quantile_mode: independent`). A `spread` alternative (P50 + multiplicative spread models around an out-of-fold P50) was evaluated on the held-out 2025 Eid and not adopted (`scripts/quantile_experiment.py`). Crossing quantiles are re-ordered (rearrangement).
 - Hyperparameters tuned lightly on validation only (≤ 20 Optuna trials or a manual grid).
 - Saved to `artifacts/models/`. A `model_card.md` is generated.
 

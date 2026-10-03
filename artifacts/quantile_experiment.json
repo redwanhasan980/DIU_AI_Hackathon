@@ -1,0 +1,47 @@
+{
+  "holdout": "2025-03-01 \u2192 2025-06-30 (Eid-ul-Fitr and Eid-ul-Adha 2025), trained on data before it",
+  "criterion": "adopt spread only if cash-out event pinball improves AND event P10-P90 coverage does not drop",
+  "results": {
+    "independent": {
+      "cashout": {
+        "wape_overall": 0.2589,
+        "wape_event": 0.425,
+        "coverage_overall": 0.738,
+        "coverage_event": 0.494,
+        "event_above_p90": 0.368,
+        "mean_pinball_event": 46143,
+        "raw_crossing_rate": 0.0318
+      },
+      "cashin": {
+        "wape_overall": 0.2145,
+        "wape_event": 0.3235,
+        "coverage_overall": 0.763,
+        "coverage_event": 0.597,
+        "event_above_p90": 0.263,
+        "mean_pinball_event": 26552,
+        "raw_crossing_rate": 0.0262
+      }
+    },
+    "spread": {
+      "cashout": {
+        "wape_overall": 0.2564,
+        "wape_event": 0.4136,
+        "coverage_overall": 0.702,
+        "coverage_event": 0.423,
+        "event_above_p90": 0.342,
+        "mean_pinball_event": 42764,
+        "raw_crossing_rate": 0.0367
+      },
+      "cashin": {
+        "wape_overall": 0.2164,
+        "wape_event": 0.3315,
+        "coverage_overall": 0.739,
+        "coverage_event": 0.609,
+        "event_above_p90": 0.269,
+        "mean_pinball_event": 23016,
+        "raw_crossing_rate": 0.0085
+      }
+    }
+  },
+  "selected": "independent"
+}

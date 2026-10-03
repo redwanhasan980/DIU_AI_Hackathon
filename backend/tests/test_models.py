@@ -49,3 +49,15 @@ def test_metric_functions():
     assert pinball(y, y, 0.9) == 0.0
     assert pinball(np.array([100.0]), np.array([90.0]), 0.9) == 9.0  # under-forecast costs q
     assert coverage(y, y - 1, y + 1) == 1.0
+
+
+def test_spread_mode_trains_and_never_crosses(tiny_cfg, sample, tmp_path):
+    from floatwise.models.train import train
+
+    cfg = tiny_cfg.with_overrides(model={"quantile_mode": "spread"})
+    train(cfg, sample, tmp_path, verbose=False)
+    models = QuantileModels.load(cfg, tmp_path)
+    assert models.mode == "spread"
+    m = to_matrices(sample["daily"])
+    pred = models.predict_amount(split_panel(cfg, m, sample, "test", sampled=False), "cashout")
+    assert (np.diff(pred, axis=1) >= 0).all()

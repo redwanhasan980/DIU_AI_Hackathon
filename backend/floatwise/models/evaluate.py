@@ -149,7 +149,39 @@ def precompute_forecasts(cfg: Config, models: QuantileModels, m: Matrices, data:
     return pd.concat(frames, ignore_index=True)
 
 
-def model_card(meta: dict, metrics: dict) -> str:
+def experiments_summary(art: Path) -> str:
+    lines = []
+    cens = art / "censoring_experiment.json"
+    if cens.exists():
+        c = json.loads(cens.read_text())
+        rows = ", ".join(f"{k}: {v['pre_eid_above_p90']:.0%} above P90" for k, v in c["results"].items())
+        lines.append(f"- Censoring mode on {c['holdout']}: {rows} → selected **{c['selected']}**.")
+    qe = art / "quantile_experiment.json"
+    if qe.exists():
+        q = json.loads(qe.read_text())
+        r = q["results"]
+        lines.append(
+            f"- Quantile architecture on {q['holdout']}: event pinball independent "
+            f"{r['independent']['cashout']['mean_pinball_event']:,} vs spread {r['spread']['cashout']['mean_pinball_event']:,}; "
+            f"event P10–P90 coverage {r['independent']['cashout']['coverage_event']:.0%} vs "
+            f"{r['spread']['cashout']['coverage_event']:.0%}. Rule: {q['criterion']} → selected **{q['selected']}**."
+        )
+    pt = art / "policy_tuning.json"
+    if pt.exists():
+        p = json.loads(pt.read_text())
+        sel = p["selected"]
+        lines.append(
+            f"- Policy (service level {sel['service_level']}, risk threshold {sel['risk_threshold']}) chosen on "
+            f"{p['period']} by: {p['rule']}."
+        )
+    lines.append(
+        "- Raw quantile models can cross around Eid peaks; predictions are re-ordered (rearrangement) so "
+        "P10 ≤ P50 ≤ P90. SHAP drivers explain the raw median model."
+    )
+    return "\n".join(lines)
+
+
+def model_card(meta: dict, metrics: dict, art: Path | None = None) -> str:
     co = metrics["test"]["cashout"]
     ci = metrics["test"]["cashin"]
 
@@ -167,6 +199,7 @@ def model_card(meta: dict, metrics: dict) -> str:
     rows += [line(f"Cash-out — {k.split(':')[1]}", v) for k, v in co.items() if k.startswith("archetype:")]
     rows += [line("Cash-in — overall", ci["overall"]), line("Cash-in — event_days", ci["event_days"])]
     checks = "\n".join(f"- {'✅' if ok else '❌'} {k}" for k, ok in metrics["acceptance"]["checks"].items())
+    experiments = experiments_summary(art) if art is not None else "- (not recorded)"
     return f"""# FloatWise Model Card — {meta["version"]}
 
 Generated {metrics["generated_at"]} by `make evaluate`. All numbers come from code (R-ML-5).
@@ -189,6 +222,9 @@ Generated {metrics["generated_at"]} by `make evaluate`. All numbers come from co
 
 ## Acceptance (SRS §6.4)
 {checks}
+
+## Model selection (never on the test period)
+{experiments}
 
 ## Intended use & limits
 - Operational liquidity planning for agents; recommendations always need human approval.
@@ -228,7 +264,7 @@ def run(cfg: Config, data: dict, verbose: bool = True) -> dict:
     art.mkdir(parents=True, exist_ok=True)
     (art / "metrics.json").write_text(json.dumps(metrics, indent=2))
     meta = json.loads((cfg.models_dir / "meta.json").read_text())
-    (art / "model_card.md").write_text(model_card(meta, metrics))
+    (art / "model_card.md").write_text(model_card(meta, metrics, art))
 
     fc = precompute_forecasts(cfg, models, m, data)
     fc.to_parquet(art / "forecasts.parquet", index=False, compression="zstd")

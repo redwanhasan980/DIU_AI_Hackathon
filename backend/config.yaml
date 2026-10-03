@@ -40,7 +40,7 @@ network:
   n_agents: 500
   agents_per_dso: 25
   dsos_per_distributor: 5
-  location_jitter_deg: 0.06
+  location_jitter_deg: 0.12
   size_factor_sigma: 0.35     # agent size heterogeneity, LogNormal(0, sigma)
   float_capacity_range: [1.4, 2.4]   # total float = U(range) x (base_co + base_ci) x size
   archetype_share:
@@ -209,6 +209,7 @@ model:
   scale_window: 28
   min_history_days: 28
   train_horizons_per_origin: 3 # sample horizons per (agent, origin) to keep training fast
+  quantile_mode: independent  # independent | spread — chosen by scripts/quantile_experiment.py
   censoring: inflate           # keep | exclude | inflate — chosen by scripts/censoring_experiment.py
   event_window: [-7, 3]        # "event day" = within 7 days before .. 3 days after an Eid
   lgbm:

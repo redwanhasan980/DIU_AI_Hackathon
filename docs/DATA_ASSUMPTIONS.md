@@ -15,7 +15,7 @@ Regenerate with `make data` (full: 500 agents) or `make sample` (50 agents, comm
 | Total float (cash + e-float) | U(1.4, 2.4) × (base CO + base CI) × size | Agents hold roughly 1.5–2.5 days of gross volume as working capital |
 | Opening split | Cash share = base CO / (base CO + base CI) | Agents start roughly balanced for their own flow |
 | DSO territory | ~25 agents per DSO within a district; 5 DSOs per distributor | Typical field-force span of control |
-| Locations | District centre ± 0.06° jitter | Only for the map; not used by the model |
+| Locations | District centre ± 0.12° jitter | Only for the map; not used by the model |
 
 ## 2. Calendar (Bangladesh)
 | Assumption | Value |

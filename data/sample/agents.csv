@@ -1,51 +1,51 @@
 agent_id,archetype,division,district,upazila,lat,lon,size_factor,float_capacity,onboard_date,shop_name,dso_id,distributor_id,opening_cash,opening_efloat
-AG00001,market_hub,Barishal,Barishal,Bakerganj,22.73113,90.4127,2.1974,1911000,2023-02-20,Shantinir Telecom,DSO001,DB01,956000,955000
-AG00002,rural_remittance,Barishal,Barishal,Barishal Sadar,22.71416,90.36168,1.1009,304000,2020-04-29,Bismillah Store,DSO001,DB01,203000,101000
-AG00003,rural_remittance,Barishal,Barishal,Barishal Sadar,22.7554,90.31822,1.3112,261000,2021-01-25,Shapla Mobile Center,DSO001,DB01,174000,87000
-AG00004,market_hub,Rajshahi,Bogura,Sherpur,24.90597,89.41333,1.3109,1147000,2021-10-06,Shonali Mobile Center,DSO002,DB01,574000,573000
-AG00005,urban_residential,Chattogram,Chattogram,Hathazari,22.38911,91.79999,0.6564,414000,2021-05-20,Shapla Communication,DSO003,DB01,188000,226000
-AG00006,market_hub,Chattogram,Chattogram,Pahartali,22.30296,91.83348,0.6087,743000,2020-11-29,Jononi Mobile Center,DSO003,DB01,372000,371000
-AG00007,market_hub,Chattogram,Chattogram,Patiya,22.31404,91.74691,0.6272,656000,2022-06-12,Madina Store,DSO003,DB01,328000,328000
-AG00008,market_hub,Chattogram,Chattogram,Patiya,22.30183,91.82938,0.9875,1116000,2021-03-14,Notun Bazar Bhandar,DSO003,DB01,558000,558000
-AG00009,rural_remittance,Chattogram,Cumilla,Chauddagram,23.47825,91.13682,1.0197,213000,2019-09-19,Ekota Telecom,DSO004,DB01,142000,71000
-AG00010,rural_remittance,Chattogram,Cumilla,Chauddagram,23.43863,91.14843,1.8735,363000,2022-02-12,Shapla Bhandar,DSO004,DB01,242000,121000
-AG00011,rural_remittance,Chattogram,Cumilla,Chauddagram,23.41241,91.21193,1.6676,357000,2021-09-21,Nodir Par Traders,DSO004,DB01,238000,119000
-AG00012,rural_remittance,Chattogram,Cumilla,Cumilla Sadar,23.50778,91.21911,0.9841,219000,2020-01-26,Rupali Store,DSO004,DB01,146000,73000
-AG00013,rural_remittance,Chattogram,Cumilla,Cumilla Sadar,23.4732,91.16133,0.5732,120000,2022-08-16,Lal Sabuj Traders,DSO004,DB01,80000,40000
-AG00014,rural_remittance,Chattogram,Cumilla,Daudkandi,23.45704,91.21561,1.1597,325000,2022-04-11,Notun Bazar Enterprise,DSO004,DB01,217000,108000
-AG00015,university_area,Dhaka,Dhaka,Dhanmondi,23.76021,90.37309,1.9448,440000,2020-09-12,Nodir Par Enterprise,DSO005,DB01,240000,200000
-AG00016,urban_residential,Dhaka,Dhaka,Dhanmondi,23.81662,90.42779,1.092,652000,2022-06-30,Shopnil Telecom,DSO005,DB01,296000,356000
-AG00017,market_hub,Dhaka,Dhaka,Mirpur,23.84053,90.46872,1.2554,1145000,2021-05-25,Rahmania Mobile Center,DSO005,DB01,572000,573000
-AG00018,university_area,Dhaka,Dhaka,Mirpur,23.81175,90.44395,1.0649,195000,2019-07-19,Jononi Telecom,DSO005,DB01,106000,89000
-AG00019,university_area,Dhaka,Dhaka,Mirpur,23.80605,90.38749,1.3419,250000,2020-07-19,Nodir Par Variety Store,DSO005,DB01,136000,114000
-AG00020,university_area,Dhaka,Dhaka,Mohammadpur,23.80765,90.41607,1.2442,217000,2021-10-15,Rahmania Telecom,DSO005,DB01,118000,99000
-AG00021,urban_residential,Dhaka,Dhaka,Savar,23.81774,90.37591,0.5835,283000,2022-08-13,Jononi Mobile Center,DSO005,DB01,129000,154000
-AG00022,urban_residential,Dhaka,Dhaka,Uttara,23.83052,90.35465,0.6472,430000,2022-10-04,Shonali Variety Store,DSO005,DB01,195000,235000
-AG00023,urban_residential,Dhaka,Dhaka,Uttara,23.75477,90.36185,0.6652,481000,2020-07-26,Shantinir Traders,DSO005,DB01,219000,262000
-AG00024,urban_residential,Dhaka,Dhaka,Uttara,23.79702,90.35725,0.8502,462000,2019-05-02,Rahmania Telecom,DSO005,DB01,210000,252000
-AG00025,garment_belt,Dhaka,Gazipur,Gazipur Sadar,23.97272,90.41686,1.2521,990000,2021-01-25,Mayer Doa Bhandar,DSO006,DB02,707000,283000
-AG00026,garment_belt,Dhaka,Gazipur,Gazipur Sadar,24.05172,90.3729,1.3559,1059000,2023-03-07,Shonali Variety Store,DSO006,DB02,756000,303000
-AG00027,garment_belt,Dhaka,Gazipur,Gazipur Sadar,24.04095,90.42541,1.3331,1069000,2019-05-02,Notun Bazar Variety Store,DSO006,DB02,764000,305000
-AG00028,garment_belt,Dhaka,Gazipur,Kaliakair,24.01962,90.45513,1.0523,750000,2023-01-14,Jamuna Variety Store,DSO006,DB02,536000,214000
-AG00029,garment_belt,Dhaka,Gazipur,Kaliakair,24.0174,90.44746,1.2526,1041000,2022-10-21,Shonali Enterprise,DSO006,DB02,744000,297000
-AG00030,garment_belt,Dhaka,Gazipur,Tongi,24.0524,90.4788,0.9523,679000,2022-07-05,Padma Telecom,DSO006,DB02,485000,194000
-AG00031,garment_belt,Dhaka,Gazipur,Tongi,24.04059,90.44408,0.8327,437000,2023-03-19,Shopnil Variety Store,DSO006,DB02,312000,125000
-AG00032,urban_residential,Khulna,Khulna,Khulna Sadar,22.78735,89.56971,1.422,695000,2023-07-31,Rahmania Traders,DSO007,DB02,316000,379000
-AG00033,urban_residential,Khulna,Khulna,Khulna Sadar,22.88776,89.48864,0.9057,546000,2022-12-28,Meghna Traders,DSO007,DB02,248000,298000
-AG00034,urban_residential,Khulna,Khulna,Khulna Sadar,22.87876,89.51782,0.955,617000,2022-07-27,Bhai Bhai Bhandar,DSO007,DB02,280000,337000
-AG00035,market_hub,Khulna,Khulna,Sonadanga,22.85966,89.53715,1.7166,2292000,2022-09-15,Shapla Enterprise,DSO007,DB02,1146000,1146000
-AG00036,rural_remittance,Sylhet,Moulvibazar,Kulaura,24.44559,91.79842,0.9781,209000,2022-02-19,Shonali Bhandar,DSO008,DB02,139000,70000
-AG00037,rural_remittance,Sylhet,Moulvibazar,Moulvibazar Sadar,24.53665,91.809,1.1275,262000,2021-10-09,Bhai Bhai Communication,DSO008,DB02,175000,87000
-AG00038,garment_belt,Dhaka,Narayanganj,Fatullah,23.6156,90.4944,0.9151,680000,2021-09-15,Rupali Bhandar,DSO009,DB02,486000,194000
-AG00039,garment_belt,Dhaka,Narayanganj,Rupganj,23.66308,90.51904,0.5573,430000,2019-03-12,Jononi Traders,DSO009,DB02,307000,123000
-AG00040,garment_belt,Dhaka,Narayanganj,Rupganj,23.59349,90.53364,0.8616,623000,2022-03-03,Nodir Par Traders,DSO009,DB02,445000,178000
-AG00041,rural_remittance,Chattogram,Noakhali,Begumganj,22.82441,91.1027,1.0923,263000,2020-07-23,Padma Mobile Center,DSO010,DB02,175000,88000
-AG00042,rural_remittance,Chattogram,Noakhali,Noakhali Sadar,22.83564,91.09203,1.5922,344000,2020-03-10,Jamuna Telecom,DSO010,DB02,229000,115000
-AG00043,urban_residential,Rajshahi,Rajshahi,Boalia,24.3981,88.6622,1.8285,1238000,2023-05-08,Shopnil Variety Store,DSO011,DB03,563000,675000
-AG00044,university_area,Rajshahi,Rajshahi,Paba,24.35597,88.65393,0.8426,163000,2019-04-22,Rupali Variety Store,DSO011,DB03,89000,74000
-AG00045,urban_residential,Sylhet,Sylhet,Beanibazar,24.94965,91.91344,0.9138,490000,2020-09-17,Bismillah Traders,DSO012,DB03,223000,267000
-AG00046,rural_remittance,Sylhet,Sylhet,Biswanath,24.84014,91.89943,1.0096,197000,2022-10-13,Shapla Variety Store,DSO012,DB03,131000,66000
-AG00047,rural_remittance,Sylhet,Sylhet,Biswanath,24.84304,91.83732,1.2618,346000,2021-04-06,Shopnil Variety Store,DSO012,DB03,231000,115000
-AG00048,urban_residential,Sylhet,Sylhet,Biswanath,24.94078,91.88321,1.6103,775000,2020-01-19,Padma Store,DSO012,DB03,352000,423000
-AG00049,rural_remittance,Sylhet,Sylhet,Golapganj,24.89817,91.81874,0.85,159000,2023-03-14,Padma Traders,DSO012,DB03,106000,53000
-AG00050,rural_remittance,Sylhet,Sylhet,Sylhet Sadar,24.91465,91.91415,0.913,247000,2023-06-21,Jononi Store,DSO012,DB03,165000,82000
+AG00001,market_hub,Barishal,Barishal,Bakerganj,22.76125,90.47191,2.1974,1911000,2023-02-20,Shantinir Telecom,DSO001,DB01,956000,955000
+AG00002,rural_remittance,Barishal,Barishal,Barishal Sadar,22.72732,90.36987,1.1009,304000,2020-04-29,Bismillah Store,DSO001,DB01,203000,101000
+AG00003,rural_remittance,Barishal,Barishal,Barishal Sadar,22.8098,90.28294,1.3112,261000,2021-01-25,Shapla Mobile Center,DSO001,DB01,174000,87000
+AG00004,market_hub,Rajshahi,Bogura,Sherpur,24.96543,89.44935,1.3109,1147000,2021-10-06,Shonali Mobile Center,DSO002,DB01,574000,573000
+AG00005,urban_residential,Chattogram,Chattogram,Hathazari,22.42131,91.81678,0.6564,414000,2021-05-20,Shapla Communication,DSO003,DB01,188000,226000
+AG00006,market_hub,Chattogram,Chattogram,Pahartali,22.24901,91.88376,0.6087,743000,2020-11-29,Jononi Mobile Center,DSO003,DB01,372000,371000
+AG00007,market_hub,Chattogram,Chattogram,Patiya,22.27117,91.71061,0.6272,656000,2022-06-12,Madina Store,DSO003,DB01,328000,328000
+AG00008,market_hub,Chattogram,Chattogram,Patiya,22.24675,91.87557,0.9875,1116000,2021-03-14,Notun Bazar Bhandar,DSO003,DB01,558000,558000
+AG00009,rural_remittance,Chattogram,Cumilla,Chauddagram,23.49581,91.09274,1.0197,213000,2019-09-19,Ekota Telecom,DSO004,DB01,142000,71000
+AG00010,rural_remittance,Chattogram,Cumilla,Chauddagram,23.41656,91.11596,1.8735,363000,2022-02-12,Shapla Bhandar,DSO004,DB01,242000,121000
+AG00011,rural_remittance,Chattogram,Cumilla,Chauddagram,23.36413,91.24296,1.6676,357000,2021-09-21,Nodir Par Traders,DSO004,DB01,238000,119000
+AG00012,rural_remittance,Chattogram,Cumilla,Cumilla Sadar,23.55486,91.25731,0.9841,219000,2020-01-26,Rupali Store,DSO004,DB01,146000,73000
+AG00013,rural_remittance,Chattogram,Cumilla,Cumilla Sadar,23.4857,91.14177,0.5732,120000,2022-08-16,Lal Sabuj Traders,DSO004,DB01,80000,40000
+AG00014,rural_remittance,Chattogram,Cumilla,Daudkandi,23.45338,91.25032,1.1597,325000,2022-04-11,Notun Bazar Enterprise,DSO004,DB01,217000,108000
+AG00015,university_area,Dhaka,Dhaka,Dhanmondi,23.71012,90.33368,1.9448,440000,2020-09-12,Nodir Par Enterprise,DSO005,DB01,240000,200000
+AG00016,urban_residential,Dhaka,Dhaka,Dhanmondi,23.82295,90.44308,1.092,652000,2022-06-30,Shopnil Telecom,DSO005,DB01,296000,356000
+AG00017,market_hub,Dhaka,Dhaka,Mirpur,23.87077,90.52493,1.2554,1145000,2021-05-25,Rahmania Mobile Center,DSO005,DB01,572000,573000
+AG00018,university_area,Dhaka,Dhaka,Mirpur,23.8132,90.47541,1.0649,195000,2019-07-19,Jononi Telecom,DSO005,DB01,106000,89000
+AG00019,university_area,Dhaka,Dhaka,Mirpur,23.80181,90.36249,1.3419,250000,2020-07-19,Nodir Par Variety Store,DSO005,DB01,136000,114000
+AG00020,university_area,Dhaka,Dhaka,Mohammadpur,23.805,90.41964,1.2442,217000,2021-10-15,Rahmania Telecom,DSO005,DB01,118000,99000
+AG00021,urban_residential,Dhaka,Dhaka,Savar,23.82517,90.33932,0.5835,283000,2022-08-13,Jononi Mobile Center,DSO005,DB01,129000,154000
+AG00022,urban_residential,Dhaka,Dhaka,Uttara,23.85074,90.29679,0.6472,430000,2022-10-04,Shonali Variety Store,DSO005,DB01,195000,235000
+AG00023,urban_residential,Dhaka,Dhaka,Uttara,23.69924,90.3112,0.6652,481000,2020-07-26,Shantinir Traders,DSO005,DB01,219000,262000
+AG00024,urban_residential,Dhaka,Dhaka,Uttara,23.78375,90.302,0.8502,462000,2019-05-02,Rahmania Telecom,DSO005,DB01,210000,252000
+AG00025,garment_belt,Dhaka,Gazipur,Gazipur Sadar,23.94314,90.40732,1.2521,990000,2021-01-25,Mayer Doa Bhandar,DSO006,DB02,707000,283000
+AG00026,garment_belt,Dhaka,Gazipur,Gazipur Sadar,24.10114,90.3194,1.3559,1059000,2023-03-07,Shonali Variety Store,DSO006,DB02,756000,303000
+AG00027,garment_belt,Dhaka,Gazipur,Gazipur Sadar,24.07961,90.42442,1.3331,1069000,2019-05-02,Notun Bazar Variety Store,DSO006,DB02,764000,305000
+AG00028,garment_belt,Dhaka,Gazipur,Kaliakair,24.03694,90.48387,1.0523,750000,2023-01-14,Jamuna Variety Store,DSO006,DB02,536000,214000
+AG00029,garment_belt,Dhaka,Gazipur,Kaliakair,24.0325,90.46853,1.2526,1041000,2022-10-21,Shonali Enterprise,DSO006,DB02,744000,297000
+AG00030,garment_belt,Dhaka,Gazipur,Tongi,24.1025,90.53119,0.9523,679000,2022-07-05,Padma Telecom,DSO006,DB02,485000,194000
+AG00031,garment_belt,Dhaka,Gazipur,Tongi,24.07889,90.46177,0.8327,437000,2023-03-19,Shopnil Variety Store,DSO006,DB02,312000,125000
+AG00032,urban_residential,Khulna,Khulna,Khulna Sadar,22.7291,89.59912,1.422,695000,2023-07-31,Rahmania Traders,DSO007,DB02,316000,379000
+AG00033,urban_residential,Khulna,Khulna,Khulna Sadar,22.92992,89.43697,0.9057,546000,2022-12-28,Meghna Traders,DSO007,DB02,248000,298000
+AG00034,urban_residential,Khulna,Khulna,Khulna Sadar,22.91192,89.49533,0.955,617000,2022-07-27,Bhai Bhai Bhandar,DSO007,DB02,280000,337000
+AG00035,market_hub,Khulna,Khulna,Sonadanga,22.87372,89.534,1.7166,2292000,2022-09-15,Shapla Enterprise,DSO007,DB02,1146000,1146000
+AG00036,rural_remittance,Sylhet,Moulvibazar,Kulaura,24.40828,91.81944,0.9781,209000,2022-02-19,Shonali Bhandar,DSO008,DB02,139000,70000
+AG00037,rural_remittance,Sylhet,Moulvibazar,Moulvibazar Sadar,24.59039,91.84061,1.1275,262000,2021-10-09,Bhai Bhai Communication,DSO008,DB02,175000,87000
+AG00038,garment_belt,Dhaka,Narayanganj,Fatullah,23.6074,90.4888,0.9151,680000,2021-09-15,Rupali Bhandar,DSO009,DB02,486000,194000
+AG00039,garment_belt,Dhaka,Narayanganj,Rupganj,23.70236,90.53809,0.5573,430000,2019-03-12,Jononi Traders,DSO009,DB02,307000,123000
+AG00040,garment_belt,Dhaka,Narayanganj,Rupganj,23.56318,90.56727,0.8616,623000,2022-03-03,Nodir Par Traders,DSO009,DB02,445000,178000
+AG00041,rural_remittance,Chattogram,Noakhali,Begumganj,22.77923,91.10591,1.0923,263000,2020-07-23,Padma Mobile Center,DSO010,DB02,175000,88000
+AG00042,rural_remittance,Chattogram,Noakhali,Noakhali Sadar,22.80169,91.08457,1.5922,344000,2020-03-10,Jamuna Telecom,DSO010,DB02,229000,115000
+AG00043,urban_residential,Rajshahi,Rajshahi,Boalia,24.4217,88.72021,1.8285,1238000,2023-05-08,Shopnil Variety Store,DSO011,DB03,563000,675000
+AG00044,university_area,Rajshahi,Rajshahi,Paba,24.33744,88.70366,0.8426,163000,2019-04-22,Rupali Variety Store,DSO011,DB03,89000,74000
+AG00045,urban_residential,Sylhet,Sylhet,Beanibazar,25.00441,91.95819,0.9138,490000,2020-09-17,Bismillah Traders,DSO012,DB03,223000,267000
+AG00046,rural_remittance,Sylhet,Sylhet,Biswanath,24.78538,91.93015,1.0096,197000,2022-10-13,Shapla Variety Store,DSO012,DB03,131000,66000
+AG00047,rural_remittance,Sylhet,Sylhet,Biswanath,24.79117,91.80595,1.2618,346000,2021-04-06,Shopnil Variety Store,DSO012,DB03,231000,115000
+AG00048,urban_residential,Sylhet,Sylhet,Biswanath,24.98667,91.89773,1.6103,775000,2020-01-19,Padma Store,DSO012,DB03,352000,423000
+AG00049,rural_remittance,Sylhet,Sylhet,Golapganj,24.90145,91.76878,0.85,159000,2023-03-14,Padma Traders,DSO012,DB03,106000,53000
+AG00050,rural_remittance,Sylhet,Sylhet,Sylhet Sadar,24.9344,91.9596,0.913,247000,2023-06-21,Jononi Store,DSO012,DB03,165000,82000

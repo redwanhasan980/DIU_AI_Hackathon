@@ -21,7 +21,7 @@ from floatwise.features.build import (
     origin_indices,
     to_matrices,
 )
-from floatwise.models.predict import model_path
+from floatwise.models.predict import SPREAD_FLOOR, model_path
 
 
 def split_by_date(cfg: Config, m: Matrices) -> dict[str, tuple[np.ndarray, pd.Timestamp, pd.Timestamp]]:
@@ -69,33 +69,77 @@ def _usable(panel: pd.DataFrame, target: str, censoring: str) -> pd.DataFrame:
     return rows
 
 
+def _fit(
+    cfg: Config,
+    q: float,
+    tr: pd.DataFrame,
+    y: np.ndarray,
+    va: pd.DataFrame,
+    yv: np.ndarray,
+    features: list[str],
+) -> lgb.LGBMRegressor:
+    model = lgb.LGBMRegressor(objective="quantile", alpha=q, random_state=cfg.seed, **cfg.model.lgbm)
+    model.fit(
+        tr[features], y, eval_X=(va[features],), eval_y=(yv,),
+        categorical_feature=CATEGORICAL_FEATURES, callbacks=[lgb.early_stopping(30, verbose=False)],
+    )  # fmt: skip
+    return model
+
+
+def _oof_median(
+    cfg: Config, tr: pd.DataFrame, label: str, va: pd.DataFrame, features: list[str], folds: int = 3
+) -> np.ndarray:
+    """Out-of-fold P50 predictions on the training rows (contiguous time blocks), so the spread
+    models learn from honest residuals instead of the median model's in-sample fit."""
+    blocks = pd.qcut(tr["origin_idx"], folds, labels=False, duplicates="drop").to_numpy()
+    oof = np.zeros(len(tr))
+    for b in np.unique(blocks):
+        fit_rows, pred_rows = blocks != b, blocks == b
+        model = _fit(
+            cfg, 0.5, tr[fit_rows], tr.loc[fit_rows, label].to_numpy(), va, va[label].to_numpy(), features
+        )
+        oof[pred_rows] = model.predict(tr.loc[pred_rows, features])
+    return oof
+
+
 def train(cfg: Config, data: dict, models_dir: Path, verbose: bool = True) -> dict:
+    """Train quantile models. quantile_mode:
+    independent  one LightGBM per quantile on the ratio target;
+    spread       P50 on the ratio target, other quantiles as multiplicative spreads around an
+                 out-of-fold P50 — tails then move with event spikes and rarely cross the median.
+    """
     t0 = time.time()
     m = to_matrices(data["daily"])
     train_p = split_panel(cfg, m, data, "train", sampled=True, seed=cfg.seed)
     val_p = split_panel(cfg, m, data, "val", sampled=True, seed=cfg.seed + 1)
     features = feature_columns(train_p)
+    mode = cfg.model.quantile_mode
     if verbose:
         print(
-            f"panel: train {len(train_p):,} rows, val {len(val_p):,} rows, {len(features)} features "
-            f"({time.time() - t0:.0f}s)"
+            f"panel: train {len(train_p):,} rows, val {len(val_p):,} rows, {len(features)} features, "
+            f"mode={mode} ({time.time() - t0:.0f}s)"
         )
 
     models_dir.mkdir(parents=True, exist_ok=True)
     best_iters = {}
     for target in cfg.model.targets:
+        label = f"label_{target}"
         tr = _usable(train_p, target, cfg.model.censoring)
         va = _usable(val_p, target, cfg.model.censoring)
+        median = _fit(cfg, 0.5, tr, tr[label].to_numpy(), va, va[label].to_numpy(), features)
+        if mode == "spread":
+            base_tr = np.maximum(_oof_median(cfg, tr, label, va, features), SPREAD_FLOOR)
+            base_va = np.maximum(median.predict(va[features]), SPREAD_FLOOR)
         for q in cfg.model.quantiles:
             t1 = time.time()
-            model = lgb.LGBMRegressor(objective="quantile", alpha=q, random_state=cfg.seed, **cfg.model.lgbm)
-            model.fit(
-                tr[features], tr[f"label_{target}"],
-                eval_X=(va[features],),
-                eval_y=(va[f"label_{target}"],),
-                categorical_feature=CATEGORICAL_FEATURES,
-                callbacks=[lgb.early_stopping(30, verbose=False)],
-            )  # fmt: skip
+            if q == 0.5:
+                model = median
+            elif mode == "spread":
+                model = _fit(
+                    cfg, q, tr, tr[label].to_numpy() / base_tr, va, va[label].to_numpy() / base_va, features
+                )
+            else:
+                model = _fit(cfg, q, tr, tr[label].to_numpy(), va, va[label].to_numpy(), features)
             model.booster_.save_model(str(model_path(models_dir, target, q)))
             best_iters[f"{target}_q{q}"] = int(model.best_iteration_ or model.n_estimators)
             if verbose:
@@ -115,6 +159,7 @@ def train(cfg: Config, data: dict, models_dir: Path, verbose: bool = True) -> di
         "quantiles": cfg.model.quantiles,
         "targets": cfg.model.targets,
         "censoring": cfg.model.censoring,
+        "quantile_mode": mode,
         "best_iterations": best_iters,
         "train_rows": len(train_p),
         "trained_on": {"start": str(cfg.dates.start), "end": str(cfg.dates.train_end)},

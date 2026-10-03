@@ -175,7 +175,7 @@ D starts with **mock JSON fixtures** that match the schemas, so it never waits o
 
 - [x] Fairness table: WAPE and stockout reduction per archetype and rural vs urban → `artifacts/fairness.json` + UI [P1]
 - [x] Confirm no PII fields exist; shop names are synthetic [P0]
-- [ ] `.env` is git-ignored; secret scan of the repo (`git grep -i "sk-ant"` returns nothing) [P0]
+- [x] `.env` is git-ignored; secret scan of the repo (`git grep -i "sk-ant"` returns nothing) [P0]
 - [x] The LLM receives only structured JSON; no user free text reaches the prompt [P0]
 - [x] Every action requires human approval in the UI; `NEEDS_EXTRA_FLOAT` shown as escalation [P0]
 - [x] Assumptions list visible in the UI (business values labelled "assumption") [P1]
@@ -183,9 +183,9 @@ D starts with **mock JSON fixtures** that match the schemas, so it never waits o
 ## Phase 11 — Demo Hardening & Submission (H+18 → H+24) [P0] · Stream E + all
 
 - [ ] **Feature freeze at H+18**: only bug fixes after this
-- [ ] `make demo` starts API + web with cached artifacts and **works with Wi-Fi off**
-- [ ] Numbers in the deck = UI = `artifacts/*.json` (single source)
-- [ ] README: problem, solution, screenshots, architecture diagram, how to run, results table, Responsible AI, limitations, next steps
+- [x] `make demo` starts API + web with cached artifacts and **works with Wi-Fi off**
+- [x] Numbers in the deck = UI = `artifacts/*.json` (single source)
+- [x] README: problem, solution, screenshots, architecture diagram, how to run, results table, Responsible AI, limitations, next steps
 - [ ] Pitch deck (≈ 8–10 slides): Problem → Who → Why AI → Demo → Results → Responsible AI → Scale path → Team
 - [ ] Demo video (2–3 min) recorded as a backup
 - [ ] Rehearse the demo ×3 with a timer; prepare answers for likely judge questions (see below)

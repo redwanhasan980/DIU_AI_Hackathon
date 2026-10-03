@@ -39,6 +39,17 @@ These per-1,000 figures use illustrative business assumptions.
 
 **Known weakness:** P10–P90 coverage on Eid days is only 55 %; the model is over-confident at peaks. The policy compensates with a high service level, chosen on validation data. Details are in [`artifacts/model_card.md`](artifacts/model_card.md).
 
+## Screenshots
+Demo date: 15 March 2026, five days before Eid-ul-Fitr.
+
+| | |
+|---|---|
+| ![Network](docs/screenshots/01-network.png) **Network:** risk map, KPIs and the Eid banner | ![Agent detail](docs/screenshots/02-agent-detail.png) **Agent detail:** recommendation, 7-day outlook, forecast range vs true demand, SHAP drivers |
+| ![DSO plan](docs/screenshots/04-dso-plan.png) **DSO plan:** before Eid in Noakhali, the ৳10 lakh cash bag (not the visit count) is the binding limit | ![Impact](docs/screenshots/05-impact.png) **Impact:** backtest timeline and service-level trade-off |
+| ![Bangla dark](docs/screenshots/03-agent-detail-bangla-dark.png) **Bangla + dark mode** | <img src="docs/screenshots/06-agent-card-bangla.png" width="240" alt="Agent card"/> **Agent mobile card:** Bangla, one clear action |
+
+Re-capture these after UI changes with the Playwright snippet in `docs/screenshots/README.md`.
+
 ## The synthetic data at a glance
 `make plots` regenerates these charts from the data, so they show the patterns the model has to learn. Shocks and noise make the data realistic, not easy.
 

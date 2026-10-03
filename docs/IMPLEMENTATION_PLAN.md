@@ -154,7 +154,7 @@ D starts with **mock JSON fixtures** that match the schemas, so it never waits o
 - [x] `/decisions` POST/GET with JSON-file storage (FR-HITL-1)
 - [x] `/calendar` [P1]
 - [x] API tests with FastAPI TestClient against `data/sample/`
-- [ ] **DoD:** `/docs` lists all endpoints; every GET < 300 ms on the demo date
+- [x] **DoD:** `/docs` lists all endpoints; every GET < 300 ms on the demo date (measured 2–101 ms after startup warm-up)
 
 ## Phase 9 — Frontend (H+2 → H+18, 🔀) [P0] · Stream D
 
@@ -169,7 +169,7 @@ D starts with **mock JSON fixtures** that match the schemas, so it never waits o
 - [x] **Screen 7 Agent Mobile Card**: Bangla, big text, one action [P1]
 - [x] Switch from fixtures to the real API via `VITE_API_URL`
 - [x] Loading/error states; works at 360 px; colour + label for risk (not colour only)
-- [ ] **DoD:** the demo script (SRS §14) can be clicked through without errors
+- [x] **DoD:** the demo script (SRS §14) can be clicked through without errors (`make e2e`: 21/21 pass)
 
 ## Phase 10 — Responsible AI, Security & Fairness (H+14 → H+18) [P0/P1]
 

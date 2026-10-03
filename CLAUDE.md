@@ -69,6 +69,7 @@ make api         # uvicorn floatwise.api.main:app --reload (port 8000)
 make web         # vite dev server (port 5173)
 make demo        # api + web using cached artifacts, works offline
 make test        # pytest backend/tests
+make e2e         # browser walk-through of the SRS §14 demo (needs make demo running + playwright)
 make lint        # ruff check backend; tsc --noEmit + eslint in frontend
 ```
 Run a single test: `cd backend && pytest tests/test_engine.py -k recommend -q`.

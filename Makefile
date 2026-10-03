@@ -1,4 +1,4 @@
-.PHONY: setup setup-py setup-web data sample train evaluate simulate plots narratives all api web demo test lint clean-artifacts
+.PHONY: setup setup-py setup-web data sample train evaluate simulate plots narratives all api web demo test e2e lint clean-artifacts
 
 VENV   := .venv
 PY     := $(abspath $(VENV))/bin/python
@@ -50,6 +50,9 @@ demo:            ## API + web from cached artifacts (works offline)
 
 test:
 	cd $(BACK) && $(PY) -m pytest
+
+e2e:             ## browser walk-through of the SRS §14 demo (needs `make demo` running + playwright)
+	cd $(BACK) && $(PY) scripts/e2e_demo.py $(if $(CHROME),--chrome $(CHROME),)
 
 lint:
 	cd $(BACK) && $(PY) -m ruff check . && $(PY) -m ruff format --check .

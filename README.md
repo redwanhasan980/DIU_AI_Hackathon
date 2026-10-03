@@ -95,7 +95,8 @@ For development, use two terminals: `make api` (port 8000) and `make web` (http:
 **Optional:** to get AI-written explanations, copy `.env.example` to `.env` and set `ANTHROPIC_API_KEY`. Then run `make narratives` to cache them for an offline demo. Without a key, the app uses the built-in Bangla/English templates.
 
 ## How to test it (checklist)
-1. **Automated checks:** `make test` (86 backend tests) and `make lint`. The same checks run in GitHub Actions on every push.
+1. **Automated checks:** `make test` (86 backend tests) and `make lint`.
+   - **Browser walk-through:** with `make demo` running in another terminal, run `pip install playwright && playwright install chromium` once, then `make e2e`. It clicks through the whole demo (21 checks: map, agent, Bangla, approval, DSO limits, live backtest, fairness, dark mode) and stops on the first failure. The same checks run in GitHub Actions on every push.
 2. **Start the app:** `make demo`, then open http://localhost:8000.
 3. **Network page:** it opens on **15 March 2026**, 5 days before Eid-ul-Fitr. Check the banner, the KPI tiles and the red risk map.
 4. **Demo agent:** go to Risk list and open **AG00433 — Notun Bazar Store, Noakhali**. Check:

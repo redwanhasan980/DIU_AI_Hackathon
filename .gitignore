@@ -26,3 +26,4 @@ artifacts/*.parquet
 .DS_Store
 .vscode/
 .idea/
+artifacts/decisions.json

@@ -184,6 +184,7 @@ policy:
     min_buffer_cash: 5000
     min_buffer_efloat: 5000
     round_to: 1000
+    escalation_service_level: 0.90   # escalate only if even P90-level needs exceed total float
     outlook_days: 7
     # share of agents NOT visited by a DSO that follow the app advice and self-rebalance at the
     # distributor point (the rest keep their own rule of thumb). Assumption, see DATA_ASSUMPTIONS.md
@@ -222,9 +223,9 @@ model:
 
 llm:
   model_env: LLM_MODEL
-  default_model: claude-sonnet-5-5
+  default_model: claude-opus-5-5
   timeout_s: 20
-  max_tokens: 400
+  max_tokens: 2000
   demo_agents_per_archetype: 4
 
 api:

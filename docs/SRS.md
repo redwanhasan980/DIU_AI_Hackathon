@@ -363,19 +363,21 @@ For the next day (h=1), with predicted CO quantiles Q_CO(q):
 
 ### 7.2 Recommendation
 ```
-target_cash   = Q_CO(s) − α·Q_CI(0.5) + min_buffer_cash
-target_efloat = Q_CI(s) − α·Q_CO(0.5) + min_buffer_efloat
-cash_gap   = target_cash   − open_cash
-efloat_gap = target_efloat − open_efloat
+target_cash(s)   = ceil_1000( Q_CO(s) − α·Q_CI(0.5) + min_buffer_cash )
+target_efloat(s) = ceil_1000( Q_CI(s) − α·Q_CO(0.5) + min_buffer_efloat )
+risky = p_cash_stockout ≥ θ or p_efloat_stockout ≥ θ        (total float = cash + e-float is fixed)
 
-if target_cash + target_efloat > float_capacity
-   and (p_cash_stockout ≥ θ or p_efloat_stockout ≥ θ)  → NEEDS_EXTRA_FLOAT (human escalation;
-                                                         best effort: split float pro rata to targets)
-elif cash_gap > 0 and p_cash_stockout ≥ θ          → TOP_UP_CASH, amount = ceil_1000(cash_gap)
-elif efloat_gap > 0 and p_efloat_stockout ≥ θ      → TOP_UP_EFLOAT, amount = ceil_1000(efloat_gap)
-else                                                → NO_ACTION
+if target_cash(s) + target_efloat(s) ≤ float_capacity:
+    cash risky and below target    → TOP_UP_CASH   to target_cash
+    e-float risky and below target → TOP_UP_EFLOAT to target_efloat
+elif risky:                          best split: cash = capacity × target_cash / (target_cash + target_efloat)
+                                     → TOP_UP_CASH or TOP_UP_EFLOAT by the sign of the change
+if risky and target_cash(0.9) + target_efloat(0.9) > float_capacity:
+                                     → NEEDS_EXTRA_FLOAT (human escalation; amount = float missing even at
+                                       the P90 level; the best split is still applied)
+otherwise                            → NO_ACTION
 ```
-Defaults: s = 0.99, θ = 0.10 (chosen on validation by `scripts/tune_policy.py`; s is high because P90 forecasts are slightly over-confident around events), min_buffer = ৳5,000. The CDF built from P10/P50/P90 has explicit tails (§7.1, `engine/risk.py`). Reason codes are attached from the calendar flags and the balance state.
+Defaults: s = 0.99, θ = 0.10 (chosen on validation by `scripts/tune_policy.py`; s is high because P90 forecasts are slightly over-confident around events), min_buffer = ৳5,000. The CDF built from P10/P50/P90 has explicit tails (§7.1, `engine/risk.py`). Reason codes are attached from the calendar flags (event countdowns from the decision date, day types for the effective date) and the balance state. Risk bands: high ≥ 0.5, medium ≥ θ, else low.
 
 ### 7.3 DSO allocation (greedy, P0)
 1. Candidates are the agents of the DSO with action ∈ {TOP_UP_CASH, TOP_UP_EFLOAT}.

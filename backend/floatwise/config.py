@@ -123,6 +123,7 @@ class FloatWisePolicy(_Strict):
     min_buffer_cash: int
     min_buffer_efloat: int
     round_to: int
+    escalation_service_level: float
     outlook_days: int
     self_rebalance_compliance: float
 

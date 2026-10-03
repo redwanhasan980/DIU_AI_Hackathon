@@ -143,3 +143,15 @@ def test_plan_skips_big_cash_but_keeps_smaller_ones():
     assert plan.visits == [2, 1]  # e-float visit needs no cash; the 9-lakh delivery does not fit
     assert plan.excluded[0][0] == 0 and "cash bag" in plan.excluded[0][1]
     assert plan.efloat_to_send == 200_000 and plan.cash_to_carry == 50_000
+
+
+def test_tight_float_gets_best_split_not_escalation(params):
+    # P90-level needs (1.77 lakh) fit in a 2-lakh float but the 99% targets (2.27 lakh) do not
+    # -> best pro-rata split of the float, no escalation
+    co, ci = [100_000, 130_000, 160_000], [80_000, 100_000, 120_000]
+    r = _rec(params, 20_000, 180_000, 200_000, co, ci)
+    assert r["action"][0] == TOP_UP_CASH
+    assert r["extra_float_needed"][0] == 0
+    assert r["target_cash"][0] + r["target_efloat"][0] > 200_000
+    split = round(200_000 * r["target_cash"][0] / (r["target_cash"][0] + r["target_efloat"][0]), -3)
+    assert abs(r["new_cash"][0] - split) <= params.round_to

@@ -137,23 +137,23 @@ D starts with **mock JSON fixtures** that match the schemas, so it never waits o
 
 ## Phase 7 — Explainability & LLM Narrative (H+6 → H+18) [P0] · Stream C
 
-- [ ] `explain/shap_explain.py`: top-5 SHAP drivers for P50 cash-out at h=1, with a human-readable label map (en + bn) (FR-XAI-1)
-- [ ] `explain/templates.py`: deterministic bn/en narrative from reason codes + numbers (FR-XAI-4). **Build this before the LLM.**
-- [ ] `explain/llm.py`: Anthropic client, model from env `LLM_MODEL`; system prompt says to use only the given JSON, ≤ 3 sentences, no new numbers (FR-XAI-2)
-- [ ] Numeric post-check: every number in the output must exist in the input, else use the template (FR-XAI-3) [P1]
-- [ ] `scripts/build_narratives.py`: pre-generate bn + en for demo agents and the demo date → `artifacts/narratives_cache.json` (FR-XAI-5)
-- [ ] Tests: the template always works without a key; the post-check rejects an injected fake amount
+- [x] `explain/shap_explain.py`: top-5 SHAP drivers for P50 cash-out at h=1, with a human-readable label map (en + bn) (FR-XAI-1)
+- [x] `explain/templates.py`: deterministic bn/en narrative from reason codes + numbers (FR-XAI-4). **Build this before the LLM.**
+- [x] `explain/llm.py`: Anthropic client, model from env `LLM_MODEL`; system prompt says to use only the given JSON, ≤ 3 sentences, no new numbers (FR-XAI-2)
+- [x] Numeric post-check: every number in the output must exist in the input, else use the template (FR-XAI-3) [P1]
+- [x] `scripts/build_narratives.py`: pre-generate bn + en for demo agents and the demo date → `artifacts/narratives_cache.json` (FR-XAI-5)
+- [x] Tests: the template always works without a key; the post-check rejects an injected fake amount
 - [ ] **DoD:** explanation endpoint returns `source: cache|llm|template` and never errors
 
 ## Phase 8 — API (H+2 → H+16, 🔀) [P0] · Stream C
 
-- [ ] `api/main.py` FastAPI app, CORS limited to the frontend origin, error format per SRS §8
-- [ ] Endpoints serve **fixtures first** (H+4), then real artifacts as they land
-- [ ] `/health`, `/agents`, `/agents/{id}`, `/agents/{id}/forecast`, `/agents/{id}/recommendation`, `/agents/{id}/explanation`
-- [ ] `/dso/{id}/plan`, `/network/summary`, `/simulate` (cached default + live recompute if fast), `/metrics/model`
-- [ ] `/decisions` POST/GET with JSON-file storage (FR-HITL-1)
-- [ ] `/calendar` [P1]
-- [ ] API tests with FastAPI TestClient against `data/sample/`
+- [x] `api/main.py` FastAPI app, CORS limited to the frontend origin, error format per SRS §8
+- [x] Endpoints serve **fixtures first** (H+4), then real artifacts as they land
+- [x] `/health`, `/agents`, `/agents/{id}`, `/agents/{id}/forecast`, `/agents/{id}/recommendation`, `/agents/{id}/explanation`
+- [x] `/dso/{id}/plan`, `/network/summary`, `/simulate` (cached default + live recompute if fast), `/metrics/model`
+- [x] `/decisions` POST/GET with JSON-file storage (FR-HITL-1)
+- [x] `/calendar` [P1]
+- [x] API tests with FastAPI TestClient against `data/sample/`
 - [ ] **DoD:** `/docs` lists all endpoints; every GET < 300 ms on the demo date
 
 ## Phase 9 — Frontend (H+2 → H+18, 🔀) [P0] · Stream D

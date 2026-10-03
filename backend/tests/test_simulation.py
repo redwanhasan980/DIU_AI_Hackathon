@@ -23,7 +23,9 @@ def test_status_quo_replay_matches_generated_data(tiny_cfg, sample, inputs):
     """The backtest's status-quo world must reproduce the generator's ledger exactly."""
     tr = run_policy(tiny_cfg, inputs, "status_quo")
     d = sample["daily"]
-    window = d[d["date"].between(pd.Timestamp(tiny_cfg.dates.test_start), pd.Timestamp(tiny_cfg.dates.test_end))]
+    window = d[
+        d["date"].between(pd.Timestamp(tiny_cfg.dates.test_start), pd.Timestamp(tiny_cfg.dates.test_end))
+    ]
     ids = inputs.agents["agent_id"].to_numpy()
     expected = window.pivot(index="agent_id", columns="date", values="stockout_cash").reindex(ids).to_numpy()
     np.testing.assert_array_equal(tr.stockout_cash.astype(bool), expected.astype(bool))

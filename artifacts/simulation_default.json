@@ -24,35 +24,35 @@
     "served_share": 0.9875
   },
   "floatwise": {
-    "stockout_agent_days": 3729,
-    "cash_stockout_days": 3697,
+    "stockout_agent_days": 3730,
+    "cash_stockout_days": 3698,
     "efloat_stockout_days": 69,
-    "failed_cashout_count": 114312,
-    "failed_cashout_bdt": 288321700,
-    "failed_cashin_count": 2687,
-    "failed_cashin_bdt": 5552107,
-    "lost_commission_bdt": 1752139,
-    "customers_at_risk": 5716,
-    "avg_cash_held_bdt": 360573,
-    "rebalancing_trips": 51326,
+    "failed_cashout_count": 114248,
+    "failed_cashout_bdt": 288012488,
+    "failed_cashin_count": 2684,
+    "failed_cashin_bdt": 5546186,
+    "lost_commission_bdt": 1750260,
+    "customers_at_risk": 5712,
+    "avg_cash_held_bdt": 360630,
+    "rebalancing_trips": 51280,
     "served_share": 0.993
   },
   "improvement_pct": {
     "stockout_agent_days": 44.6,
-    "failed_cashout_bdt": 43.5,
+    "failed_cashout_bdt": 43.6,
     "failed_total_bdt": 43.6,
     "lost_commission_bdt": 43.6,
     "avg_cash_held_bdt": -2.5,
-    "rebalancing_trips": -4.0
+    "rebalancing_trips": -3.9
   },
   "per_1000_agents_month": {
-    "stockout_days_avoided": 997,
-    "failed_transactions_avoided": 32906,
-    "failed_value_avoided_bdt": 75269922,
-    "commission_recovered_bdt": 448525,
-    "customers_retained": 1607,
-    "extra_trips": 651,
-    "idle_cash_cost_saved_bdt": -146
+    "stockout_days_avoided": 996,
+    "failed_transactions_avoided": 32928,
+    "failed_value_avoided_bdt": 75374386,
+    "commission_recovered_bdt": 449147,
+    "customers_retained": 1608,
+    "extra_trips": 636,
+    "idle_cash_cost_saved_bdt": -147
   },
   "timeline": [
     {
@@ -67,56 +67,56 @@
       "status_quo_stockouts": 19,
       "floatwise_stockouts": 8,
       "status_quo_failed_bdt": 510032,
-      "floatwise_failed_bdt": 151146
+      "floatwise_failed_bdt": 149377
     },
     {
       "date": "2026-01-03",
       "status_quo_stockouts": 52,
       "floatwise_stockouts": 24,
       "status_quo_failed_bdt": 4172433,
-      "floatwise_failed_bdt": 1634784
+      "floatwise_failed_bdt": 1630558
     },
     {
       "date": "2026-01-04",
       "status_quo_stockouts": 66,
       "floatwise_stockouts": 32,
       "status_quo_failed_bdt": 4824098,
-      "floatwise_failed_bdt": 2968897
+      "floatwise_failed_bdt": 2994348
     },
     {
       "date": "2026-01-05",
       "status_quo_stockouts": 59,
       "floatwise_stockouts": 37,
       "status_quo_failed_bdt": 6732740,
-      "floatwise_failed_bdt": 4634059
+      "floatwise_failed_bdt": 4620536
     },
     {
       "date": "2026-01-06",
       "status_quo_stockouts": 52,
-      "floatwise_stockouts": 38,
+      "floatwise_stockouts": 39,
       "status_quo_failed_bdt": 5127944,
-      "floatwise_failed_bdt": 3730250
+      "floatwise_failed_bdt": 3715821
     },
     {
       "date": "2026-01-07",
       "status_quo_stockouts": 55,
       "floatwise_stockouts": 33,
       "status_quo_failed_bdt": 4022419,
-      "floatwise_failed_bdt": 3308691
+      "floatwise_failed_bdt": 3296837
     },
     {
       "date": "2026-01-08",
       "status_quo_stockouts": 48,
       "floatwise_stockouts": 31,
       "status_quo_failed_bdt": 3326380,
-      "floatwise_failed_bdt": 2163826
+      "floatwise_failed_bdt": 2155587
     },
     {
       "date": "2026-01-09",
       "status_quo_stockouts": 23,
       "floatwise_stockouts": 3,
       "status_quo_failed_bdt": 926736,
-      "floatwise_failed_bdt": 45470
+      "floatwise_failed_bdt": 44815
     },
     {
       "date": "2026-01-10",
@@ -130,7 +130,7 @@
       "status_quo_stockouts": 15,
       "floatwise_stockouts": 5,
       "status_quo_failed_bdt": 456272,
-      "floatwise_failed_bdt": 116011
+      "floatwise_failed_bdt": 114758
     },
     {
       "date": "2026-01-12",
@@ -144,35 +144,35 @@
       "status_quo_stockouts": 12,
       "floatwise_stockouts": 3,
       "status_quo_failed_bdt": 330061,
-      "floatwise_failed_bdt": 38058
+      "floatwise_failed_bdt": 38083
     },
     {
       "date": "2026-01-14",
       "status_quo_stockouts": 5,
       "floatwise_stockouts": 1,
       "status_quo_failed_bdt": 133761,
-      "floatwise_failed_bdt": 6695
+      "floatwise_failed_bdt": 6327
     },
     {
       "date": "2026-01-15",
       "status_quo_stockouts": 11,
       "floatwise_stockouts": 3,
       "status_quo_failed_bdt": 217299,
-      "floatwise_failed_bdt": 42255
+      "floatwise_failed_bdt": 41149
     },
     {
       "date": "2026-01-16",
       "status_quo_stockouts": 4,
       "floatwise_stockouts": 2,
       "status_quo_failed_bdt": 78851,
-      "floatwise_failed_bdt": 10021
+      "floatwise_failed_bdt": 9258
     },
     {
       "date": "2026-01-17",
       "status_quo_stockouts": 12,
       "floatwise_stockouts": 5,
       "status_quo_failed_bdt": 357305,
-      "floatwise_failed_bdt": 130382
+      "floatwise_failed_bdt": 130116
     },
     {
       "date": "2026-01-18",
@@ -184,30 +184,30 @@
     {
       "date": "2026-01-19",
       "status_quo_stockouts": 7,
-      "floatwise_stockouts": 9,
+      "floatwise_stockouts": 8,
       "status_quo_failed_bdt": 312873,
-      "floatwise_failed_bdt": 203445
+      "floatwise_failed_bdt": 190588
     },
     {
       "date": "2026-01-20",
       "status_quo_stockouts": 5,
       "floatwise_stockouts": 3,
       "status_quo_failed_bdt": 173672,
-      "floatwise_failed_bdt": 68524
+      "floatwise_failed_bdt": 68394
     },
     {
       "date": "2026-01-21",
       "status_quo_stockouts": 9,
       "floatwise_stockouts": 3,
       "status_quo_failed_bdt": 341569,
-      "floatwise_failed_bdt": 82137
+      "floatwise_failed_bdt": 81880
     },
     {
       "date": "2026-01-22",
       "status_quo_stockouts": 9,
       "floatwise_stockouts": 4,
       "status_quo_failed_bdt": 610780,
-      "floatwise_failed_bdt": 200324
+      "floatwise_failed_bdt": 200118
     },
     {
       "date": "2026-01-23",
@@ -221,14 +221,14 @@
       "status_quo_stockouts": 13,
       "floatwise_stockouts": 2,
       "status_quo_failed_bdt": 612467,
-      "floatwise_failed_bdt": 186675
+      "floatwise_failed_bdt": 186950
     },
     {
       "date": "2026-01-25",
       "status_quo_stockouts": 13,
       "floatwise_stockouts": 5,
       "status_quo_failed_bdt": 273725,
-      "floatwise_failed_bdt": 60533
+      "floatwise_failed_bdt": 59993
     },
     {
       "date": "2026-01-26",
@@ -242,14 +242,14 @@
       "status_quo_stockouts": 12,
       "floatwise_stockouts": 4,
       "status_quo_failed_bdt": 941850,
-      "floatwise_failed_bdt": 322381
+      "floatwise_failed_bdt": 321711
     },
     {
       "date": "2026-01-28",
       "status_quo_stockouts": 5,
-      "floatwise_stockouts": 3,
+      "floatwise_stockouts": 2,
       "status_quo_failed_bdt": 227506,
-      "floatwise_failed_bdt": 178630
+      "floatwise_failed_bdt": 178554
     },
     {
       "date": "2026-01-29",
@@ -263,7 +263,7 @@
       "status_quo_stockouts": 6,
       "floatwise_stockouts": 5,
       "status_quo_failed_bdt": 101963,
-      "floatwise_failed_bdt": 63271
+      "floatwise_failed_bdt": 62020
     },
     {
       "date": "2026-01-31",
@@ -277,98 +277,98 @@
       "status_quo_stockouts": 31,
       "floatwise_stockouts": 12,
       "status_quo_failed_bdt": 2062450,
-      "floatwise_failed_bdt": 680851
+      "floatwise_failed_bdt": 680001
     },
     {
       "date": "2026-02-02",
       "status_quo_stockouts": 35,
       "floatwise_stockouts": 19,
       "status_quo_failed_bdt": 2276382,
-      "floatwise_failed_bdt": 1390284
+      "floatwise_failed_bdt": 1389027
     },
     {
       "date": "2026-02-03",
       "status_quo_stockouts": 48,
       "floatwise_stockouts": 24,
       "status_quo_failed_bdt": 2553505,
-      "floatwise_failed_bdt": 874253
+      "floatwise_failed_bdt": 871715
     },
     {
       "date": "2026-02-04",
       "status_quo_stockouts": 68,
-      "floatwise_stockouts": 37,
+      "floatwise_stockouts": 36,
       "status_quo_failed_bdt": 5980530,
-      "floatwise_failed_bdt": 2826387
+      "floatwise_failed_bdt": 2774515
     },
     {
       "date": "2026-02-05",
       "status_quo_stockouts": 76,
       "floatwise_stockouts": 40,
       "status_quo_failed_bdt": 5692610,
-      "floatwise_failed_bdt": 3880085
+      "floatwise_failed_bdt": 3887793
     },
     {
       "date": "2026-02-06",
       "status_quo_stockouts": 24,
       "floatwise_stockouts": 17,
       "status_quo_failed_bdt": 1259780,
-      "floatwise_failed_bdt": 558848
+      "floatwise_failed_bdt": 553889
     },
     {
       "date": "2026-02-07",
       "status_quo_stockouts": 47,
       "floatwise_stockouts": 29,
       "status_quo_failed_bdt": 4618855,
-      "floatwise_failed_bdt": 2642633
+      "floatwise_failed_bdt": 2633254
     },
     {
       "date": "2026-02-08",
       "status_quo_stockouts": 39,
       "floatwise_stockouts": 21,
       "status_quo_failed_bdt": 2389178,
-      "floatwise_failed_bdt": 1630565
+      "floatwise_failed_bdt": 1622602
     },
     {
       "date": "2026-02-09",
       "status_quo_stockouts": 29,
       "floatwise_stockouts": 11,
       "status_quo_failed_bdt": 1749866,
-      "floatwise_failed_bdt": 388826
+      "floatwise_failed_bdt": 385883
     },
     {
       "date": "2026-02-10",
       "status_quo_stockouts": 22,
       "floatwise_stockouts": 3,
       "status_quo_failed_bdt": 620583,
-      "floatwise_failed_bdt": 49547
+      "floatwise_failed_bdt": 48102
     },
     {
       "date": "2026-02-11",
       "status_quo_stockouts": 16,
       "floatwise_stockouts": 1,
       "status_quo_failed_bdt": 1097197,
-      "floatwise_failed_bdt": 19780
+      "floatwise_failed_bdt": 19223
     },
     {
       "date": "2026-02-12",
       "status_quo_stockouts": 9,
       "floatwise_stockouts": 3,
       "status_quo_failed_bdt": 352182,
-      "floatwise_failed_bdt": 32075
+      "floatwise_failed_bdt": 30872
     },
     {
       "date": "2026-02-13",
       "status_quo_stockouts": 9,
       "floatwise_stockouts": 3,
       "status_quo_failed_bdt": 599513,
-      "floatwise_failed_bdt": 46365
+      "floatwise_failed_bdt": 46151
     },
     {
       "date": "2026-02-14",
       "status_quo_stockouts": 3,
       "floatwise_stockouts": 1,
       "status_quo_failed_bdt": 161901,
-      "floatwise_failed_bdt": 3432
+      "floatwise_failed_bdt": 3298
     },
     {
       "date": "2026-02-15",
@@ -389,217 +389,217 @@
       "status_quo_stockouts": 5,
       "floatwise_stockouts": 1,
       "status_quo_failed_bdt": 81450,
-      "floatwise_failed_bdt": 17600
+      "floatwise_failed_bdt": 17181
     },
     {
       "date": "2026-02-18",
       "status_quo_stockouts": 10,
       "floatwise_stockouts": 4,
       "status_quo_failed_bdt": 193139,
-      "floatwise_failed_bdt": 28834
+      "floatwise_failed_bdt": 29616
     },
     {
       "date": "2026-02-19",
       "status_quo_stockouts": 19,
       "floatwise_stockouts": 6,
       "status_quo_failed_bdt": 736253,
-      "floatwise_failed_bdt": 240075
+      "floatwise_failed_bdt": 238361
     },
     {
       "date": "2026-02-20",
       "status_quo_stockouts": 12,
-      "floatwise_stockouts": 7,
+      "floatwise_stockouts": 6,
       "status_quo_failed_bdt": 367046,
-      "floatwise_failed_bdt": 82857
+      "floatwise_failed_bdt": 71038
     },
     {
       "date": "2026-02-21",
       "status_quo_stockouts": 8,
-      "floatwise_stockouts": 3,
+      "floatwise_stockouts": 4,
       "status_quo_failed_bdt": 178698,
-      "floatwise_failed_bdt": 71457
+      "floatwise_failed_bdt": 70851
     },
     {
       "date": "2026-02-22",
       "status_quo_stockouts": 16,
       "floatwise_stockouts": 3,
       "status_quo_failed_bdt": 1050733,
-      "floatwise_failed_bdt": 189947
+      "floatwise_failed_bdt": 189663
     },
     {
       "date": "2026-02-23",
       "status_quo_stockouts": 9,
       "floatwise_stockouts": 3,
       "status_quo_failed_bdt": 290758,
-      "floatwise_failed_bdt": 121279
+      "floatwise_failed_bdt": 119508
     },
     {
       "date": "2026-02-24",
       "status_quo_stockouts": 21,
-      "floatwise_stockouts": 4,
+      "floatwise_stockouts": 5,
       "status_quo_failed_bdt": 1149621,
-      "floatwise_failed_bdt": 118475
+      "floatwise_failed_bdt": 129809
     },
     {
       "date": "2026-02-25",
       "status_quo_stockouts": 19,
       "floatwise_stockouts": 4,
       "status_quo_failed_bdt": 623349,
-      "floatwise_failed_bdt": 72104
+      "floatwise_failed_bdt": 72532
     },
     {
       "date": "2026-02-26",
       "status_quo_stockouts": 21,
       "floatwise_stockouts": 3,
       "status_quo_failed_bdt": 981820,
-      "floatwise_failed_bdt": 197917
+      "floatwise_failed_bdt": 197240
     },
     {
       "date": "2026-02-27",
       "status_quo_stockouts": 18,
       "floatwise_stockouts": 4,
       "status_quo_failed_bdt": 1012255,
-      "floatwise_failed_bdt": 305758
+      "floatwise_failed_bdt": 305993
     },
     {
       "date": "2026-02-28",
       "status_quo_stockouts": 21,
       "floatwise_stockouts": 2,
       "status_quo_failed_bdt": 723044,
-      "floatwise_failed_bdt": 44811
+      "floatwise_failed_bdt": 44646
     },
     {
       "date": "2026-03-01",
       "status_quo_stockouts": 40,
-      "floatwise_stockouts": 12,
+      "floatwise_stockouts": 11,
       "status_quo_failed_bdt": 2477955,
-      "floatwise_failed_bdt": 949166
+      "floatwise_failed_bdt": 947000
     },
     {
       "date": "2026-03-02",
       "status_quo_stockouts": 52,
       "floatwise_stockouts": 16,
       "status_quo_failed_bdt": 3828966,
-      "floatwise_failed_bdt": 2014742
+      "floatwise_failed_bdt": 2012551
     },
     {
       "date": "2026-03-03",
       "status_quo_stockouts": 50,
-      "floatwise_stockouts": 31,
+      "floatwise_stockouts": 30,
       "status_quo_failed_bdt": 5368828,
-      "floatwise_failed_bdt": 2980808
+      "floatwise_failed_bdt": 2965053
     },
     {
       "date": "2026-03-04",
       "status_quo_stockouts": 84,
       "floatwise_stockouts": 41,
       "status_quo_failed_bdt": 6288386,
-      "floatwise_failed_bdt": 4764670
+      "floatwise_failed_bdt": 4755034
     },
     {
       "date": "2026-03-05",
       "status_quo_stockouts": 92,
-      "floatwise_stockouts": 60,
+      "floatwise_stockouts": 61,
       "status_quo_failed_bdt": 8939297,
-      "floatwise_failed_bdt": 5569068
+      "floatwise_failed_bdt": 5556912
     },
     {
       "date": "2026-03-06",
       "status_quo_stockouts": 59,
-      "floatwise_stockouts": 21,
+      "floatwise_stockouts": 22,
       "status_quo_failed_bdt": 3105229,
-      "floatwise_failed_bdt": 717882
+      "floatwise_failed_bdt": 715734
     },
     {
       "date": "2026-03-07",
       "status_quo_stockouts": 73,
-      "floatwise_stockouts": 48,
+      "floatwise_stockouts": 49,
       "status_quo_failed_bdt": 6251001,
-      "floatwise_failed_bdt": 4753641
+      "floatwise_failed_bdt": 4790219
     },
     {
       "date": "2026-03-08",
       "status_quo_stockouts": 79,
       "floatwise_stockouts": 35,
       "status_quo_failed_bdt": 5464687,
-      "floatwise_failed_bdt": 2258381
+      "floatwise_failed_bdt": 2247547
     },
     {
       "date": "2026-03-09",
       "status_quo_stockouts": 47,
       "floatwise_stockouts": 19,
       "status_quo_failed_bdt": 3197128,
-      "floatwise_failed_bdt": 1235510
+      "floatwise_failed_bdt": 1233788
     },
     {
       "date": "2026-03-10",
       "status_quo_stockouts": 49,
-      "floatwise_stockouts": 16,
+      "floatwise_stockouts": 15,
       "status_quo_failed_bdt": 3912693,
-      "floatwise_failed_bdt": 443451
+      "floatwise_failed_bdt": 445199
     },
     {
       "date": "2026-03-11",
       "status_quo_stockouts": 40,
       "floatwise_stockouts": 4,
       "status_quo_failed_bdt": 2552193,
-      "floatwise_failed_bdt": 65984
+      "floatwise_failed_bdt": 65434
     },
     {
       "date": "2026-03-12",
       "status_quo_stockouts": 66,
       "floatwise_stockouts": 28,
       "status_quo_failed_bdt": 4946372,
-      "floatwise_failed_bdt": 964433
+      "floatwise_failed_bdt": 957036
     },
     {
       "date": "2026-03-13",
       "status_quo_stockouts": 78,
-      "floatwise_stockouts": 37,
+      "floatwise_stockouts": 38,
       "status_quo_failed_bdt": 5506509,
-      "floatwise_failed_bdt": 2429611
+      "floatwise_failed_bdt": 2431574
     },
     {
       "date": "2026-03-14",
       "status_quo_stockouts": 92,
       "floatwise_stockouts": 57,
       "status_quo_failed_bdt": 7714436,
-      "floatwise_failed_bdt": 2443514
+      "floatwise_failed_bdt": 2434640
     },
     {
       "date": "2026-03-15",
       "status_quo_stockouts": 127,
-      "floatwise_stockouts": 89,
+      "floatwise_stockouts": 90,
       "status_quo_failed_bdt": 9432945,
-      "floatwise_failed_bdt": 4671911
+      "floatwise_failed_bdt": 4660068
     },
     {
       "date": "2026-03-16",
       "status_quo_stockouts": 163,
-      "floatwise_stockouts": 162,
+      "floatwise_stockouts": 161,
       "status_quo_failed_bdt": 16260830,
-      "floatwise_failed_bdt": 11246101
+      "floatwise_failed_bdt": 11241875
     },
     {
       "date": "2026-03-17",
       "status_quo_stockouts": 240,
       "floatwise_stockouts": 238,
       "status_quo_failed_bdt": 29119668,
-      "floatwise_failed_bdt": 21144132
+      "floatwise_failed_bdt": 21132122
     },
     {
       "date": "2026-03-18",
       "status_quo_stockouts": 290,
       "floatwise_stockouts": 280,
       "status_quo_failed_bdt": 35713529,
-      "floatwise_failed_bdt": 28519312
+      "floatwise_failed_bdt": 28629897
     },
     {
       "date": "2026-03-19",
       "status_quo_stockouts": 294,
-      "floatwise_stockouts": 276,
+      "floatwise_stockouts": 275,
       "status_quo_failed_bdt": 39168755,
-      "floatwise_failed_bdt": 26089256
+      "floatwise_failed_bdt": 26090035
     },
     {
       "date": "2026-03-20",
@@ -613,7 +613,7 @@
       "status_quo_stockouts": 7,
       "floatwise_stockouts": 1,
       "status_quo_failed_bdt": 540597,
-      "floatwise_failed_bdt": 3082
+      "floatwise_failed_bdt": 2603
     },
     {
       "date": "2026-03-22",
@@ -641,7 +641,7 @@
       "status_quo_stockouts": 4,
       "floatwise_stockouts": 2,
       "status_quo_failed_bdt": 74906,
-      "floatwise_failed_bdt": 8560
+      "floatwise_failed_bdt": 8278
     },
     {
       "date": "2026-03-26",
@@ -655,203 +655,203 @@
       "status_quo_stockouts": 13,
       "floatwise_stockouts": 4,
       "status_quo_failed_bdt": 334898,
-      "floatwise_failed_bdt": 70440
+      "floatwise_failed_bdt": 68659
     },
     {
       "date": "2026-03-28",
       "status_quo_stockouts": 45,
       "floatwise_stockouts": 10,
       "status_quo_failed_bdt": 2219945,
-      "floatwise_failed_bdt": 474601
+      "floatwise_failed_bdt": 473248
     },
     {
       "date": "2026-03-29",
       "status_quo_stockouts": 23,
       "floatwise_stockouts": 9,
       "status_quo_failed_bdt": 960388,
-      "floatwise_failed_bdt": 363572
+      "floatwise_failed_bdt": 362756
     },
     {
       "date": "2026-03-30",
       "status_quo_stockouts": 17,
       "floatwise_stockouts": 4,
       "status_quo_failed_bdt": 646560,
-      "floatwise_failed_bdt": 411155
+      "floatwise_failed_bdt": 409594
     },
     {
       "date": "2026-03-31",
       "status_quo_stockouts": 21,
       "floatwise_stockouts": 5,
       "status_quo_failed_bdt": 813330,
-      "floatwise_failed_bdt": 217184
+      "floatwise_failed_bdt": 215358
     },
     {
       "date": "2026-04-01",
       "status_quo_stockouts": 55,
       "floatwise_stockouts": 21,
       "status_quo_failed_bdt": 3816409,
-      "floatwise_failed_bdt": 1662234
+      "floatwise_failed_bdt": 1661854
     },
     {
       "date": "2026-04-02",
       "status_quo_stockouts": 51,
-      "floatwise_stockouts": 27,
+      "floatwise_stockouts": 26,
       "status_quo_failed_bdt": 3519827,
-      "floatwise_failed_bdt": 1994280
+      "floatwise_failed_bdt": 1979973
     },
     {
       "date": "2026-04-03",
       "status_quo_stockouts": 22,
       "floatwise_stockouts": 13,
       "status_quo_failed_bdt": 1146294,
-      "floatwise_failed_bdt": 303158
+      "floatwise_failed_bdt": 298265
     },
     {
       "date": "2026-04-04",
       "status_quo_stockouts": 60,
       "floatwise_stockouts": 32,
       "status_quo_failed_bdt": 5641803,
-      "floatwise_failed_bdt": 3503466
+      "floatwise_failed_bdt": 3493903
     },
     {
       "date": "2026-04-05",
       "status_quo_stockouts": 69,
-      "floatwise_stockouts": 42,
+      "floatwise_stockouts": 44,
       "status_quo_failed_bdt": 6404347,
-      "floatwise_failed_bdt": 5393194
+      "floatwise_failed_bdt": 5391221
     },
     {
       "date": "2026-04-06",
       "status_quo_stockouts": 54,
       "floatwise_stockouts": 49,
       "status_quo_failed_bdt": 5686214,
-      "floatwise_failed_bdt": 4853749
+      "floatwise_failed_bdt": 4840498
     },
     {
       "date": "2026-04-07",
       "status_quo_stockouts": 56,
       "floatwise_stockouts": 32,
       "status_quo_failed_bdt": 5307543,
-      "floatwise_failed_bdt": 4116670
+      "floatwise_failed_bdt": 4108651
     },
     {
       "date": "2026-04-08",
       "status_quo_stockouts": 47,
       "floatwise_stockouts": 28,
       "status_quo_failed_bdt": 3886130,
-      "floatwise_failed_bdt": 3272424
+      "floatwise_failed_bdt": 3262436
     },
     {
       "date": "2026-04-09",
       "status_quo_stockouts": 47,
       "floatwise_stockouts": 14,
       "status_quo_failed_bdt": 3325959,
-      "floatwise_failed_bdt": 965245
+      "floatwise_failed_bdt": 991180
     },
     {
       "date": "2026-04-10",
       "status_quo_stockouts": 9,
       "floatwise_stockouts": 2,
       "status_quo_failed_bdt": 406282,
-      "floatwise_failed_bdt": 19918
+      "floatwise_failed_bdt": 18780
     },
     {
       "date": "2026-04-11",
       "status_quo_stockouts": 26,
       "floatwise_stockouts": 3,
       "status_quo_failed_bdt": 1390655,
-      "floatwise_failed_bdt": 88507
+      "floatwise_failed_bdt": 87725
     },
     {
       "date": "2026-04-12",
       "status_quo_stockouts": 15,
-      "floatwise_stockouts": 2,
+      "floatwise_stockouts": 3,
       "status_quo_failed_bdt": 282300,
-      "floatwise_failed_bdt": 74129
+      "floatwise_failed_bdt": 90101
     },
     {
       "date": "2026-04-13",
       "status_quo_stockouts": 25,
       "floatwise_stockouts": 3,
       "status_quo_failed_bdt": 1812685,
-      "floatwise_failed_bdt": 43156
+      "floatwise_failed_bdt": 43534
     },
     {
       "date": "2026-04-14",
       "status_quo_stockouts": 7,
       "floatwise_stockouts": 2,
       "status_quo_failed_bdt": 300423,
-      "floatwise_failed_bdt": 37065
+      "floatwise_failed_bdt": 36777
     },
     {
       "date": "2026-04-15",
       "status_quo_stockouts": 19,
       "floatwise_stockouts": 3,
       "status_quo_failed_bdt": 641687,
-      "floatwise_failed_bdt": 69559
+      "floatwise_failed_bdt": 69404
     },
     {
       "date": "2026-04-16",
       "status_quo_stockouts": 5,
       "floatwise_stockouts": 2,
       "status_quo_failed_bdt": 221975,
-      "floatwise_failed_bdt": 21238
+      "floatwise_failed_bdt": 21057
     },
     {
       "date": "2026-04-17",
       "status_quo_stockouts": 18,
       "floatwise_stockouts": 6,
       "status_quo_failed_bdt": 698627,
-      "floatwise_failed_bdt": 99227
+      "floatwise_failed_bdt": 98376
     },
     {
       "date": "2026-04-18",
       "status_quo_stockouts": 10,
       "floatwise_stockouts": 5,
       "status_quo_failed_bdt": 191291,
-      "floatwise_failed_bdt": 63807
+      "floatwise_failed_bdt": 63212
     },
     {
       "date": "2026-04-19",
       "status_quo_stockouts": 10,
       "floatwise_stockouts": 6,
       "status_quo_failed_bdt": 230986,
-      "floatwise_failed_bdt": 135165
+      "floatwise_failed_bdt": 135568
     },
     {
       "date": "2026-04-20",
       "status_quo_stockouts": 7,
-      "floatwise_stockouts": 6,
+      "floatwise_stockouts": 5,
       "status_quo_failed_bdt": 614471,
-      "floatwise_failed_bdt": 172574
+      "floatwise_failed_bdt": 167856
     },
     {
       "date": "2026-04-21",
       "status_quo_stockouts": 11,
       "floatwise_stockouts": 4,
       "status_quo_failed_bdt": 706330,
-      "floatwise_failed_bdt": 215757
+      "floatwise_failed_bdt": 214785
     },
     {
       "date": "2026-04-22",
       "status_quo_stockouts": 15,
       "floatwise_stockouts": 3,
       "status_quo_failed_bdt": 505693,
-      "floatwise_failed_bdt": 47189
+      "floatwise_failed_bdt": 47290
     },
     {
       "date": "2026-04-23",
       "status_quo_stockouts": 13,
       "floatwise_stockouts": 4,
       "status_quo_failed_bdt": 751804,
-      "floatwise_failed_bdt": 83244
+      "floatwise_failed_bdt": 82178
     },
     {
       "date": "2026-04-24",
       "status_quo_stockouts": 6,
       "floatwise_stockouts": 2,
       "status_quo_failed_bdt": 164150,
-      "floatwise_failed_bdt": 2156
+      "floatwise_failed_bdt": 2406
     },
     {
       "date": "2026-04-25",
@@ -865,105 +865,105 @@
       "status_quo_stockouts": 20,
       "floatwise_stockouts": 7,
       "status_quo_failed_bdt": 633724,
-      "floatwise_failed_bdt": 104732
+      "floatwise_failed_bdt": 103444
     },
     {
       "date": "2026-04-27",
       "status_quo_stockouts": 15,
       "floatwise_stockouts": 8,
       "status_quo_failed_bdt": 521756,
-      "floatwise_failed_bdt": 340697
+      "floatwise_failed_bdt": 339364
     },
     {
       "date": "2026-04-28",
       "status_quo_stockouts": 11,
       "floatwise_stockouts": 3,
       "status_quo_failed_bdt": 474029,
-      "floatwise_failed_bdt": 8246
+      "floatwise_failed_bdt": 8718
     },
     {
       "date": "2026-04-29",
       "status_quo_stockouts": 13,
       "floatwise_stockouts": 5,
       "status_quo_failed_bdt": 547467,
-      "floatwise_failed_bdt": 215110
+      "floatwise_failed_bdt": 215124
     },
     {
       "date": "2026-04-30",
       "status_quo_stockouts": 13,
       "floatwise_stockouts": 6,
       "status_quo_failed_bdt": 710552,
-      "floatwise_failed_bdt": 167297
+      "floatwise_failed_bdt": 167205
     },
     {
       "date": "2026-05-01",
       "status_quo_stockouts": 13,
       "floatwise_stockouts": 5,
       "status_quo_failed_bdt": 316052,
-      "floatwise_failed_bdt": 113509
+      "floatwise_failed_bdt": 111485
     },
     {
       "date": "2026-05-02",
       "status_quo_stockouts": 51,
       "floatwise_stockouts": 18,
       "status_quo_failed_bdt": 3907339,
-      "floatwise_failed_bdt": 1855430
+      "floatwise_failed_bdt": 1853844
     },
     {
       "date": "2026-05-03",
       "status_quo_stockouts": 56,
       "floatwise_stockouts": 28,
       "status_quo_failed_bdt": 5378186,
-      "floatwise_failed_bdt": 3254753
+      "floatwise_failed_bdt": 3249032
     },
     {
       "date": "2026-05-04",
       "status_quo_stockouts": 75,
       "floatwise_stockouts": 43,
       "status_quo_failed_bdt": 6083425,
-      "floatwise_failed_bdt": 4342207
+      "floatwise_failed_bdt": 4332521
     },
     {
       "date": "2026-05-05",
       "status_quo_stockouts": 76,
       "floatwise_stockouts": 43,
       "status_quo_failed_bdt": 5632009,
-      "floatwise_failed_bdt": 4357887
+      "floatwise_failed_bdt": 4346742
     },
     {
       "date": "2026-05-06",
       "status_quo_stockouts": 69,
       "floatwise_stockouts": 47,
       "status_quo_failed_bdt": 5968997,
-      "floatwise_failed_bdt": 4603566
+      "floatwise_failed_bdt": 4590243
     },
     {
       "date": "2026-05-07",
       "status_quo_stockouts": 56,
-      "floatwise_stockouts": 34,
+      "floatwise_stockouts": 33,
       "status_quo_failed_bdt": 4854400,
-      "floatwise_failed_bdt": 3565934
+      "floatwise_failed_bdt": 3558434
     },
     {
       "date": "2026-05-08",
       "status_quo_stockouts": 39,
-      "floatwise_stockouts": 20,
+      "floatwise_stockouts": 19,
       "status_quo_failed_bdt": 1859005,
-      "floatwise_failed_bdt": 571181
+      "floatwise_failed_bdt": 544672
     },
     {
       "date": "2026-05-09",
       "status_quo_stockouts": 27,
       "floatwise_stockouts": 8,
       "status_quo_failed_bdt": 1396710,
-      "floatwise_failed_bdt": 436991
+      "floatwise_failed_bdt": 433809
     },
     {
       "date": "2026-05-10",
       "status_quo_stockouts": 25,
       "floatwise_stockouts": 2,
       "status_quo_failed_bdt": 1725562,
-      "floatwise_failed_bdt": 41889
+      "floatwise_failed_bdt": 41035
     },
     {
       "date": "2026-05-11",
@@ -975,9 +975,9 @@
     {
       "date": "2026-05-12",
       "status_quo_stockouts": 18,
-      "floatwise_stockouts": 2,
+      "floatwise_stockouts": 1,
       "status_quo_failed_bdt": 1332402,
-      "floatwise_failed_bdt": 92503
+      "floatwise_failed_bdt": 15860
     },
     {
       "date": "2026-05-13",
@@ -991,91 +991,91 @@
       "status_quo_stockouts": 10,
       "floatwise_stockouts": 4,
       "status_quo_failed_bdt": 415652,
-      "floatwise_failed_bdt": 41137
+      "floatwise_failed_bdt": 40315
     },
     {
       "date": "2026-05-15",
       "status_quo_stockouts": 10,
       "floatwise_stockouts": 1,
       "status_quo_failed_bdt": 234990,
-      "floatwise_failed_bdt": 6255
+      "floatwise_failed_bdt": 5793
     },
     {
       "date": "2026-05-16",
       "status_quo_stockouts": 11,
       "floatwise_stockouts": 5,
       "status_quo_failed_bdt": 161601,
-      "floatwise_failed_bdt": 121083
+      "floatwise_failed_bdt": 120253
     },
     {
       "date": "2026-05-17",
       "status_quo_stockouts": 19,
       "floatwise_stockouts": 4,
       "status_quo_failed_bdt": 380072,
-      "floatwise_failed_bdt": 217430
+      "floatwise_failed_bdt": 216748
     },
     {
       "date": "2026-05-18",
       "status_quo_stockouts": 31,
-      "floatwise_stockouts": 16,
+      "floatwise_stockouts": 15,
       "status_quo_failed_bdt": 760871,
-      "floatwise_failed_bdt": 582793
+      "floatwise_failed_bdt": 580577
     },
     {
       "date": "2026-05-19",
       "status_quo_stockouts": 25,
-      "floatwise_stockouts": 14,
+      "floatwise_stockouts": 15,
       "status_quo_failed_bdt": 1007044,
-      "floatwise_failed_bdt": 773381
+      "floatwise_failed_bdt": 800087
     },
     {
       "date": "2026-05-20",
       "status_quo_stockouts": 42,
       "floatwise_stockouts": 24,
       "status_quo_failed_bdt": 1450884,
-      "floatwise_failed_bdt": 728812
+      "floatwise_failed_bdt": 723985
     },
     {
       "date": "2026-05-21",
       "status_quo_stockouts": 64,
-      "floatwise_stockouts": 31,
+      "floatwise_stockouts": 30,
       "status_quo_failed_bdt": 3735748,
-      "floatwise_failed_bdt": 1335674
+      "floatwise_failed_bdt": 1332925
     },
     {
       "date": "2026-05-22",
       "status_quo_stockouts": 68,
       "floatwise_stockouts": 41,
       "status_quo_failed_bdt": 4298620,
-      "floatwise_failed_bdt": 2282827
+      "floatwise_failed_bdt": 2273857
     },
     {
       "date": "2026-05-23",
       "status_quo_stockouts": 98,
-      "floatwise_stockouts": 79,
+      "floatwise_stockouts": 80,
       "status_quo_failed_bdt": 8380411,
-      "floatwise_failed_bdt": 4543968
+      "floatwise_failed_bdt": 4538739
     },
     {
       "date": "2026-05-24",
       "status_quo_stockouts": 127,
-      "floatwise_stockouts": 84,
+      "floatwise_stockouts": 85,
       "status_quo_failed_bdt": 9046176,
-      "floatwise_failed_bdt": 4625242
+      "floatwise_failed_bdt": 4623005
     },
     {
       "date": "2026-05-25",
       "status_quo_stockouts": 144,
       "floatwise_stockouts": 171,
       "status_quo_failed_bdt": 12983458,
-      "floatwise_failed_bdt": 12167717
+      "floatwise_failed_bdt": 12179129
     },
     {
       "date": "2026-05-26",
       "status_quo_stockouts": 186,
-      "floatwise_stockouts": 154,
+      "floatwise_stockouts": 156,
       "status_quo_failed_bdt": 17132082,
-      "floatwise_failed_bdt": 10315464
+      "floatwise_failed_bdt": 10314002
     },
     {
       "date": "2026-05-27",
@@ -1096,105 +1096,105 @@
       "status_quo_stockouts": 24,
       "floatwise_stockouts": 1,
       "status_quo_failed_bdt": 573283,
-      "floatwise_failed_bdt": 75406
+      "floatwise_failed_bdt": 74896
     },
     {
       "date": "2026-05-30",
       "status_quo_stockouts": 6,
       "floatwise_stockouts": 3,
       "status_quo_failed_bdt": 126890,
-      "floatwise_failed_bdt": 71074
+      "floatwise_failed_bdt": 70851
     },
     {
       "date": "2026-05-31",
       "status_quo_stockouts": 2,
       "floatwise_stockouts": 4,
       "status_quo_failed_bdt": 28794,
-      "floatwise_failed_bdt": 29517
+      "floatwise_failed_bdt": 29693
     },
     {
       "date": "2026-06-01",
       "status_quo_stockouts": 13,
       "floatwise_stockouts": 7,
       "status_quo_failed_bdt": 448361,
-      "floatwise_failed_bdt": 288892
+      "floatwise_failed_bdt": 287918
     },
     {
       "date": "2026-06-02",
       "status_quo_stockouts": 45,
-      "floatwise_stockouts": 22,
+      "floatwise_stockouts": 23,
       "status_quo_failed_bdt": 3408815,
-      "floatwise_failed_bdt": 1725592
+      "floatwise_failed_bdt": 1722057
     },
     {
       "date": "2026-06-03",
       "status_quo_stockouts": 98,
-      "floatwise_stockouts": 34,
+      "floatwise_stockouts": 35,
       "status_quo_failed_bdt": 6671545,
-      "floatwise_failed_bdt": 2343352
+      "floatwise_failed_bdt": 2346172
     },
     {
       "date": "2026-06-04",
       "status_quo_stockouts": 150,
-      "floatwise_stockouts": 80,
+      "floatwise_stockouts": 79,
       "status_quo_failed_bdt": 22481774,
-      "floatwise_failed_bdt": 10841162
+      "floatwise_failed_bdt": 10824191
     },
     {
       "date": "2026-06-05",
       "status_quo_stockouts": 50,
-      "floatwise_stockouts": 29,
+      "floatwise_stockouts": 28,
       "status_quo_failed_bdt": 3098542,
-      "floatwise_failed_bdt": 1137546
+      "floatwise_failed_bdt": 1108721
     },
     {
       "date": "2026-06-06",
       "status_quo_stockouts": 90,
-      "floatwise_stockouts": 56,
+      "floatwise_stockouts": 57,
       "status_quo_failed_bdt": 12200146,
-      "floatwise_failed_bdt": 7143625
+      "floatwise_failed_bdt": 7169845
     },
     {
       "date": "2026-06-07",
       "status_quo_stockouts": 74,
       "floatwise_stockouts": 44,
       "status_quo_failed_bdt": 8188302,
-      "floatwise_failed_bdt": 5946763
+      "floatwise_failed_bdt": 5933022
     },
     {
       "date": "2026-06-08",
       "status_quo_stockouts": 53,
-      "floatwise_stockouts": 38,
+      "floatwise_stockouts": 37,
       "status_quo_failed_bdt": 4861433,
-      "floatwise_failed_bdt": 4347221
+      "floatwise_failed_bdt": 4335362
     },
     {
       "date": "2026-06-09",
       "status_quo_stockouts": 30,
-      "floatwise_stockouts": 14,
+      "floatwise_stockouts": 15,
       "status_quo_failed_bdt": 1598390,
-      "floatwise_failed_bdt": 898539
+      "floatwise_failed_bdt": 903645
     },
     {
       "date": "2026-06-10",
       "status_quo_stockouts": 21,
       "floatwise_stockouts": 5,
       "status_quo_failed_bdt": 1016011,
-      "floatwise_failed_bdt": 293594
+      "floatwise_failed_bdt": 292892
     },
     {
       "date": "2026-06-11",
       "status_quo_stockouts": 29,
       "floatwise_stockouts": 5,
       "status_quo_failed_bdt": 1440761,
-      "floatwise_failed_bdt": 90960
+      "floatwise_failed_bdt": 90966
     },
     {
       "date": "2026-06-12",
       "status_quo_stockouts": 18,
       "floatwise_stockouts": 3,
       "status_quo_failed_bdt": 414802,
-      "floatwise_failed_bdt": 33362
+      "floatwise_failed_bdt": 33277
     },
     {
       "date": "2026-06-13",
@@ -1208,28 +1208,28 @@
       "status_quo_stockouts": 11,
       "floatwise_stockouts": 6,
       "status_quo_failed_bdt": 276623,
-      "floatwise_failed_bdt": 597597
+      "floatwise_failed_bdt": 596799
     },
     {
       "date": "2026-06-15",
       "status_quo_stockouts": 10,
       "floatwise_stockouts": 3,
       "status_quo_failed_bdt": 412133,
-      "floatwise_failed_bdt": 109142
+      "floatwise_failed_bdt": 108461
     },
     {
       "date": "2026-06-16",
       "status_quo_stockouts": 11,
-      "floatwise_stockouts": 1,
+      "floatwise_stockouts": 2,
       "status_quo_failed_bdt": 288676,
-      "floatwise_failed_bdt": 37706
+      "floatwise_failed_bdt": 37541
     },
     {
       "date": "2026-06-17",
       "status_quo_stockouts": 8,
       "floatwise_stockouts": 5,
       "status_quo_failed_bdt": 362023,
-      "floatwise_failed_bdt": 548295
+      "floatwise_failed_bdt": 547861
     },
     {
       "date": "2026-06-18",
@@ -1243,70 +1243,70 @@
       "status_quo_stockouts": 7,
       "floatwise_stockouts": 3,
       "status_quo_failed_bdt": 144783,
-      "floatwise_failed_bdt": 27147
+      "floatwise_failed_bdt": 26539
     },
     {
       "date": "2026-06-20",
       "status_quo_stockouts": 15,
-      "floatwise_stockouts": 6,
+      "floatwise_stockouts": 7,
       "status_quo_failed_bdt": 926311,
-      "floatwise_failed_bdt": 287713
+      "floatwise_failed_bdt": 287919
     },
     {
       "date": "2026-06-21",
       "status_quo_stockouts": 11,
       "floatwise_stockouts": 3,
       "status_quo_failed_bdt": 494466,
-      "floatwise_failed_bdt": 114838
+      "floatwise_failed_bdt": 114385
     },
     {
       "date": "2026-06-22",
       "status_quo_stockouts": 8,
       "floatwise_stockouts": 4,
       "status_quo_failed_bdt": 99317,
-      "floatwise_failed_bdt": 35620
+      "floatwise_failed_bdt": 35771
     },
     {
       "date": "2026-06-23",
       "status_quo_stockouts": 13,
       "floatwise_stockouts": 7,
       "status_quo_failed_bdt": 634857,
-      "floatwise_failed_bdt": 155078
+      "floatwise_failed_bdt": 155142
     },
     {
       "date": "2026-06-24",
       "status_quo_stockouts": 16,
       "floatwise_stockouts": 6,
       "status_quo_failed_bdt": 436073,
-      "floatwise_failed_bdt": 160970
+      "floatwise_failed_bdt": 164584
     },
     {
       "date": "2026-06-25",
       "status_quo_stockouts": 9,
       "floatwise_stockouts": 2,
       "status_quo_failed_bdt": 269236,
-      "floatwise_failed_bdt": 42820
+      "floatwise_failed_bdt": 42315
     },
     {
       "date": "2026-06-26",
       "status_quo_stockouts": 9,
-      "floatwise_stockouts": 4,
+      "floatwise_stockouts": 3,
       "status_quo_failed_bdt": 126158,
-      "floatwise_failed_bdt": 26498
+      "floatwise_failed_bdt": 26182
     },
     {
       "date": "2026-06-27",
       "status_quo_stockouts": 10,
       "floatwise_stockouts": 2,
       "status_quo_failed_bdt": 244554,
-      "floatwise_failed_bdt": 15195
+      "floatwise_failed_bdt": 15210
     },
     {
       "date": "2026-06-28",
       "status_quo_stockouts": 11,
       "floatwise_stockouts": 5,
       "status_quo_failed_bdt": 277469,
-      "floatwise_failed_bdt": 155161
+      "floatwise_failed_bdt": 154897
     },
     {
       "date": "2026-06-29",
@@ -1318,9 +1318,9 @@
     {
       "date": "2026-06-30",
       "status_quo_stockouts": 8,
-      "floatwise_stockouts": 1,
+      "floatwise_stockouts": 0,
       "status_quo_failed_bdt": 102488,
-      "floatwise_failed_bdt": 87
+      "floatwise_failed_bdt": 0
     }
   ],
   "by_archetype": [
@@ -1328,19 +1328,19 @@
       "segment": "urban_residential",
       "n_agents": 125,
       "status_quo_stockouts": 1775,
-      "floatwise_stockouts": 589,
-      "stockout_reduction_pct": 66.8,
+      "floatwise_stockouts": 597,
+      "stockout_reduction_pct": 66.4,
       "status_quo_failed_bdt": 112411783,
-      "floatwise_failed_bdt": 28457154
+      "floatwise_failed_bdt": 28821188
     },
     {
       "segment": "garment_belt",
       "n_agents": 100,
       "status_quo_stockouts": 2122,
-      "floatwise_stockouts": 1511,
-      "stockout_reduction_pct": 28.8,
+      "floatwise_stockouts": 1508,
+      "stockout_reduction_pct": 28.9,
       "status_quo_failed_bdt": 253730374,
-      "floatwise_failed_bdt": 185764756
+      "floatwise_failed_bdt": 185408665
     },
     {
       "segment": "rural_remittance",
@@ -1349,7 +1349,7 @@
       "floatwise_stockouts": 1293,
       "stockout_reduction_pct": 33.0,
       "status_quo_failed_bdt": 73808295,
-      "floatwise_failed_bdt": 58797233
+      "floatwise_failed_bdt": 58518859
     },
     {
       "segment": "market_hub",
@@ -1358,16 +1358,16 @@
       "floatwise_stockouts": 213,
       "stockout_reduction_pct": 64.6,
       "status_quo_failed_bdt": 75105151,
-      "floatwise_failed_bdt": 18890488
+      "floatwise_failed_bdt": 18829059
     },
     {
       "segment": "university_area",
       "n_agents": 50,
       "status_quo_stockouts": 306,
-      "floatwise_stockouts": 123,
-      "stockout_reduction_pct": 59.8,
+      "floatwise_stockouts": 119,
+      "stockout_reduction_pct": 61.1,
       "status_quo_failed_bdt": 5882467,
-      "floatwise_failed_bdt": 1964176
+      "floatwise_failed_bdt": 1980904
     }
   ],
   "by_area_type": [
@@ -1378,60 +1378,60 @@
       "floatwise_stockouts": 1293,
       "stockout_reduction_pct": 33.0,
       "status_quo_failed_bdt": 73808295,
-      "floatwise_failed_bdt": 58797233
+      "floatwise_failed_bdt": 58518859
     },
     {
       "segment": "urban",
       "n_agents": 350,
       "status_quo_stockouts": 4805,
-      "floatwise_stockouts": 2436,
+      "floatwise_stockouts": 2437,
       "stockout_reduction_pct": 49.3,
       "status_quo_failed_bdt": 447129776,
-      "floatwise_failed_bdt": 235076574
+      "floatwise_failed_bdt": 235039815
     }
   ],
   "sweep": [
     {
       "service_level": 0.8,
-      "stockout_agent_days": 5775,
-      "failed_bdt": 378741147,
-      "avg_cash_held_bdt": 350700,
-      "rebalancing_trips": 65817
+      "stockout_agent_days": 5774,
+      "failed_bdt": 378405953,
+      "avg_cash_held_bdt": 350678,
+      "rebalancing_trips": 65819
     },
     {
       "service_level": 0.85,
-      "stockout_agent_days": 5187,
-      "failed_bdt": 354326052,
-      "avg_cash_held_bdt": 351840,
-      "rebalancing_trips": 65774
+      "stockout_agent_days": 5184,
+      "failed_bdt": 354007331,
+      "avg_cash_held_bdt": 351819,
+      "rebalancing_trips": 65782
     },
     {
       "service_level": 0.9,
-      "stockout_agent_days": 4797,
-      "failed_bdt": 337352728,
-      "avg_cash_held_bdt": 353390,
-      "rebalancing_trips": 64744
+      "stockout_agent_days": 4794,
+      "failed_bdt": 337042358,
+      "avg_cash_held_bdt": 353410,
+      "rebalancing_trips": 64747
     },
     {
       "service_level": 0.95,
-      "stockout_agent_days": 3890,
-      "failed_bdt": 299764434,
-      "avg_cash_held_bdt": 357946,
-      "rebalancing_trips": 56611
+      "stockout_agent_days": 3887,
+      "failed_bdt": 299410257,
+      "avg_cash_held_bdt": 357995,
+      "rebalancing_trips": 56603
     },
     {
       "service_level": 0.97,
-      "stockout_agent_days": 3753,
-      "failed_bdt": 294378609,
-      "avg_cash_held_bdt": 359646,
-      "rebalancing_trips": 53734
+      "stockout_agent_days": 3750,
+      "failed_bdt": 294266539,
+      "avg_cash_held_bdt": 359675,
+      "rebalancing_trips": 53710
     },
     {
       "service_level": 0.99,
-      "stockout_agent_days": 3729,
-      "failed_bdt": 293873807,
-      "avg_cash_held_bdt": 360573,
-      "rebalancing_trips": 51326
+      "stockout_agent_days": 3730,
+      "failed_bdt": 293558674,
+      "avg_cash_held_bdt": 360630,
+      "rebalancing_trips": 51280
     }
   ],
   "source": "cache"

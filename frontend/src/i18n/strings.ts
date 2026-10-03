@@ -198,6 +198,7 @@ const EVENT_BN: Record<string, string> = {
   "Eid-ul-Adha": "ঈদুল আযহা",
   "Pohela Boishakh": "পহেলা বৈশাখ",
   "Salary window": "বেতনের দিন",
+  "Allowance disbursement": "ভাতা বিতরণ",
 };
 export const eventName = (name: string, lang: Lang) => (lang === "bn" ? (EVENT_BN[name] ?? name) : name);
 
@@ -212,6 +213,7 @@ export function reasonLabel(code: string, lang: Lang): string {
     EID_DAY: ["Eid day", "ঈদের দিন"],
     EID_HOLIDAY: ["Eid holiday", "ঈদের ছুটি"],
     SALARY_WINDOW: ["Salary days", "বেতনের দিন"],
+    G2P_DISBURSEMENT: ["Allowance disbursement (G2P)", "ভাতা বিতরণ (জিটুপি)"],
     RAMADAN: ["Ramadan", "রমজান"],
     POHELA_BOISHAKH: ["Pohela Boishakh", "পহেলা বৈশাখ"],
     CASH_BELOW_NEED: ["Cash below need", "নগদ চাহিদার চেয়ে কম"],

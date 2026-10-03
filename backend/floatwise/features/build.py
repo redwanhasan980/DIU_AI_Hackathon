@@ -24,7 +24,7 @@ STOCKOUT_COLS = {"cashout": "stockout_cash", "cashin": "stockout_efloat"}
 SCALE_FLOOR = 1000.0
 
 CALENDAR_FEATURES = [
-    "dow", "is_weekend", "day_of_month", "is_salary_window", "days_to_eid_fitr", "days_to_eid_adha",
+    "dow", "is_weekend", "day_of_month", "is_salary_window", "g2p_day_index", "days_to_eid_fitr", "days_to_eid_adha",
     "days_after_eid", "is_ramadan", "is_boishakh", "is_public_holiday",
 ]  # fmt: skip
 CATEGORICAL_FEATURES = ["archetype_code", "district_code"]

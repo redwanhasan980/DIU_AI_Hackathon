@@ -31,6 +31,8 @@ def _display(cfg: Config, feature: str, value: float, lang: str) -> str:
         return yes if value >= 0.5 else no
     if feature == "dow":
         return L.DOW[lang][int(value)]
+    if feature == "g2p_day_index":
+        return "—" if value < 0 else f"{L.num(int(value) + 1, lang)}"
     if feature == "day_of_month":
         return L.num(int(value), lang)
     if feature == "h":

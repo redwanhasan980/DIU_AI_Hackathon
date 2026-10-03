@@ -26,6 +26,7 @@ Regenerate with `make data` (full: 500 agents) or `make sample` (50 agents, comm
 | Eid holiday | Eid day + 2 days; "post-Eid" = days 3–7 after |
 | Pre-Eid ramp | Demand rises over the 10 days before Eid; ramp (k = 1..10 days before) = 1.0, 1.0, 0.9, 0.75, 0.6, 0.45, 0.35, 0.25, 0.15, 0.1 |
 | Salary window | Days 1–10 of each month, curve 0.3 → 1.0 (days 5–7) → 0.3; garment wages are paid within the first ~7 working days |
+| Allowance disbursement (G2P) | **Synthetic** quarterly schedule on 20 Jan / Apr / Jul / Oct, effect over the disbursement day + 4 days (curve 1.0 → 0.2). upay disburses government social-safety-net allowances; recipients, mostly rural, then cash out at agents. The real schedule is set by the government; replace these dates with it |
 | Weekend | Friday and Saturday |
 | Pohela Boishakh | 14 April and the 2 days before |
 | Public holidays (fixed) | 21 Feb, 26 Mar, 1 May, 16 Dec |
@@ -34,7 +35,7 @@ Regenerate with `make data` (full: 500 agents) or `make sample` (50 agents, comm
 
 ## 3. Demand model (true demand, per agent per day)
 ```
-demand = base[archetype] × size × dow × (1 + salary_amp × salary_curve)
+demand = base[archetype] × size × dow × (1 + salary_amp × salary_curve) × (1 + g2p_amp × g2p_curve)
          × (1 + eid_amp × pre_eid_ramp) × eid_holiday/post_eid × ramadan × boishakh × holiday
          × shock(district, day) × (1 + 12 %)^years × LogNormal noise (mean 1)
 ```
@@ -42,7 +43,7 @@ demand = base[archetype] × size × dow × (1 + salary_amp × salary_curve)
 |---|---|---|---|
 | urban_residential | 1,50,000 / 1,80,000 | 0.22 | CI ×2.4 before Eid-ul-Fitr (people send money home); CI +35 % at month start |
 | garment_belt | 2,50,000 / 1,00,000 | 0.22 | CO ×2 at salary peak; CO ×2.2 before Eid-ul-Fitr (bonus); Friday −30 % |
-| rural_remittance | 80,000 / 40,000 | 0.25 | CO ×2.6 before Eid-ul-Fitr, ×2.3 before Eid-ul-Adha; stays high after Eid |
+| rural_remittance | 80,000 / 40,000 | 0.25 | CO ×2.6 before Eid-ul-Fitr, ×2.3 before Eid-ul-Adha; stays high after Eid; CO ×1.8 on allowance (G2P) disbursement days |
 | market_hub | 3,00,000 / 3,00,000 | 0.20 | Big both ways; Boishakh ×1.3; pre-Adha cattle-market CO ×2 |
 | university_area | 60,000 / 50,000 | 0.25 | CO +50 % at month start (family support); weekends −20/−40 % |
 

@@ -32,6 +32,23 @@ def test_calendar_ramadan_and_salary(cfg):
     assert cal["date"].is_unique and len(cal) == (cfg.dates.end - cfg.dates.start).days + 1
 
 
+def test_g2p_disbursement_window(cfg):
+    cal = build_calendar(cfg).set_index("date")
+    day = pd.Timestamp("2025-04-20")
+    assert cal.loc[day, "g2p_day_index"] == 0 and cal.loc[day, "is_g2p_window"]
+    assert cal.loc[day + pd.Timedelta(days=len(cfg.calendar.g2p_curve)), "g2p_day_index"] == -1
+    assert cal["is_g2p_window"].sum() == len(cfg.calendar.g2p_curve) * 10  # 10 quarters in range
+
+
+def test_rural_g2p_spike_visible(sample, cfg):
+    d = sample["daily"].merge(sample["agents"][["agent_id", "archetype"]], on="agent_id")
+    d = d.merge(build_calendar(cfg)[["date", "g2p_day_index", "event_name"]], on="date")
+    rural = d[(d["archetype"] == "rural_remittance") & d["event_name"].isin(["", "Allowance disbursement"])]
+    on = rural[rural["g2p_day_index"].between(0, 1)]["cashout_demand_amt"].mean()
+    off = rural[rural["g2p_day_index"] == -1]["cashout_demand_amt"].mean()
+    assert on >= 1.4 * off
+
+
 def test_demo_date_is_before_eid(cfg):
     events = upcoming_events(cfg, cfg.dates.demo_date)
     names = {e[0]: e[2] for e in events}

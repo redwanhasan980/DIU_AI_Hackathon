@@ -67,6 +67,7 @@ EVENTS = {
     "Eid-ul-Adha": {"en": "Eid-ul-Adha", "bn": "ঈদুল আযহা"},
     "Pohela Boishakh": {"en": "Pohela Boishakh", "bn": "পহেলা বৈশাখ"},
     "Salary window": {"en": "salary days", "bn": "বেতনের দিন"},
+    "Allowance disbursement": {"en": "allowance disbursement", "bn": "ভাতা বিতরণ"},
 }
 
 # feature -> (en, bn) label used for SHAP drivers
@@ -76,6 +77,7 @@ FEATURES = {
     "is_weekend": ("Weekend", "সাপ্তাহিক ছুটি"),
     "day_of_month": ("Day of month (salary cycle)", "মাসের তারিখ (বেতন চক্র)"),
     "is_salary_window": ("Salary days", "বেতনের দিন"),
+    "g2p_day_index": ("Allowance disbursement (G2P) day", "ভাতা বিতরণের দিন"),
     "days_to_eid_fitr": ("Days to Eid-ul-Fitr", "ঈদুল ফিতর পর্যন্ত দিন"),
     "days_to_eid_adha": ("Days to Eid-ul-Adha", "ঈদুল আযহা পর্যন্ত দিন"),
     "days_after_eid": ("Days since Eid", "ঈদের পর দিন"),

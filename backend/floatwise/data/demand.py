@@ -1,6 +1,6 @@
 """True daily cash-out / cash-in demand per agent (FR-DATA-3, SRS §5.3).
 
-demand(agent, d) = base[arch] x size[agent] x dow x salary x eid x ramadan x boishakh x holiday
+demand(agent, d) = base[arch] x size[agent] x dow x salary x g2p x eid x ramadan x boishakh x holiday
                    x shock(district, d) x trend(d) x noise
 """
 
@@ -23,6 +23,11 @@ def archetype_multipliers(cfg: Config, calendar: pd.DataFrame, arch: ArchetypeCf
     curve = np.zeros(n)
     curve[in_window] = np.asarray(cal.salary_curve)[dom[in_window] - cal.salary_window[0]]
     m *= 1.0 + getattr(arch.salary_amp, side) * curve
+
+    g2p = calendar["g2p_day_index"].to_numpy()
+    g2p_curve = np.zeros(n)
+    g2p_curve[g2p >= 0] = np.asarray(cal.g2p_curve)[g2p[g2p >= 0]]
+    m *= 1.0 + getattr(arch.g2p_amp, side) * g2p_curve
 
     ramp = np.asarray(cal.pre_eid_ramp)
     for col, amp in (("days_to_eid_fitr", arch.eid_fitr_amp), ("days_to_eid_adha", arch.eid_adha_amp)):

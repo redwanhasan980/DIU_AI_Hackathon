@@ -50,6 +50,8 @@ class CalendarCfg(_Strict):
     salary_window: tuple[int, int]
     salary_curve: list[float]
     weekend_dows: list[int]
+    g2p_disbursement_days: list[str]
+    g2p_curve: list[float]
 
 
 class NetworkCfg(_Strict):
@@ -78,6 +80,7 @@ class ArchetypeCfg(_Strict):
     ticket: float
     dow: list[float]
     salary_amp: Amp
+    g2p_amp: Amp
     eid_fitr_amp: Amp
     eid_adha_amp: Amp
     eid_holiday_mult: float

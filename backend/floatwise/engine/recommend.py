@@ -149,6 +149,8 @@ def reason_codes(
         codes.append("EID_HOLIDAY")
     if effective["is_salary_window"]:
         codes.append("SALARY_WINDOW")
+    if effective["is_g2p_window"]:
+        codes.append("G2P_DISBURSEMENT")
     if effective["is_ramadan"]:
         codes.append("RAMADAN")
     if effective["is_boishakh"]:

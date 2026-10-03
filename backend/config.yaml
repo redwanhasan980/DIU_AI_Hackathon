@@ -192,6 +192,7 @@ policy:
   dso:
     max_visits: 10
     max_cash: 1000000
+    allocator: greedy        # greedy | optimal — compared by scripts/compare_allocators.py
   sweep_service_levels: [0.80, 0.85, 0.90, 0.95, 0.97, 0.99]
 
 business:                      # ILLUSTRATIVE assumptions, not upay tariffs

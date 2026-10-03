@@ -155,3 +155,35 @@ def test_tight_float_gets_best_split_not_escalation(params):
     assert r["target_cash"][0] + r["target_efloat"][0] > 200_000
     split = round(200_000 * r["target_cash"][0] / (r["target_cash"][0] + r["target_efloat"][0]), -3)
     assert abs(r["new_cash"][0] - split) <= params.round_to
+
+
+def test_optimal_plan_beats_greedy_on_a_knapsack_trap():
+    from floatwise.engine.allocate import plan_dso_optimal
+
+    # greedy takes the single big 9-lakh delivery (value 10) and has no room left;
+    # the optimum takes the two 5-lakh deliveries (value 9 + 8 = 17)
+    action = np.array([TOP_UP_CASH] * 3, dtype=object)
+    cash = np.array([900_000.0, 500_000.0, 500_000.0])
+    prio = np.array([10.0, 9.0, 8.0])
+    greedy = plan_dso(action, cash, prio, max_visits=10, max_cash=1_000_000)
+    best = plan_dso_optimal(action, cash, prio, max_visits=10, max_cash=1_000_000)
+    assert greedy.visits == [0]
+    assert best.visits == [1, 2] and best.cash_to_carry == 1_000_000
+
+
+def test_optimal_plan_never_worse_and_feasible():
+    from floatwise.engine.allocate import plan_dso_optimal
+
+    rng = np.random.default_rng(1)
+    for _ in range(60):
+        n = int(rng.integers(1, 26))
+        action = rng.choice([TOP_UP_CASH, TOP_UP_EFLOAT, NO_ACTION], n).astype(object)
+        cash = np.where(action == TOP_UP_EFLOAT, -rng.uniform(1e4, 4e5, n), rng.uniform(1e4, 6e5, n))
+        prio = rng.uniform(0, 3e5, n)
+        k, m = int(rng.integers(0, 12)), int(rng.integers(0, 2_000_000))
+        g = plan_dso(action, cash, prio, k, m)
+        o = plan_dso_optimal(action, cash, prio, k, m)
+        assert len(o.visits) <= k and o.cash_to_carry <= m + 1000 * len(o.visits)
+        assert all(action[i] != NO_ACTION for i in o.visits)
+        assert prio[o.visits].sum() >= prio[g.visits].sum() - 1e-6
+        assert len(o.visits) + len(o.excluded) == int((action != NO_ACTION).sum())

@@ -131,6 +131,7 @@ class FloatWisePolicy(_Strict):
 class DsoCfg(_Strict):
     max_visits: int
     max_cash: int
+    allocator: str
 
 
 class PolicyCfg(_Strict):

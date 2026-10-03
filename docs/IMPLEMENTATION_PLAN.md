@@ -122,7 +122,7 @@ D starts with **mock JSON fixtures** that match the schemas, so it never waits o
 - [x] `engine/recommend.py`: action, amount (ceil to ৳1,000), reason codes, 7-day outlook (SRS §7.2, FR-REC-1..5)
 - [x] `engine/allocate.py`: greedy DSO plan with K and M constraints + excluded list (SRS §7.3)
 - [x] Unit tests: low balance before Eid → TOP_UP_CASH; high balance → NO_ACTION; capacity exceeded → NEEDS_EXTRA_FLOAT; plan never exceeds K or M; amounts are deterministic
-- [ ] ILP allocation with PuLP vs greedy comparison (FR-ALLOC-4) [P2]
+- [x] Exact (knapsack DP) allocation vs greedy comparison (FR-ALLOC-4) [P2]
 - [ ] **DoD:** `pytest tests/test_engine.py` green; the engine works on mocked quantiles before the real models exist
 
 ## Phase 6 — Impact Simulator (H+10 → H+16) [P0] · Stream B

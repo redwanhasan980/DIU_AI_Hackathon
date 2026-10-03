@@ -125,6 +125,16 @@ For development, use two terminals: `make api` (port 8000) and `make web` (http:
 | `frontend/src/` | React app: `pages/`, `components/`, `api/` (types + client), `i18n/`, `fixtures/` |
 | `artifacts/` | metrics.json, model_card.md, simulation_default.json, fairness.json, experiment results |
 
+## How each design choice was made
+Every choice was made on held-out data, never on the test period. Each script writes its evidence to `artifacts/`.
+
+| Choice | Options compared | Decided on | Result | Evidence |
+|---|---|---|---|---|
+| Stockout-day labels (censoring) | keep / exclude / inflate | Held-out Eid 2025 | **inflate**: fewest pre-Eid misses above P90 | `censoring_experiment.json` |
+| Quantile architecture | independent / spread around P50 | Held-out Eid 2025 | **independent**: spread narrowed Eid coverage 49 % → 42 % | `quantile_experiment.json` |
+| Service level & risk threshold | 15-point grid | Validation Jul–Dec 2025 | **0.99 / 0.10**: −55 % stockouts with ≤ +15 % trips | `policy_tuning.json` |
+| DSO route allocator | greedy / exact knapsack | Validation Jul–Dec 2025 | **greedy**: optimal is within 1 % (1,602 vs 1,590 stockout days). Most agents self-rebalance from app advice, so the forecast matters more than the route | `allocator_comparison.json` |
+
 ## Responsible AI
 - **Synthetic data only:** no personal data exists in the system.
 - **Decisions vs explanations:** amounts and decisions are made by deterministic code; the LLM explains them.

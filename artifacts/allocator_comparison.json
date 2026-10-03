@@ -1,0 +1,40 @@
+{
+  "validation": {
+    "greedy": {
+      "stockout_agent_days": 1590,
+      "failed_cashout_bdt": 115005448,
+      "failed_cashin_bdt": 107120,
+      "avg_cash_held_bdt": 354976,
+      "rebalancing_trips": 48652,
+      "seconds": 0.4
+    },
+    "optimal": {
+      "stockout_agent_days": 1602,
+      "failed_cashout_bdt": 116188149,
+      "failed_cashin_bdt": 107120,
+      "avg_cash_held_bdt": 355082,
+      "rebalancing_trips": 48661,
+      "seconds": 2.5
+    }
+  },
+  "test": {
+    "greedy": {
+      "stockout_agent_days": 3730,
+      "failed_cashout_bdt": 288012488,
+      "failed_cashin_bdt": 5546186,
+      "avg_cash_held_bdt": 360630,
+      "rebalancing_trips": 51280,
+      "seconds": 0.4
+    },
+    "optimal": {
+      "stockout_agent_days": 3713,
+      "failed_cashout_bdt": 287423684,
+      "failed_cashin_bdt": 5546186,
+      "avg_cash_held_bdt": 360587,
+      "rebalancing_trips": 51345,
+      "seconds": 2.5
+    }
+  },
+  "selected": "greedy",
+  "rule": "choose the allocator with fewer stockout agent-days on the validation period"
+}

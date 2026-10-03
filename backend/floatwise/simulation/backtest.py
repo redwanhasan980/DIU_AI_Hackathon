@@ -26,7 +26,7 @@ import pandas as pd
 from floatwise.config import Config, get_config
 from floatwise.data.generate import load_dataset
 from floatwise.data.simulate_status_quo import serve_day, status_quo_next_cash
-from floatwise.engine.allocate import plan_dso
+from floatwise.engine.allocate import PLANNERS
 from floatwise.engine.recommend import PolicyParams, recommend
 
 
@@ -103,6 +103,7 @@ def run_policy(
     max_visits: int | None = None,
     max_cash: int | None = None,
     compliance: float | None = None,
+    allocator: str | None = None,
 ) -> SimTrace:
     n_a, n_d = inp.co_demand.shape
     cap = inp.capacity
@@ -118,6 +119,7 @@ def run_policy(
     k_visits = cfg.policy.dso.max_visits if max_visits is None else max_visits
     m_cash = cfg.policy.dso.max_cash if max_cash is None else max_cash
     comply = cfg.policy.floatwise.self_rebalance_compliance if compliance is None else compliance
+    plan_dso = PLANNERS[allocator or cfg.policy.dso.allocator]
     rng = np.random.default_rng(cfg.seed)  # same draws for every run -> comparable scenarios
 
     for d in range(n_d):

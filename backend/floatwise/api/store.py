@@ -18,7 +18,7 @@ import pandas as pd
 from floatwise.config import Config
 from floatwise.data.calendar_bd import upcoming_events
 from floatwise.data.generate import load_dataset
-from floatwise.engine.allocate import plan_dso
+from floatwise.engine.allocate import PLANNERS
 from floatwise.engine.recommend import PolicyParams, reason_codes, recommend, risk_band
 from floatwise.explain import llm, templates
 from floatwise.explain.shap_explain import explain_row
@@ -295,7 +295,9 @@ class Store:
         k = self.cfg.policy.dso.max_visits if max_visits is None else max_visits
         mc = self.cfg.policy.dso.max_cash if max_cash is None else max_cash
         idx = self.agents.index[self.agents["dso_id"] == dso_id].to_numpy()
-        plan = plan_dso(rec["action"][idx], rec["cash_delta"][idx], rec["expected_shortfall"][idx], k, mc)
+        plan = PLANNERS[self.cfg.policy.dso.allocator](
+            rec["action"][idx], rec["cash_delta"][idx], rec["expected_shortfall"][idx], k, mc
+        )
         a = self.agents
 
         def base(j: int) -> dict:

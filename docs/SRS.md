@@ -199,7 +199,7 @@ Synthetic data ─▶ Feature layer ─▶ ML engine (quantile forecasts)
 | FR-ALLOC-1 | For a DSO and date, produce an ordered visit list under constraints: max visits K (default 10) and max cash carried M (default ৳10,00,000) | P0 |
 | FR-ALLOC-2 | Priority = expected failed value prevented = p_stockout × expected shortfall (৳). Greedy by priority, respecting capacity (§7.3) | P0 |
 | FR-ALLOC-3 | Agents left out are listed with the reason "capacity" and the advice "self-rebalance at distributor point" | P1 |
-| FR-ALLOC-4 | Optimal allocation via ILP (PuLP), compared with greedy | P2 |
+| FR-ALLOC-4 | Exact allocation (two-constraint 0/1 knapsack, dynamic programming; never worse than greedy), compared with greedy in the backtest (`scripts/compare_allocators.py`). Greedy stays the default: within 1 % of optimal | P2 |
 
 ### 4.5 Impact simulator (FR-SIM)
 

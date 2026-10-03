@@ -67,14 +67,14 @@ D starts with **mock JSON fixtures** that match the schemas, so it never waits o
 
 ## Phase 1 — Scaffold & Contracts (H+0 → H+2) [P0]
 
-- [ ] Create the repo layout from `CLAUDE.md` (`backend/`, `frontend/`, `data/`, `artifacts/`, `docs/`)
+- [x] Create the repo layout from `CLAUDE.md` (`backend/`, `frontend/`, `data/`, `artifacts/`, `docs/`)
 - [x] `backend/pyproject.toml` with pinned deps: pandas, numpy, pyarrow, lightgbm, shap, scikit-learn, fastapi, uvicorn, pydantic, pyyaml, anthropic, pytest, ruff (pulp optional)
 - [x] `backend/floatwise/config.py` + `config.yaml`: seed, date ranges, split dates, demo date, archetype parameters, Eid dates, policy defaults (s, θ, α, buffers, K, M), business assumptions
 - [x] `backend/floatwise/schemas.py`: pydantic models for Agent, ForecastPoint, Recommendation, Explanation, DsoPlan, SimulationResult, Decision
-- [ ] `frontend/` Vite + React + TS + Tailwind; `src/api/types.ts` mirrors the schemas; `src/fixtures/*.json` mock responses
+- [x] `frontend/` Vite + React + TS + Tailwind; `src/api/types.ts` mirrors the schemas; `src/fixtures/*.json` mock responses
 - [x] Root `Makefile` targets: `setup`, `data`, `train`, `evaluate`, `simulate`, `narratives`, `api`, `web`, `test`, `lint`, `demo`, `all`
 - [x] `.env.example` with `ANTHROPIC_API_KEY=` and `LLM_MODEL=`
-- [ ] `make test` runs (even with zero tests) and `make lint` passes
+- [x] `make test` runs (even with zero tests) and `make lint` passes
 - [ ] **DoD:** everyone can run `make setup && make test`, and the frontend shows a placeholder page
 
 ## Phase 2 — Synthetic Data (H+2 → H+6) [P0] · Stream A
@@ -158,27 +158,27 @@ D starts with **mock JSON fixtures** that match the schemas, so it never waits o
 
 ## Phase 9 — Frontend (H+2 → H+18, 🔀) [P0] · Stream D
 
-- [ ] App shell: nav, date picker (default 2026-03-15), language toggle, event banner
-- [ ] `lib/format.ts`: `৳1,20,000` lakh formatting, Bangla digits for the agent card
-- [ ] **Screen 1 Network Map** (react-leaflet): risk-coloured markers + KPI tiles [P0]
-- [ ] **Screen 2 Risk List**: sortable/filterable table [P0]
-- [ ] **Screen 3 Agent Detail**: forecast band chart, balance vs need, recommendation card with Approve/Modify/Reject, SHAP bars, AI explanation labelled "AI-generated" [P0]
-- [ ] **Screen 4 DSO Plan**: ordered list, cash-to-carry, capacity meter, excluded list [P0]
-- [ ] **Screen 5 Impact Simulator**: side-by-side KPIs + Eid timeline (static from cache) [P0]; service-level slider + trade-off curve [P1]
-- [ ] **Screen 6 Model & Fairness**: metrics and per-archetype table [P1]
-- [ ] **Screen 7 Agent Mobile Card**: Bangla, big text, one action [P1]
-- [ ] Switch from fixtures to the real API via `VITE_API_URL`
-- [ ] Loading/error states; works at 360 px; colour + label for risk (not colour only)
+- [x] App shell: nav, date picker (default 2026-03-15), language toggle, event banner
+- [x] `lib/format.ts`: `৳1,20,000` lakh formatting, Bangla digits for the agent card
+- [x] **Screen 1 Network Map** (react-leaflet): risk-coloured markers + KPI tiles [P0]
+- [x] **Screen 2 Risk List**: sortable/filterable table [P0]
+- [x] **Screen 3 Agent Detail**: forecast band chart, balance vs need, recommendation card with Approve/Modify/Reject, SHAP bars, AI explanation labelled "AI-generated" [P0]
+- [x] **Screen 4 DSO Plan**: ordered list, cash-to-carry, capacity meter, excluded list [P0]
+- [x] **Screen 5 Impact Simulator**: side-by-side KPIs + Eid timeline (static from cache) [P0]; service-level slider + trade-off curve [P1]
+- [x] **Screen 6 Model & Fairness**: metrics and per-archetype table [P1]
+- [x] **Screen 7 Agent Mobile Card**: Bangla, big text, one action [P1]
+- [x] Switch from fixtures to the real API via `VITE_API_URL`
+- [x] Loading/error states; works at 360 px; colour + label for risk (not colour only)
 - [ ] **DoD:** the demo script (SRS §14) can be clicked through without errors
 
 ## Phase 10 — Responsible AI, Security & Fairness (H+14 → H+18) [P0/P1]
 
-- [ ] Fairness table: WAPE and stockout reduction per archetype and rural vs urban → `artifacts/fairness.json` + UI [P1]
-- [ ] Confirm no PII fields exist; shop names are synthetic [P0]
+- [x] Fairness table: WAPE and stockout reduction per archetype and rural vs urban → `artifacts/fairness.json` + UI [P1]
+- [x] Confirm no PII fields exist; shop names are synthetic [P0]
 - [ ] `.env` is git-ignored; secret scan of the repo (`git grep -i "sk-ant"` returns nothing) [P0]
-- [ ] The LLM receives only structured JSON; no user free text reaches the prompt [P0]
-- [ ] Every action requires human approval in the UI; `NEEDS_EXTRA_FLOAT` shown as escalation [P0]
-- [ ] Assumptions list visible in the UI (business values labelled "assumption") [P1]
+- [x] The LLM receives only structured JSON; no user free text reaches the prompt [P0]
+- [x] Every action requires human approval in the UI; `NEEDS_EXTRA_FLOAT` shown as escalation [P0]
+- [x] Assumptions list visible in the UI (business values labelled "assumption") [P1]
 
 ## Phase 11 — Demo Hardening & Submission (H+18 → H+24) [P0] · Stream E + all
 

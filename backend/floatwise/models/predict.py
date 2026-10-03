@@ -31,7 +31,7 @@ class QuantileModels:
     @classmethod
     def load(cls, cfg: Config, models_dir: Path | None = None) -> QuantileModels:
         models_dir = models_dir or cfg.models_dir
-        meta = json.loads((models_dir / "meta.json").read_text())
+        meta = json.loads((models_dir / "meta.json").read_text(encoding="utf-8"))
         boosters = {
             (t, q): lgb.Booster(model_file=str(model_path(models_dir, t, q)))
             for t in meta["targets"]

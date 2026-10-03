@@ -165,7 +165,7 @@ def train(cfg: Config, data: dict, models_dir: Path, verbose: bool = True) -> di
         "trained_on": {"start": str(cfg.dates.start), "end": str(cfg.dates.train_end)},
         "early_stopping_on": {"start": str(cfg.dates.val_start), "end": str(cfg.dates.val_end)},
     }
-    (models_dir / "meta.json").write_text(json.dumps(meta, indent=2))
+    (models_dir / "meta.json").write_text(json.dumps(meta, indent=2), encoding="utf-8")
     if verbose:
         print(f"saved {meta['version']} to {models_dir} in {time.time() - t0:.0f}s")
     return meta

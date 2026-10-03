@@ -153,12 +153,12 @@ def experiments_summary(art: Path) -> str:
     lines = []
     cens = art / "censoring_experiment.json"
     if cens.exists():
-        c = json.loads(cens.read_text())
+        c = json.loads(cens.read_text(encoding="utf-8"))
         rows = ", ".join(f"{k}: {v['pre_eid_above_p90']:.0%} above P90" for k, v in c["results"].items())
         lines.append(f"- Censoring mode on {c['holdout']}: {rows} → selected **{c['selected']}**.")
     qe = art / "quantile_experiment.json"
     if qe.exists():
-        q = json.loads(qe.read_text())
+        q = json.loads(qe.read_text(encoding="utf-8"))
         r = q["results"]
         lines.append(
             f"- Quantile architecture on {q['holdout']}: event pinball independent "
@@ -168,7 +168,7 @@ def experiments_summary(art: Path) -> str:
         )
     pt = art / "policy_tuning.json"
     if pt.exists():
-        p = json.loads(pt.read_text())
+        p = json.loads(pt.read_text(encoding="utf-8"))
         sel = p["selected"]
         lines.append(
             f"- Policy (service level {sel['service_level']}, risk threshold {sel['risk_threshold']}) chosen on "
@@ -262,9 +262,9 @@ def run(cfg: Config, data: dict, verbose: bool = True) -> dict:
 
     art: Path = cfg.artifacts_dir
     art.mkdir(parents=True, exist_ok=True)
-    (art / "metrics.json").write_text(json.dumps(metrics, indent=2))
-    meta = json.loads((cfg.models_dir / "meta.json").read_text())
-    (art / "model_card.md").write_text(model_card(meta, metrics, art))
+    (art / "metrics.json").write_text(json.dumps(metrics, indent=2), encoding="utf-8")
+    meta = json.loads((cfg.models_dir / "meta.json").read_text(encoding="utf-8"))
+    (art / "model_card.md").write_text(model_card(meta, metrics, art), encoding="utf-8")
 
     fc = precompute_forecasts(cfg, models, m, data)
     fc.to_parquet(art / "forecasts.parquet", index=False, compression="zstd")

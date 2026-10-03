@@ -69,7 +69,7 @@ def main() -> None:
         "selected": best,
         "criterion": "lowest share of pre-Eid demand above P90, then event WAPE",
     }
-    (base.artifacts_dir / "censoring_experiment.json").write_text(json.dumps(out, indent=2))
+    (base.artifacts_dir / "censoring_experiment.json").write_text(json.dumps(out, indent=2), encoding="utf-8")
     print("selected:", best)
 
 

@@ -42,7 +42,7 @@ def main() -> None:
             out = store.explanation(agent_id, d, lang)
             counts[out["source"] if out["source"] != "cache" else "llm"] += 1
     path = cfg.artifacts_dir / "narratives_cache.json"
-    path.write_text(json.dumps(store.narrative_cache, indent=2, ensure_ascii=False))
+    path.write_text(json.dumps(store.narrative_cache, indent=2, ensure_ascii=False), encoding="utf-8")
     print(f"{len(store.narrative_cache)} cached narratives -> {path} ({counts})")
 
 

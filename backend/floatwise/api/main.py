@@ -27,7 +27,7 @@ def load_env_file(path: Path = REPO_ROOT / ".env") -> None:
     """Minimal .env loader (keeps secrets out of code, R-SEC-1). Existing env vars win."""
     if not path.exists():
         return
-    for line in path.read_text().splitlines():
+    for line in path.read_text(encoding="utf-8").splitlines():
         line = line.strip()
         if line and not line.startswith("#") and "=" in line:
             key, value = line.split("=", 1)

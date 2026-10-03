@@ -38,7 +38,7 @@ class UnknownId(KeyError):
 
 
 def _read_json(path: Path) -> dict | None:
-    return json.loads(path.read_text()) if path.exists() else None
+    return json.loads(path.read_text(encoding="utf-8")) if path.exists() else None
 
 
 class Store:
@@ -379,7 +379,7 @@ class Store:
         with self._lock:
             items = _read_json(self.decisions_path) or {"decisions": []}
             items["decisions"].append(json.loads(json.dumps(decision, default=str)))
-            self.decisions_path.write_text(json.dumps(items, indent=2, ensure_ascii=False))
+            self.decisions_path.write_text(json.dumps(items, indent=2, ensure_ascii=False), encoding="utf-8")
         return decision
 
     def list_decisions(self) -> list[dict]:

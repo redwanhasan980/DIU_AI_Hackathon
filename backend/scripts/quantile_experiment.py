@@ -79,7 +79,7 @@ def main() -> None:
         "results": results,
         "selected": best,
     }
-    (base.artifacts_dir / "quantile_experiment.json").write_text(json.dumps(out, indent=2))
+    (base.artifacts_dir / "quantile_experiment.json").write_text(json.dumps(out, indent=2), encoding="utf-8")
     print("selected:", best)
 
 

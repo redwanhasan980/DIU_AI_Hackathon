@@ -54,7 +54,7 @@ def main() -> None:
         "grid": rows,
         "selected": best,
     }
-    (cfg.artifacts_dir / "policy_tuning.json").write_text(json.dumps(out, indent=2))
+    (cfg.artifacts_dir / "policy_tuning.json").write_text(json.dumps(out, indent=2), encoding="utf-8")
     print("selected:", best)
 
 

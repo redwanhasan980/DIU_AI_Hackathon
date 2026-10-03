@@ -47,7 +47,7 @@ def main() -> None:
     better = v["optimal"]["stockout_agent_days"] < v["greedy"]["stockout_agent_days"]
     out["selected"] = "optimal" if better else "greedy"
     out["rule"] = "choose the allocator with fewer stockout agent-days on the validation period"
-    (cfg.artifacts_dir / "allocator_comparison.json").write_text(json.dumps(out, indent=2))
+    (cfg.artifacts_dir / "allocator_comparison.json").write_text(json.dumps(out, indent=2), encoding="utf-8")
     print("selected:", out["selected"])
 
 

@@ -52,9 +52,9 @@ def main() -> None:
             r = c.get("/api/v1" + p)
             r.raise_for_status()
             body = r.json() if p != "/decisions" else []  # demo starts with an empty log
-            (out / f"{key(p)}.json").write_text(json.dumps(body, ensure_ascii=False))
+            (out / f"{key(p)}.json").write_text(json.dumps(body, ensure_ascii=False), encoding="utf-8")
         sim = c.post("/api/v1/simulate", json={})
-        (out / "simulate.json").write_text(json.dumps(sim.json(), ensure_ascii=False))
+        (out / "simulate.json").write_text(json.dumps(sim.json(), ensure_ascii=False), encoding="utf-8")
     print(f"wrote {len(paths) + 1} fixtures to {out}")
 
 

@@ -338,9 +338,11 @@ def run(cfg: Config, data: dict, verbose: bool = True) -> dict:
     sim = simulate(cfg, inp, params, sweep=cfg.policy.sweep_service_levels)
     sim["source"] = "cache"
     art = cfg.artifacts_dir
-    (art / "simulation_default.json").write_text(json.dumps(sim, indent=2))
-    metrics = json.loads((art / "metrics.json").read_text())
-    (art / "fairness.json").write_text(json.dumps(fairness_report(cfg, sim, metrics), indent=2))
+    (art / "simulation_default.json").write_text(json.dumps(sim, indent=2), encoding="utf-8")
+    metrics = json.loads((art / "metrics.json").read_text(encoding="utf-8"))
+    (art / "fairness.json").write_text(
+        json.dumps(fairness_report(cfg, sim, metrics), indent=2), encoding="utf-8"
+    )
     if verbose:
         a, b = sim["status_quo"], sim["floatwise"]
         print(f"test {sim['start']} → {sim['end']}, {sim['n_agents']} agents ({time.time() - t0:.0f}s)")

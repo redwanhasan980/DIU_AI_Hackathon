@@ -44,7 +44,7 @@ def pct(p: float, lang: str = "en") -> str:
 def date_str(d: dt.date, lang: str = "en") -> str:
     if lang == "bn":
         return f"{num(d.day, 'bn')} {BN_MONTHS[d.month - 1]}"
-    return d.strftime("%-d %B")
+    return f"{d.day} {d.strftime('%B')}"  # %-d is not portable (Windows)
 
 
 ARCHETYPES = {

@@ -376,3 +376,32 @@ class Store:
 
     def list_decisions(self) -> list[dict]:
         return (_read_json(self.decisions_path) or {"decisions": []})["decisions"]
+
+    def decision_summary(self) -> dict:
+        """Aggregate human decisions into a feedback signal for retraining (FR-HITL-3)."""
+        items = self.list_decisions()
+        by_decision = {"approve": 0, "modify": 0, "reject": 0}
+        by_action: dict[str, int] = {}
+        reasons: dict[str, int] = {}
+        changes = []
+        for d in items:
+            by_decision[d["decision"]] = by_decision.get(d["decision"], 0) + 1
+            by_action[d["action"]] = by_action.get(d["action"], 0) + 1
+            if d["decision"] == "reject":
+                key = (d.get("reason") or "").strip().lower() or "(no reason given)"
+                reasons[key] = reasons.get(key, 0) + 1
+            if d["decision"] == "modify" and d["recommended_amount"] > 0:
+                changes.append((d["final_amount"] - d["recommended_amount"]) / d["recommended_amount"])
+        total = len(items)
+        return {
+            "total": total,
+            "by_decision": by_decision,
+            "by_action": by_action,
+            "approval_rate": round(by_decision["approve"] / total, 3) if total else 0.0,
+            "avg_modify_change_pct": round(100 * sum(changes) / len(changes), 1) if changes else None,
+            "recommended_bdt": int(sum(d["recommended_amount"] for d in items)),
+            "final_bdt": int(sum(d["final_amount"] for d in items)),
+            "top_rejection_reasons": [
+                {"reason": r, "count": c} for r, c in sorted(reasons.items(), key=lambda x: (-x[1], x[0]))[:5]
+            ],
+        }

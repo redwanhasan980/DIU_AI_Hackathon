@@ -69,7 +69,7 @@ Re-capture these after UI changes with the Playwright snippet in `docs/screensho
 3. **Explains**:
    - SHAP drivers in taka;
    - a short Bangla/English explanation. The LLM only rephrases structured facts, and a numeric guardrail plus template fallback mean it can never invent an amount.
-4. **Keeps a human in the loop:** every action is Approve / Modify / Reject, and nothing moves money automatically.
+4. **Keeps a human in the loop:** every action is Approve / Modify / Reject, and nothing moves money automatically. The decisions are summarised into a feedback signal for retraining (approval rate, average modification, top rejection reasons).
 5. **Proves impact** with a backtest simulator and a service-level trade-off curve.
 
 ```
@@ -91,7 +91,7 @@ For development, use two terminals: `make api` (port 8000) and `make web` (http:
 **Optional:** to get AI-written explanations, copy `.env.example` to `.env` and set `ANTHROPIC_API_KEY`. Then run `make narratives` to cache them for an offline demo. Without a key, the app uses the built-in Bangla/English templates.
 
 ## How to test it (checklist)
-1. **Automated checks:** `make test` (83 backend tests) and `make lint`.
+1. **Automated checks:** `make test` (84 backend tests) and `make lint`. The same checks run in GitHub Actions on every push.
 2. **Start the app:** `make demo`, then open http://localhost:8000.
 3. **Network page:** it opens on **15 March 2026**, 5 days before Eid-ul-Fitr. Check the banner, the KPI tiles and the red risk map.
 4. **Demo agent:** go to Risk list and open **AG00433 — Notun Bazar Store, Noakhali**. Check:
@@ -103,7 +103,7 @@ For development, use two terminals: `make api` (port 8000) and `make web` (http:
    - the explanation.
 
    Switch the language to **বাংলা**.
-5. **Decisions:** click **Approve**, then open the **Decisions** page to see it logged.
+5. **Decisions:** click **Approve** on one agent, **Modify** on another and **Reject** (with a reason) on a third. The **Decisions** page shows the log and the feedback summary: approval rate, average modification and top rejection reasons.
 6. **DSO plan:** change *Max visits* or *Cash bag* and watch the route re-prioritise.
 7. **Impact:** move the service-level slider and press *Re-run simulation*.
 8. **Agent mobile card:** use the 📱 button on an agent page to see the Bangla card.

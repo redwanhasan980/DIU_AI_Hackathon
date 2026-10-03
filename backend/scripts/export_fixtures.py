@@ -37,6 +37,7 @@ def main() -> None:
             "/health",
             "/metrics/model",
             "/decisions",
+            "/decisions/summary",
             f"/network/summary?date={d}",
             f"/agents?date={d}",
             f"/dsos?date={d}",
@@ -50,7 +51,7 @@ def main() -> None:
         for p in paths:
             r = c.get("/api/v1" + p)
             r.raise_for_status()
-            body = r.json() if p != "/decisions" else []
+            body = r.json() if p != "/decisions" else []  # demo starts with an empty log
             (out / f"{key(p)}.json").write_text(json.dumps(body, ensure_ascii=False))
         sim = c.post("/api/v1/simulate", json={})
         (out / "simulate.json").write_text(json.dumps(sim.json(), ensure_ascii=False))

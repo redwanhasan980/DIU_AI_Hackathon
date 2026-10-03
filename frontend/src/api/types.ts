@@ -255,6 +255,17 @@ export interface Decision extends DecisionIn {
   decided_at: string;
 }
 
+export interface DecisionSummary {
+  total: number;
+  by_decision: Record<"approve" | "modify" | "reject", number>;
+  by_action: Partial<Record<Action, number>>;
+  approval_rate: number;
+  avg_modify_change_pct: number | null;
+  recommended_bdt: number;
+  final_bdt: number;
+  top_rejection_reasons: { reason: string; count: number }[];
+}
+
 export interface Health {
   status: string;
   model_version: string;

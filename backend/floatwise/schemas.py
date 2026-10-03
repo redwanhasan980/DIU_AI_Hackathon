@@ -263,6 +263,26 @@ class Decision(DecisionIn):
     decided_at: dt.datetime
 
 
+class ReasonCount(BaseModel):
+    reason: str
+    count: int
+
+
+class DecisionSummary(BaseModel):
+    """Feedback signal from human decisions (FR-HITL-3)."""
+
+    total: int
+    by_decision: dict[str, int]
+    by_action: dict[str, int]
+    approval_rate: float = Field(description="approve / total")
+    avg_modify_change_pct: float | None = Field(
+        None, description="mean (final - recommended) / recommended for modify"
+    )
+    recommended_bdt: int
+    final_bdt: int
+    top_rejection_reasons: list[ReasonCount]
+
+
 class Health(BaseModel):
     status: str
     model_version: str

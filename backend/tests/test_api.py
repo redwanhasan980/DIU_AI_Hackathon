@@ -99,6 +99,24 @@ def test_decisions_roundtrip(client, agent_id):
     assert client.get(f"{P}/decisions").json()[-1]["final_amount"] == 40000
 
 
+def test_decision_summary_feedback(client, agent_id):
+    base = {"agent_id": agent_id, "date": "2026-03-15", "action": "TOP_UP_CASH", "recommended_amount": 100000}
+    before = client.get(f"{P}/decisions/summary").json()
+    client.post(
+        f"{P}/decisions", json={**base, "final_amount": 0, "decision": "reject", "reason": "Agent closed"}
+    )
+    client.post(
+        f"{P}/decisions", json={**base, "final_amount": 0, "decision": "reject", "reason": "agent closed "}
+    )
+    client.post(f"{P}/decisions", json={**base, "final_amount": 80000, "decision": "modify", "reason": ""})
+    s = client.get(f"{P}/decisions/summary").json()
+    assert s["total"] == before["total"] + 3
+    assert s["by_decision"]["reject"] == before["by_decision"]["reject"] + 2
+    top = s["top_rejection_reasons"][0]
+    assert top["reason"] == "agent closed" and top["count"] >= 2  # reasons are normalised
+    assert s["avg_modify_change_pct"] is not None and s["avg_modify_change_pct"] < 0
+
+
 @pytest.mark.parametrize(
     ("method", "url", "body", "status", "code"),
     [

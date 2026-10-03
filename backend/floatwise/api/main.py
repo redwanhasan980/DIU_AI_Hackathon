@@ -162,6 +162,10 @@ def create_app(cfg: Config | None = None, store: Store | None = None) -> FastAPI
     def decisions():
         return st().list_decisions()
 
+    @app.get(f"{p}/decisions/summary", response_model=S.DecisionSummary)
+    def decision_summary():
+        return st().decision_summary()
+
     # ---- optional: serve the built frontend (make demo) -----------------------------
     dist = REPO_ROOT / "frontend" / "dist"
     if os.environ.get("FLOATWISE_SERVE_WEB") == "1" and dist.exists():

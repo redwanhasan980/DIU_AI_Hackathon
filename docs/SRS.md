@@ -412,6 +412,7 @@ All of these are **illustrative**, not upay tariffs.
 | GET | `/calendar` | Events within a range | P1 |
 | POST | `/decisions` | Approve/modify/reject a recommendation | P0 |
 | GET | `/decisions` | Decision log | P1 |
+| GET | `/decisions/summary` | Feedback signal: counts by decision/action, approval rate, average modification, top rejection reasons (FR-HITL-3) | P1 |
 
 Error format: `{"error": {"code": "...", "message": "..."}}`. Validation via pydantic. Response time < 300 ms for GET (precomputed or cached forecasts for the demo date range).
 

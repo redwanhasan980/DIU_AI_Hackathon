@@ -4,6 +4,7 @@ import type {
   AgentSummary,
   Decision,
   DecisionIn,
+  DecisionSummary,
   DsoInfo,
   DsoPlan,
   Explanation,
@@ -96,4 +97,5 @@ export const api = {
   modelReport: () => request<ModelReport>("/metrics/model"),
   decide: (body: DecisionIn) => request<Decision>("/decisions", { method: "POST", body: JSON.stringify(body) }),
   decisions: () => request<Decision[]>("/decisions"),
+  decisionSummary: () => request<DecisionSummary>("/decisions/summary"),
 };

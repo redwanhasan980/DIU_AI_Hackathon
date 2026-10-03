@@ -176,17 +176,22 @@ policy:
     target_ratio: 1.5          # keep 1.5 x trailing 7-day mean served volume
     trigger_ratio: 0.6         # rebalance when balance < 0.6 x target
   floatwise:
-    service_level: 0.90
+    # chosen on the validation period by scripts/tune_policy.py (artifacts/policy_tuning.json);
+    # high because P90 forecasts are slightly over-confident around events (see model card)
+    service_level: 0.99
     risk_threshold: 0.10
     overlap_alpha: 0.5
     min_buffer_cash: 5000
     min_buffer_efloat: 5000
     round_to: 1000
     outlook_days: 7
+    # share of agents NOT visited by a DSO that follow the app advice and self-rebalance at the
+    # distributor point (the rest keep their own rule of thumb). Assumption, see DATA_ASSUMPTIONS.md
+    self_rebalance_compliance: 0.7
   dso:
     max_visits: 10
     max_cash: 1000000
-  sweep_service_levels: [0.80, 0.85, 0.90, 0.95, 0.98]
+  sweep_service_levels: [0.80, 0.85, 0.90, 0.95, 0.97, 0.99]
 
 business:                      # ILLUSTRATIVE assumptions, not upay tariffs
   cashout_fee_rate: 0.0185

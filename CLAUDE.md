@@ -82,7 +82,8 @@ Run a single test: `cd backend && pytest tests/test_engine.py -k recommend -q`.
 - Dates 2024-01-01 → 2026-06-30. Train ≤ 2025-06-30; val 2025-07-01 → 2025-12-31; **test 2026-01-01 → 2026-06-30**.
 - **Demo date: 2026-03-15** (Eid-ul-Fitr ≈ 2026-03-20).
 - 500 agents, 5 archetypes: `urban_residential`, `garment_belt`, `rural_remittance`, `market_hub`, `university_area`.
-- Policy defaults: service level s = 0.90, risk threshold θ = 0.10, overlap α = 0.5, min buffer ৳5,000, DSO K = 10 visits, M = ৳10,00,000.
+- Policy defaults: service level s = 0.99 and risk threshold θ = 0.10 (tuned on validation by `scripts/tune_policy.py`), overlap α = 0.5, min buffer ৳5,000, DSO K = 10 visits, M = ৳10,00,000, app-advice compliance 70 %.
+- Censoring mode `inflate` (chosen by `scripts/censoring_experiment.py`).
 
 ## Working conventions for agents
 - Start every task by reading the relevant SRS section and the plan checklist item. Work on **P0 before P1 before P2**.

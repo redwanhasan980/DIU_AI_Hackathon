@@ -197,10 +197,8 @@ Generated {metrics["generated_at"]} by `make evaluate`. All numbers come from co
 """
 
 
-def main() -> None:
-    cfg = get_config()
+def run(cfg: Config, data: dict, verbose: bool = True) -> dict:
     t0 = time.time()
-    data = load_dataset(cfg.data_dir)
     m = to_matrices(data["daily"])
     models = QuantileModels.load(cfg)
     metrics: dict = {
@@ -213,6 +211,8 @@ def main() -> None:
         metrics[split] = evaluate_split(cfg, models, panel, masks)
         co = metrics[split]["cashout"]
         event = co.get("event_days", {}).get("improvement_vs_seasonal_naive_pct", float("nan"))
+        if not verbose:
+            continue
         print(
             f"{split}: cash-out WAPE {co['overall']['wape_model']:.3f} "
             f"(naive {co['overall']['wape_seasonal_naive']:.3f}, "
@@ -221,7 +221,8 @@ def main() -> None:
             f"coverage {co['overall']['coverage_p10_p90']:.0%}"
         )
     metrics["acceptance"] = acceptance(metrics["test"], cfg)
-    print("acceptance:", metrics["acceptance"]["checks"])
+    if verbose:
+        print("acceptance:", metrics["acceptance"]["checks"])
 
     art: Path = cfg.artifacts_dir
     art.mkdir(parents=True, exist_ok=True)
@@ -231,7 +232,14 @@ def main() -> None:
 
     fc = precompute_forecasts(cfg, models, m, data)
     fc.to_parquet(art / "forecasts.parquet", index=False, compression="zstd")
-    print(f"forecasts: {len(fc):,} rows; done in {time.time() - t0:.0f}s")
+    if verbose:
+        print(f"forecasts: {len(fc):,} rows; done in {time.time() - t0:.0f}s")
+    return metrics
+
+
+def main() -> None:
+    cfg = get_config()
+    run(cfg, load_dataset(cfg.data_dir))
 
 
 if __name__ == "__main__":

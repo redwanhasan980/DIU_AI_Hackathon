@@ -63,7 +63,7 @@ Eid also moves about 11 days earlier every Gregorian year. That means "same mont
 | Stockout | The agent cannot serve a transaction because cash (for CO) or e-float (for CI) is insufficient |
 | Rebalancing | Converting between cash and e-float through the distributor/DSO or a bank |
 | DSO | Distributor Sales Officer, the field staff who visit and rebalance agents |
-| Service level (s) | Target probability of **not** stocking out on a day (default 0.90) |
+| Service level (s) | Target probability of **not** stocking out on a day (default 0.99, tuned on validation) |
 | WAPE | Weighted absolute percentage error = Σ\|y−ŷ\| / Σy |
 | Pinball loss | The loss function used to evaluate quantile forecasts |
 | Origin date (t) | The date on which a forecast is made; only data ≤ t may be used |
@@ -175,11 +175,11 @@ Synthetic data ─▶ Feature layer ─▶ ML engine (quantile forecasts)
 | ID | Requirement | Pri |
 |---|---|---|
 | FR-FCST-1 | Baselines: seasonal-naive (same weekday last week) and trailing-7-day mean | P0 |
-| FR-FCST-2 | Global LightGBM quantile models for `cashout_amt`, `cashin_amt`, `net_outflow_amt` at quantiles {0.1, 0.5, 0.9} (P1: add {0.05, 0.95}), horizon h ∈ 1..7 as a feature (direct multi-horizon) | P0 |
+| FR-FCST-2 | Global LightGBM quantile models for `cashout_amt` and `cashin_amt` at quantiles {0.1, 0.5, 0.9}, horizon h ∈ 1..7 as a feature (direct multi-horizon). Net flow is derived by the engine (§7), not modelled separately | P0 |
 | FR-FCST-3 | Features use only information known at origin t (lags/rolling stats ≤ t) plus calendar features of the target date (known in advance) | P0 |
 | FR-FCST-4 | Enforce non-crossing quantiles (sort or clip after prediction) | P0 |
 | FR-FCST-5 | Evaluation report: WAPE, MAE, pinball loss, P10–P90 coverage. Overall, on **event days** (±7 days of Eid, salary window), per archetype, per horizon, vs baselines. Saved to `artifacts/metrics.json` | P0 |
-| FR-FCST-6 | Censoring handling: train on served amounts, with stockout days flagged (feature) or excluded. Evaluate against true demand | P1 |
+| FR-FCST-6 | Censoring handling: compare keep / exclude / inflate on a held-out Eid (`scripts/censoring_experiment.py`); the selected mode (`inflate`) lifts stockout-day labels to the P75 ratio of uncensored peers. Evaluate against true demand | P1 |
 | FR-FCST-7 | Cold-start: forecast for agents with < 28 days of history using archetype/area priors | P2 |
 
 ### 4.3 Risk and recommendation (FR-REC)
@@ -189,7 +189,7 @@ Synthetic data ─▶ Feature layer ─▶ ML engine (quantile forecasts)
 | FR-REC-1 | For each agent and day, compute `p_cash_stockout` and `p_efloat_stockout` from the quantile forecasts and current balances (§7.1) | P0 |
 | FR-REC-2 | Recommend an action: `TOP_UP_CASH`, `TOP_UP_EFLOAT`, `NO_ACTION` or `NEEDS_EXTRA_FLOAT` (total float insufficient → escalate to a human), with amount rounded to ৳1,000 (§7.2) | P0 |
 | FR-REC-3 | Each recommendation carries machine-readable **reason codes** (e.g. `EID_FITR_IN_5_DAYS`, `SALARY_WINDOW`, `BALANCE_BELOW_P90`) | P0 |
-| FR-REC-4 | Configurable service level s ∈ [0.80, 0.99] (default 0.90) and minimum buffer | P0 |
+| FR-REC-4 | Configurable service level s ∈ [0.80, 0.99] and minimum buffer. Defaults are chosen on the validation period by `scripts/tune_policy.py` (currently s = 0.99, θ = 0.10) | P0 |
 | FR-REC-5 | 7-day outlook: flag the first day in the horizon where risk exceeds the threshold ("pre-position by Wednesday") | P1 |
 
 ### 4.4 DSO allocation (FR-ALLOC)
@@ -205,7 +205,7 @@ Synthetic data ─▶ Feature layer ─▶ ML engine (quantile forecasts)
 
 | ID | Requirement | Pri |
 |---|---|---|
-| FR-SIM-1 | Replay the **test period** day by day under two policies on the same true demand: (a) status quo, (b) FloatWise | P0 |
+| FR-SIM-1 | Replay the **test period** day by day under two policies on the same true demand: (a) status quo, (b) FloatWise. Under FloatWise, DSO-visited agents execute the recommendation; unvisited agents get it in the app and a configurable share (`self_rebalance_compliance`, default 70 %) self-rebalance as advised, the rest keep their own rule | P0 |
 | FR-SIM-2 | Report per policy: stockout agent-days, failed CO/CI count and ৳ value, lost commission ৳, average idle cash ৳, rebalancing trips | P0 |
 | FR-SIM-3 | Parameters: service level, buffer, DSO capacity, date range, area filter. The UI shows the trade-off curve of stockouts vs idle cash across service levels | P1 |
 | FR-SIM-4 | Results are cached for the default scenario so the demo loads instantly | P0 |
@@ -319,7 +319,7 @@ Other rules:
 ## 6. ML Specification
 
 ### 6.1 Targets
-`cashout_amt`, `cashin_amt` and `net_outflow_amt = cashout − cashin`, each at quantiles q ∈ {0.1, 0.5, 0.9} (P1: also 0.05 and 0.95).
+`cashout_amt` and `cashin_amt`, each at quantiles q ∈ {0.1, 0.5, 0.9}, expressed as a ratio to the agent's trailing 28-day mean (so one global model learns multipliers across agents of different size).
 
 ### 6.2 Features (computed at origin t for target date t+h)
 
@@ -368,16 +368,18 @@ target_efloat = Q_CI(s) − α·Q_CO(0.5) + min_buffer_efloat
 cash_gap   = target_cash   − open_cash
 efloat_gap = target_efloat − open_efloat
 
-if target_cash + target_efloat > float_capacity → NEEDS_EXTRA_FLOAT (human escalation)
+if target_cash + target_efloat > float_capacity
+   and (p_cash_stockout ≥ θ or p_efloat_stockout ≥ θ)  → NEEDS_EXTRA_FLOAT (human escalation;
+                                                         best effort: split float pro rata to targets)
 elif cash_gap > 0 and p_cash_stockout ≥ θ          → TOP_UP_CASH, amount = ceil_1000(cash_gap)
 elif efloat_gap > 0 and p_efloat_stockout ≥ θ      → TOP_UP_EFLOAT, amount = ceil_1000(efloat_gap)
 else                                                → NO_ACTION
 ```
-Defaults: s = 0.90, θ = 0.10, min_buffer = ৳5,000. Reason codes are attached from the calendar flags and the top SHAP drivers.
+Defaults: s = 0.99, θ = 0.10 (chosen on validation by `scripts/tune_policy.py`; s is high because P90 forecasts are slightly over-confident around events), min_buffer = ৳5,000. The CDF built from P10/P50/P90 has explicit tails (§7.1, `engine/risk.py`). Reason codes are attached from the calendar flags and the balance state.
 
 ### 7.3 DSO allocation (greedy, P0)
 1. Candidates are the agents of the DSO with action ∈ {TOP_UP_CASH, TOP_UP_EFLOAT}.
-2. `priority = p_stockout × expected_shortfall`, where `expected_shortfall ≈ max(0, Q_CO(0.9) − open_cash)` (cash case).
+2. `priority = expected shortfall = E[(demand − available)+]` in taka (cash or e-float side, whichever is larger), computed exactly from the piecewise-linear CDF. This already folds in the stockout probability.
 3. Sort by priority, descending. Add agents while visits < K and cumulative cash carried ≤ M.
 4. Output the ordered plan plus the excluded list.
 

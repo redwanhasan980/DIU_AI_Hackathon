@@ -27,8 +27,16 @@ def tiny_cfg(cfg: Config, tmp_path_factory) -> Config:
 
 @pytest.fixture(scope="session")
 def tiny_artifacts(tiny_cfg: Config, sample):
-    """Train tiny models on the sample into a temp artifacts dir (shared by model/engine/API tests)."""
+    """Run the whole pipeline on the sample with tiny models into a temp artifacts dir.
+
+    Produces models, metrics.json, forecasts.parquet, simulation_default.json and fairness.json —
+    everything the API needs — so tests never depend on `make all`.
+    """
+    from floatwise.models import evaluate
     from floatwise.models.train import train
+    from floatwise.simulation import backtest
 
     train(tiny_cfg, sample, tiny_cfg.models_dir, verbose=False)
+    evaluate.run(tiny_cfg, sample, verbose=False)
+    backtest.run(tiny_cfg, sample, verbose=False)
     return tiny_cfg.artifacts_dir

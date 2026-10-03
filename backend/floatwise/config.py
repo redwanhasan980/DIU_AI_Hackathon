@@ -124,6 +124,7 @@ class FloatWisePolicy(_Strict):
     min_buffer_efloat: int
     round_to: int
     outlook_days: int
+    self_rebalance_compliance: float
 
 
 class DsoCfg(_Strict):

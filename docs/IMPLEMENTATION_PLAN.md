@@ -118,21 +118,21 @@ D starts with **mock JSON fixtures** that match the schemas, so it never waits o
 
 ## Phase 5 — Decision Engine (H+4 → H+12, 🔀 starts on generator output) [P0] · Stream B
 
-- [ ] `engine/risk.py`: quantile interpolation → `p_cash_stockout`, `p_efloat_stockout` (SRS §7.1)
-- [ ] `engine/recommend.py`: action, amount (ceil to ৳1,000), reason codes, 7-day outlook (SRS §7.2, FR-REC-1..5)
-- [ ] `engine/allocate.py`: greedy DSO plan with K and M constraints + excluded list (SRS §7.3)
-- [ ] Unit tests: low balance before Eid → TOP_UP_CASH; high balance → NO_ACTION; capacity exceeded → NEEDS_EXTRA_FLOAT; plan never exceeds K or M; amounts are deterministic
+- [x] `engine/risk.py`: quantile interpolation → `p_cash_stockout`, `p_efloat_stockout` (SRS §7.1)
+- [x] `engine/recommend.py`: action, amount (ceil to ৳1,000), reason codes, 7-day outlook (SRS §7.2, FR-REC-1..5)
+- [x] `engine/allocate.py`: greedy DSO plan with K and M constraints + excluded list (SRS §7.3)
+- [x] Unit tests: low balance before Eid → TOP_UP_CASH; high balance → NO_ACTION; capacity exceeded → NEEDS_EXTRA_FLOAT; plan never exceeds K or M; amounts are deterministic
 - [ ] ILP allocation with PuLP vs greedy comparison (FR-ALLOC-4) [P2]
 - [ ] **DoD:** `pytest tests/test_engine.py` green; the engine works on mocked quantiles before the real models exist
 
 ## Phase 6 — Impact Simulator (H+10 → H+16) [P0] · Stream B
 
-- [ ] `simulation/backtest.py`: replay the test period on **true demand** under status quo vs FloatWise (rebalance lead time 1 day, DSO capacity respected) (FR-SIM-1)
-- [ ] Metrics: stockout agent-days, failed CO/CI count and ৳, lost commission, average idle cash, trips (FR-SIM-2)
-- [ ] Eid-2026 daily timeline series for the chart
-- [ ] Service-level sweep (0.80 → 0.99) → trade-off curve data (FR-SIM-3) [P1]
-- [ ] Per-1,000-agents-per-month extrapolation using config assumptions (FR-SIM-5) [P1]
-- [ ] Cache the default scenario in `artifacts/simulation_default.json` (FR-SIM-4)
+- [x] `simulation/backtest.py`: replay the test period on **true demand** under status quo vs FloatWise (rebalance lead time 1 day, DSO capacity respected) (FR-SIM-1)
+- [x] Metrics: stockout agent-days, failed CO/CI count and ৳, lost commission, average idle cash, trips (FR-SIM-2)
+- [x] Eid-2026 daily timeline series for the chart
+- [x] Service-level sweep (0.80 → 0.99) → trade-off curve data (FR-SIM-3) [P1]
+- [x] Per-1,000-agents-per-month extrapolation using config assumptions (FR-SIM-5) [P1]
+- [x] Cache the default scenario in `artifacts/simulation_default.json` (FR-SIM-4)
 - [ ] **DoD:** KPI table in SRS §12 filled with real numbers; idle cash not above status quo (if it is, tune s/buffer on **validation**, not test)
 
 ## Phase 7 — Explainability & LLM Narrative (H+6 → H+18) [P0] · Stream C

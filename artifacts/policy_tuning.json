@@ -1,0 +1,132 @@
+{
+  "period": "2025-07-01 \u2192 2025-12-31 (validation)",
+  "rule": "max stockout reduction s.t. trips <= +15.0% and cash held <= +5.0%",
+  "status_quo": {
+    "stockout_agent_days": 3514,
+    "cash_stockout_days": 3488,
+    "efloat_stockout_days": 26,
+    "failed_cashout_count": 81250,
+    "failed_cashout_bdt": 202065617,
+    "failed_cashin_count": 356,
+    "failed_cashin_bdt": 723787,
+    "lost_commission_bdt": 1215289,
+    "customers_at_risk": 4063,
+    "avg_cash_held_bdt": 347508,
+    "rebalancing_trips": 42904,
+    "served_share": 0.9948
+  },
+  "grid": [
+    {
+      "service_level": 0.9,
+      "risk_threshold": 0.1,
+      "stockout_reduction_pct": 19.5,
+      "extra_trips_pct": 51.8,
+      "extra_cash_pct": -0.5
+    },
+    {
+      "service_level": 0.9,
+      "risk_threshold": 0.2,
+      "stockout_reduction_pct": 17.8,
+      "extra_trips_pct": 41.9,
+      "extra_cash_pct": -0.3
+    },
+    {
+      "service_level": 0.9,
+      "risk_threshold": 0.3,
+      "stockout_reduction_pct": 12.4,
+      "extra_trips_pct": 31.7,
+      "extra_cash_pct": -0.1
+    },
+    {
+      "service_level": 0.95,
+      "risk_threshold": 0.1,
+      "stockout_reduction_pct": 47.8,
+      "extra_trips_pct": 29.5,
+      "extra_cash_pct": 1.3
+    },
+    {
+      "service_level": 0.95,
+      "risk_threshold": 0.2,
+      "stockout_reduction_pct": 42.9,
+      "extra_trips_pct": 18.9,
+      "extra_cash_pct": 1.4
+    },
+    {
+      "service_level": 0.95,
+      "risk_threshold": 0.3,
+      "stockout_reduction_pct": 32.3,
+      "extra_trips_pct": 8.9,
+      "extra_cash_pct": 1.5
+    },
+    {
+      "service_level": 0.97,
+      "risk_threshold": 0.1,
+      "stockout_reduction_pct": 52.5,
+      "extra_trips_pct": 20.9,
+      "extra_cash_pct": 1.7
+    },
+    {
+      "service_level": 0.97,
+      "risk_threshold": 0.2,
+      "stockout_reduction_pct": 46.7,
+      "extra_trips_pct": 10.8,
+      "extra_cash_pct": 1.9
+    },
+    {
+      "service_level": 0.97,
+      "risk_threshold": 0.3,
+      "stockout_reduction_pct": 35.3,
+      "extra_trips_pct": 1.3,
+      "extra_cash_pct": 1.8
+    },
+    {
+      "service_level": 0.98,
+      "risk_threshold": 0.1,
+      "stockout_reduction_pct": 53.6,
+      "extra_trips_pct": 17.0,
+      "extra_cash_pct": 2.0
+    },
+    {
+      "service_level": 0.98,
+      "risk_threshold": 0.2,
+      "stockout_reduction_pct": 48.2,
+      "extra_trips_pct": 7.2,
+      "extra_cash_pct": 1.9
+    },
+    {
+      "service_level": 0.98,
+      "risk_threshold": 0.3,
+      "stockout_reduction_pct": 36.7,
+      "extra_trips_pct": -1.7,
+      "extra_cash_pct": 1.8
+    },
+    {
+      "service_level": 0.99,
+      "risk_threshold": 0.1,
+      "stockout_reduction_pct": 54.7,
+      "extra_trips_pct": 13.5,
+      "extra_cash_pct": 2.1
+    },
+    {
+      "service_level": 0.99,
+      "risk_threshold": 0.2,
+      "stockout_reduction_pct": 47.9,
+      "extra_trips_pct": 4.0,
+      "extra_cash_pct": 2.2
+    },
+    {
+      "service_level": 0.99,
+      "risk_threshold": 0.3,
+      "stockout_reduction_pct": 37.3,
+      "extra_trips_pct": -4.3,
+      "extra_cash_pct": 2.1
+    }
+  ],
+  "selected": {
+    "service_level": 0.99,
+    "risk_threshold": 0.1,
+    "stockout_reduction_pct": 54.7,
+    "extra_trips_pct": 13.5,
+    "extra_cash_pct": 2.1
+  }
+}

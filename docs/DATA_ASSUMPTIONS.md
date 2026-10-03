@@ -83,7 +83,15 @@ A trailing average lags behind sudden spikes, which is the weakness FloatWise ta
 - Pre-Eid days: 20–40 % for garment and rural agents.
 - Urban agents: they convert cash to e-float during the pre-Eid cash-in rush, then often run out of cash on Eid day itself.
 
-## 7. Business assumptions (illustrative, NOT upay tariffs)
+## 7. FloatWise operating assumptions (backtest)
+| Assumption | Value | Why |
+|---|---|---|
+| DSO capacity | 10 visits and ৳10,00,000 cash bag per DSO per day | Typical field visit load |
+| App-advice compliance | 70 % of agents not visited by a DSO follow the in-app advice and self-rebalance at the distributor point (as agents already do today); 30 % keep their own rule | Conservative; adoption is never 100 % |
+| Lead time | Advice at close of day *t* is executed at the opening of *t + 1* | Same as status quo |
+| Policy defaults | Service level 0.99, risk threshold 0.10 | Selected on the validation period (`scripts/tune_policy.py`, `artifacts/policy_tuning.json`) |
+
+## 8. Business assumptions (illustrative, NOT upay tariffs)
 | Assumption | Value |
 |---|---|
 | Cash-out fee | 1.85 % |
@@ -93,7 +101,7 @@ A trailing average lags behind sudden spikes, which is the weakness FloatWise ta
 | Fee revenue per active customer per month | ৳120 |
 | Opportunity cost of idle cash | 10 % per year |
 
-## 8. Known limitations
+## 9. Known limitations
 - Daily granularity with a fixed intraday profile; real intraday patterns vary by agent.
 - The forecasts used in the backtest are computed from status-quo-world history. In the FloatWise world, fewer stockouts would make observed history slightly *higher*. This makes our results slightly conservative.
 - Customers do not move to a neighbouring agent when one stocks out. Spill-over is not modelled.

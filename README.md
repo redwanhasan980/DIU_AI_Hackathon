@@ -1,5 +1,7 @@
 # FloatWise — AI Agent Liquidity Forecaster
 
+[![CI](https://github.com/redwanhasan980/DIU_AI_Hackathon/actions/workflows/ci.yml/badge.svg)](https://github.com/redwanhasan980/DIU_AI_Hackathon/actions/workflows/ci.yml)
+
 > AI Hackathon 2026 · DIU CPC × upay · Track 05: Merchant & Agent Intelligence
 
 **FloatWise predicts when upay agents will run out of cash or e-float.** This matters most around Eid, garment salary days and remittance peaks. FloatWise tells the field team who to visit, how much to bring and why, so customers stop hearing *"cash nai, pore ashen"* ("no cash, come back later").

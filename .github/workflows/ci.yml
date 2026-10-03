@@ -26,6 +26,24 @@ jobs:
         working-directory: backend
         run: pytest
 
+  backend-windows:
+    name: Backend tests on Windows (portability)
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: backend/pyproject.toml
+      - name: Install
+        run: pip install -e "backend[dev]"
+      - name: Test
+        working-directory: backend
+        run: pytest
+      - name: Launcher help (run.py)
+        run: python run.py; if ($LASTEXITCODE -eq 2) { exit 0 } else { exit 1 }
+
   frontend:
     name: Frontend (typecheck + lint + build)
     runs-on: ubuntu-latest

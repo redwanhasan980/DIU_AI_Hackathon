@@ -93,7 +93,14 @@ def stockouts_by_event(df: pd.DataFrame, cal: pd.DataFrame, out) -> None:
     fig, ax = plt.subplots(figsize=(9, 4.2), facecolor=SURFACE)
     bars = ax.barh(rate.index, rate.values * 100, color=SLOTS[1], height=0.55)
     for b, v in zip(bars, rate.values, strict=True):
-        ax.text(b.get_width() + 0.5, b.get_y() + b.get_height() / 2, f"{v:.0%}", va="center", color=INK2, fontsize=9)
+        ax.text(
+            b.get_width() + 0.5,
+            b.get_y() + b.get_height() / 2,
+            f"{v:.0%}",
+            va="center",
+            color=INK2,
+            fontsize=9,
+        )
     _style(ax, "Status-quo stockout rate by calendar event (share of agent-days)", "")
     ax.grid(axis="x", color=GRID, linewidth=0.8)
     ax.grid(axis="y", visible=False)

@@ -68,32 +68,32 @@ D starts with **mock JSON fixtures** that match the schemas, so it never waits o
 ## Phase 1 — Scaffold & Contracts (H+0 → H+2) [P0]
 
 - [ ] Create the repo layout from `CLAUDE.md` (`backend/`, `frontend/`, `data/`, `artifacts/`, `docs/`)
-- [ ] `backend/pyproject.toml` with pinned deps: pandas, numpy, pyarrow, lightgbm, shap, scikit-learn, fastapi, uvicorn, pydantic, pyyaml, anthropic, pytest, ruff (pulp optional)
-- [ ] `backend/floatwise/config.py` + `config.yaml`: seed, date ranges, split dates, demo date, archetype parameters, Eid dates, policy defaults (s, θ, α, buffers, K, M), business assumptions
-- [ ] `backend/floatwise/schemas.py`: pydantic models for Agent, ForecastPoint, Recommendation, Explanation, DsoPlan, SimulationResult, Decision
+- [x] `backend/pyproject.toml` with pinned deps: pandas, numpy, pyarrow, lightgbm, shap, scikit-learn, fastapi, uvicorn, pydantic, pyyaml, anthropic, pytest, ruff (pulp optional)
+- [x] `backend/floatwise/config.py` + `config.yaml`: seed, date ranges, split dates, demo date, archetype parameters, Eid dates, policy defaults (s, θ, α, buffers, K, M), business assumptions
+- [x] `backend/floatwise/schemas.py`: pydantic models for Agent, ForecastPoint, Recommendation, Explanation, DsoPlan, SimulationResult, Decision
 - [ ] `frontend/` Vite + React + TS + Tailwind; `src/api/types.ts` mirrors the schemas; `src/fixtures/*.json` mock responses
-- [ ] Root `Makefile` targets: `setup`, `data`, `train`, `evaluate`, `simulate`, `narratives`, `api`, `web`, `test`, `lint`, `demo`, `all`
-- [ ] `.env.example` with `ANTHROPIC_API_KEY=` and `LLM_MODEL=`
+- [x] Root `Makefile` targets: `setup`, `data`, `train`, `evaluate`, `simulate`, `narratives`, `api`, `web`, `test`, `lint`, `demo`, `all`
+- [x] `.env.example` with `ANTHROPIC_API_KEY=` and `LLM_MODEL=`
 - [ ] `make test` runs (even with zero tests) and `make lint` passes
 - [ ] **DoD:** everyone can run `make setup && make test`, and the frontend shows a placeholder page
 
 ## Phase 2 — Synthetic Data (H+2 → H+6) [P0] · Stream A
 
-- [ ] `data/calendar_bd.py`: build the calendar 2024-01-01 → 2026-06-30 with all SRS §5.1 columns (FR-DATA-2)
-- [ ] `data/agents.py`: 500 agents, 5 archetypes, real district names, jittered lat/lon, DSO/distributor assignment, float capacity (FR-DATA-1)
-- [ ] `data/demand.py`: true CO/CI demand by the multiplicative model in SRS §5.3 (FR-DATA-3)
-  - [ ] Weekday/Friday profile per archetype
-  - [ ] Salary window (garment_belt strong, others mild)
-  - [ ] Eid curves: rural CO spike, urban CI spike, garment bonus, post-Eid dip
-  - [ ] Ramadan and Boishakh multipliers
-  - [ ] Trend + log-normal noise
-- [ ] `data/shocks.py`: flood/outage/hartal events by district, with a log in `shocks.csv` (FR-DATA-5) [P1]
-- [ ] `data/simulate_status_quo.py`: day-by-day balances under the status-quo policy → served/unserved, stockout flags, rebalances (FR-DATA-4)
-- [ ] `data/generate.py` CLI: writes `data/generated/{agents.csv, calendar.csv, daily.parquet, shocks.csv}`, deterministic by seed (FR-DATA-6)
-- [ ] Data quality checks from SRS §5.4 as `tests/test_data_quality.py`
+- [x] `data/calendar_bd.py`: build the calendar 2024-01-01 → 2026-06-30 with all SRS §5.1 columns (FR-DATA-2)
+- [x] `data/agents.py`: 500 agents, 5 archetypes, real district names, jittered lat/lon, DSO/distributor assignment, float capacity (FR-DATA-1)
+- [x] `data/demand.py`: true CO/CI demand by the multiplicative model in SRS §5.3 (FR-DATA-3)
+  - [x] Weekday/Friday profile per archetype
+  - [x] Salary window (garment_belt strong, others mild)
+  - [x] Eid curves: rural CO spike, urban CI spike, garment bonus, post-Eid dip
+  - [x] Ramadan and Boishakh multipliers
+  - [x] Trend + log-normal noise
+- [x] `data/shocks.py`: flood/outage/hartal events by district, with a log in `shocks.csv` (FR-DATA-5) [P1]
+- [x] `data/simulate_status_quo.py`: day-by-day balances under the status-quo policy → served/unserved, stockout flags, rebalances (FR-DATA-4)
+- [x] `data/generate.py` CLI: writes `data/generated/{agents.csv, calendar.csv, daily.parquet, shocks.csv}`, deterministic by seed (FR-DATA-6)
+- [x] Data quality checks from SRS §5.4 as `tests/test_data_quality.py`
 - [ ] `scripts/plot_data_checks.py`: Eid spike, salary window and archetype comparison PNGs in `artifacts/plots/` (FR-DATA-7) [P1]
-- [ ] `docs/DATA_ASSUMPTIONS.md`: every parameter and why (R-DATA-3)
-- [ ] Commit the small sample `data/sample/` (50 agents, ≤ 5 MB) for tests (FR-DATA-8) [P1]
+- [x] `docs/DATA_ASSUMPTIONS.md`: every parameter and why (R-DATA-3)
+- [x] Commit the small sample `data/sample/` (50 agents, ≤ 5 MB) for tests (FR-DATA-8) [P1]
 - [ ] **DoD:** `make data` < 3 min; quality tests pass; the plots visibly show the injected patterns
 
 ## Phase 3 — Baselines & Features (H+6 → H+8) [P0] · Stream A

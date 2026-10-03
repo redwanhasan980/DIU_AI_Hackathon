@@ -1,0 +1,15 @@
+shock_id,type,district,start_date,end_date,multiplier
+SH002,hartal,Rajshahi,2024-01-22,2024-01-23,0.6
+SH014,hartal,Chattogram,2024-02-12,2024-02-13,0.6
+SH008,hartal,Chattogram,2024-03-21,2024-03-22,0.6
+SH007,flood,Moulvibazar,2024-06-06,2024-06-11,0.5
+SH001,flood,Moulvibazar,2024-06-21,2024-06-25,0.5
+SH003,outage,Bogura,2024-12-23,2024-12-23,0.3
+SH005,hartal,Khulna,2025-01-29,2025-01-29,0.6
+SH006,outage,Bogura,2025-02-05,2025-02-05,0.3
+SH009,outage,Feni,2025-03-15,2025-03-15,0.3
+SH013,flood,Moulvibazar,2025-06-27,2025-07-03,0.5
+SH010,flood,Feni,2025-06-29,2025-07-02,0.5
+SH004,flood,Sylhet,2025-08-13,2025-08-19,0.5
+SH012,outage,Rajshahi,2025-10-24,2025-10-24,0.3
+SH011,hartal,Dhaka,2025-12-07,2025-12-07,0.6

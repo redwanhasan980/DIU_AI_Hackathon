@@ -42,7 +42,7 @@ network:
   dsos_per_distributor: 5
   location_jitter_deg: 0.06
   size_factor_sigma: 0.35     # agent size heterogeneity, LogNormal(0, sigma)
-  float_capacity_range: [1.7, 3.0]   # total float = U(range) x (base_co + base_ci) x size
+  float_capacity_range: [1.4, 2.4]   # total float = U(range) x (base_co + base_ci) x size
   archetype_share:
     urban_residential: 0.25
     garment_belt: 0.20
@@ -173,7 +173,7 @@ shocks:
 policy:
   status_quo:                  # rule of thumb that agents use today
     lookback_days: 7
-    target_ratio: 1.2          # keep 1.2 x trailing 7-day mean served volume
+    target_ratio: 1.5          # keep 1.5 x trailing 7-day mean served volume
     trigger_ratio: 0.6         # rebalance when balance < 0.6 x target
   floatwise:
     service_level: 0.90

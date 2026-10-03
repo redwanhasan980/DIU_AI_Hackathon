@@ -238,6 +238,12 @@ class Store:
             self.cfg, self.m, self.calendar, self.agents, np.array([t]), horizons=np.array([1])
         )
 
+    def warm_up(self, d: dt.date) -> None:
+        """Precompute the network recommendation and SHAP feature panel for one date."""
+        if d in self.origin_pos and d in self.date_pos:
+            self.network_rec(d)
+            self._panel_at(d)
+
     def next_event(self, d: dt.date) -> tuple[str, dt.date, int] | None:
         evs = [
             e for e in upcoming_events(self.cfg, d, within_days=14) if e[0] != "Salary window" and e[2] >= 1

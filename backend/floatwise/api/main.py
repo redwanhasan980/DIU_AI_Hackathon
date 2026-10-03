@@ -48,6 +48,7 @@ def create_app(cfg: Config | None = None, store: Store | None = None) -> FastAPI
     async def lifespan(_: FastAPI):
         if state["store"] is None:
             state["store"] = Store(cfg)
+        state["store"].warm_up(cfg.dates.demo_date)  # first demo request stays under 300 ms (NFR-1)
         yield
 
     app = FastAPI(title="FloatWise API", version="1.0", lifespan=lifespan,

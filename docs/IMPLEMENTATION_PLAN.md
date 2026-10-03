@@ -187,6 +187,7 @@ D starts with **mock JSON fixtures** that match the schemas, so it never waits o
 - [x] Numbers in the deck = UI = `artifacts/*.json` (single source)
 - [x] README: problem, solution, screenshots, architecture diagram, how to run, results table, Responsible AI, limitations, next steps
 - [ ] Pitch deck (≈ 8–10 slides): Problem → Who → Why AI → Demo → Results → Responsible AI → Scale path → Team
+  - Draft: 16 animated slides, numbers from `artifacts/*.json`, at https://claude.ai/artifact/KiGmc8LGx4vfnn1svfmMm2 (private until shared). Still to do: add a Team slide and share the link.
 - [ ] Demo video (2–3 min) recorded as a backup
 - [ ] Rehearse the demo ×3 with a timer; prepare answers for likely judge questions (see below)
 - [x] Fresh clone → `make setup all demo` works on a second laptop

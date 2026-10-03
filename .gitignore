@@ -1,0 +1,28 @@
+# Secrets
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+
+# Node
+node_modules/
+frontend/dist/
+
+# Data & models (regenerate with `make all`)
+data/generated/
+artifacts/models/
+artifacts/*.parquet
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/

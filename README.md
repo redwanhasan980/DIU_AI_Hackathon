@@ -15,6 +15,8 @@
 
 > All data is **synthetic** but shaped on upay's public facts: tariffs, commissions, services and network size. See [`docs/DATA_ASSUMPTIONS.md`](docs/DATA_ASSUMPTIONS.md).
 
+> **Full project report** (problem, solution, architecture, workflow, results, execution; 28 pages with charts): [PDF](docs/report/FloatWise_Project_Report.pdf) · [Word](docs/report/FloatWise_Project_Report.docx)
+
 ---
 
 ## Quick start (about 6 minutes)
@@ -176,6 +178,7 @@ Every choice was made on held-out data, never on the test period. The evidence i
 | [`docs/SRS.md`](docs/SRS.md) | Requirements, formulas, API and UI spec, results next to targets |
 | [`docs/IMPLEMENTATION_PLAN.md`](docs/IMPLEMENTATION_PLAN.md) | Phased checklist (ticked as built) |
 | [`docs/DATA_ASSUMPTIONS.md`](docs/DATA_ASSUMPTIONS.md) | Every synthetic assumption, plus upay facts with sources |
+| [`docs/report/`](docs/report/) | Full project report as PDF and Word, with charts |
 | [`CLAUDE.md`](CLAUDE.md), [`RULES.md`](RULES.md) | Guide and mandatory rules for AI coding agents |
 | `backend/floatwise/` | `data/` → `features/` → `models/` → `engine/` → `simulation/` / `explain/` → `api/` |
 | `backend/scripts/` | Experiments, policy tuning, narrative cache, fixture export, e2e walk-through |

@@ -15,7 +15,7 @@
 
 > All data is **synthetic** but shaped on upay's public facts: tariffs, commissions, services and network size. See [`docs/DATA_ASSUMPTIONS.md`](docs/DATA_ASSUMPTIONS.md).
 
-> **Full project report** (problem, solution, architecture, workflow, results, execution; 28 pages with charts): [PDF](docs/report/FloatWise_Project_Report.pdf) · [Word](docs/report/FloatWise_Project_Report.docx)
+> **Full project report** (problem, solution, architecture, workflow, results, execution; 35 pages with charts and cited sources): [PDF](docs/report/FloatWise_Project_Report.pdf) · [Word](docs/report/FloatWise_Project_Report.docx)
 
 ---
 

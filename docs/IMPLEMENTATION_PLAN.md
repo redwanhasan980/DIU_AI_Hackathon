@@ -189,7 +189,7 @@ D starts with **mock JSON fixtures** that match the schemas, so it never waits o
 - [ ] Pitch deck (≈ 8–10 slides): Problem → Who → Why AI → Demo → Results → Responsible AI → Scale path → Team
 - [ ] Demo video (2–3 min) recorded as a backup
 - [ ] Rehearse the demo ×3 with a timer; prepare answers for likely judge questions (see below)
-- [ ] Fresh clone → `make setup all demo` works on a second laptop
+- [x] Fresh clone → `make setup all demo` works on a second laptop
 - [ ] Submit the repo link, video and deck before the deadline (aim for 1 h early)
 
 ---

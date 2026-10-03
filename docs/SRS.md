@@ -341,12 +341,12 @@ Rule: no feature may use data from after t (leakage test required, R-ML-2).
 
 ### 6.4 Evaluation and acceptance
 
-| Metric | Acceptance (test set) |
-|---|---|
-| WAPE P50 cash-out vs seasonal-naive | ≥ 20 % relative improvement overall |
-| WAPE P50 cash-out on event days | ≥ 35 % relative improvement |
-| P10–P90 empirical coverage | 72–88 % (target 80 %) |
-| Per-archetype WAPE | No archetype worse than the baseline (fairness) |
+| Metric | Acceptance (test set) | Result (model fw-34e31047, `artifacts/metrics.json`) |
+|---|---|---|
+| WAPE P50 cash-out vs seasonal-naive | ≥ 20 % relative improvement overall | ✅ **53.1 %** better (18.6 % vs 39.6 %) |
+| WAPE P50 cash-out on event days | ≥ 35 % relative improvement | ✅ **65.1 %** better (20.6 % vs 58.9 %) |
+| P10–P90 empirical coverage | 72–88 % (target 80 %) | ✅ **74 %** overall. ⚠ Only 55 % on event days: intervals are too narrow at Eid peaks; the policy compensates with service level 0.99 |
+| Per-archetype WAPE | No archetype worse than the baseline (fairness) | ✅ All five better (17.0–21.2 % vs 32.1–49.0 %) |
 
 If an acceptance target is missed, report the true number honestly (R-ML-5). Never tune on the test set.
 
@@ -470,19 +470,19 @@ UI rules:
 
 ## 12. Success Metrics (KPIs) & Acceptance Criteria
 
-| KPI | Target (test period incl. Eid 2026) |
-|---|---|
-| Stockout agent-days | ≥ 40 % reduction vs status quo |
-| Failed cash-out value (৳) | ≥ 40 % reduction |
-| Average idle cash | ≤ status quo (no "solve it by hoarding cash") |
-| Rebalancing trips | ≤ +15 % vs status quo |
-| Forecast WAPE (P50 CO) | ≥ 20 % better than seasonal-naive; ≥ 35 % on event days |
+| KPI | Target (test period incl. Eid 2026) | Result (`artifacts/simulation_default.json`) |
+|---|---|---|
+| Stockout agent-days | ≥ 40 % reduction vs status quo | ✅ **−44.6 %** (6,736 → 3,730) |
+| Failed cash-out value (৳) | ≥ 40 % reduction | ✅ **−43.6 %** (৳51.1 Cr → ৳28.8 Cr) |
+| Average idle cash | ≤ status quo (no "solve it by hoarding cash") | ❌ **+2.5 %** (৳3,51,692 → ৳3,60,630). Missed: the validation-tuned policy allows up to +5 % |
+| Rebalancing trips | ≤ +15 % vs status quo | ✅ **+3.9 %** |
+| Forecast WAPE (P50 CO) | ≥ 20 % better than seasonal-naive; ≥ 35 % on event days | ✅ 53.1 % / 65.1 % better |
 
 **Release (demo) acceptance:**
-- All P0 requirements pass.
-- `make test` is green.
-- The demo script (§14) runs end to end offline in < 5 minutes.
-- The metrics shown in the UI equal `artifacts/metrics.json` and the simulation output.
+- All P0 requirements pass. ✅
+- `make test` is green. ✅ 86 tests, also in GitHub Actions CI.
+- The demo script (§14) runs end to end offline in < 5 minutes. ✅ `make e2e` passes 21/21 checks in about 30 s. The API runs locally; fixtures cover the main path if it is down.
+- The metrics shown in the UI equal `artifacts/metrics.json` and the simulation output. ✅ The UI reads them through the API.
 
 ---
 

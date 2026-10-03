@@ -75,7 +75,7 @@ D starts with **mock JSON fixtures** that match the schemas, so it never waits o
 - [x] Root `Makefile` targets: `setup`, `data`, `train`, `evaluate`, `simulate`, `narratives`, `api`, `web`, `test`, `lint`, `demo`, `all`
 - [x] `.env.example` with `ANTHROPIC_API_KEY=` and `LLM_MODEL=`
 - [x] `make test` runs (even with zero tests) and `make lint` passes
-- [ ] **DoD:** everyone can run `make setup && make test`, and the frontend shows a placeholder page
+- [x] **DoD:** everyone can run `make setup && make test`, and the frontend shows a placeholder page (verified on a fresh clone)
 
 ## Phase 2 — Synthetic Data (H+2 → H+6) [P0] · Stream A
 
@@ -94,7 +94,7 @@ D starts with **mock JSON fixtures** that match the schemas, so it never waits o
 - [x] `scripts/plot_data_checks.py`: Eid spike, salary window and archetype comparison PNGs in `artifacts/plots/` (FR-DATA-7) [P1]
 - [x] `docs/DATA_ASSUMPTIONS.md`: every parameter and why (R-DATA-3)
 - [x] Commit the small sample `data/sample/` (50 agents, ≤ 5 MB) for tests (FR-DATA-8) [P1]
-- [ ] **DoD:** `make data` < 3 min; quality tests pass; the plots visibly show the injected patterns
+- [x] **DoD:** `make data` < 3 min; quality tests pass; the plots visibly show the injected patterns (≈2 s; see README)
 
 ## Phase 3 — Baselines & Features (H+6 → H+8) [P0] · Stream A
 
@@ -102,7 +102,7 @@ D starts with **mock JSON fixtures** that match the schemas, so it never waits o
 - [x] **Leakage test** `tests/test_no_leakage.py`: corrupt all data after t and assert features at origin t are unchanged (R-ML-2)
 - [x] `models/baselines.py`: seasonal-naive and trailing-7-day mean
 - [x] Time split per SRS §5.2 in a single function `split_by_date()`; the test period is used only in Phase 4 final eval (R-ML-1)
-- [ ] **DoD:** feature panel built for train/val; baseline metrics on validation printed
+- [x] **DoD:** feature panel built for train/val; baseline metrics on validation printed
 
 ## Phase 4 — Forecast Models (H+8 → H+13) [P0] · Stream A
 
@@ -114,7 +114,7 @@ D starts with **mock JSON fixtures** that match the schemas, so it never waits o
 - [x] `models/predict.py`: precompute forecasts for every agent and origin in the test period → `artifacts/forecasts.parquet` (fast API reads)
 - [x] Auto-generate `artifacts/model_card.md`
 - [x] Final test-set evaluation run **once**; numbers recorded
-- [ ] **DoD:** acceptance table in SRS §6.4 filled with real numbers (honest even if a target is missed)
+- [x] **DoD:** acceptance table in SRS §6.4 filled with real numbers (honest even if a target is missed)
 
 ## Phase 5 — Decision Engine (H+4 → H+12, 🔀 starts on generator output) [P0] · Stream B
 
@@ -123,7 +123,7 @@ D starts with **mock JSON fixtures** that match the schemas, so it never waits o
 - [x] `engine/allocate.py`: greedy DSO plan with K and M constraints + excluded list (SRS §7.3)
 - [x] Unit tests: low balance before Eid → TOP_UP_CASH; high balance → NO_ACTION; capacity exceeded → NEEDS_EXTRA_FLOAT; plan never exceeds K or M; amounts are deterministic
 - [x] Exact (knapsack DP) allocation vs greedy comparison (FR-ALLOC-4) [P2]
-- [ ] **DoD:** `pytest tests/test_engine.py` green; the engine works on mocked quantiles before the real models exist
+- [x] **DoD:** `pytest tests/test_engine.py` green; the engine works on mocked quantiles before the real models exist
 
 ## Phase 6 — Impact Simulator (H+10 → H+16) [P0] · Stream B
 
@@ -133,7 +133,7 @@ D starts with **mock JSON fixtures** that match the schemas, so it never waits o
 - [x] Service-level sweep (0.80 → 0.99) → trade-off curve data (FR-SIM-3) [P1]
 - [x] Per-1,000-agents-per-month extrapolation using config assumptions (FR-SIM-5) [P1]
 - [x] Cache the default scenario in `artifacts/simulation_default.json` (FR-SIM-4)
-- [ ] **DoD:** KPI table in SRS §12 filled with real numbers; idle cash not above status quo (if it is, tune s/buffer on **validation**, not test)
+- [x] **DoD:** KPI table in SRS §12 filled with real numbers; idle cash not above status quo (if it is, tune s/buffer on **validation**, not test). ⚠ Idle cash is +2.5 %: tuned on validation with a ≤ +5 % cap, reported as missed in SRS §12
 
 ## Phase 7 — Explainability & LLM Narrative (H+6 → H+18) [P0] · Stream C
 
@@ -143,7 +143,7 @@ D starts with **mock JSON fixtures** that match the schemas, so it never waits o
 - [x] Numeric post-check: every number in the output must exist in the input, else use the template (FR-XAI-3) [P1]
 - [x] `scripts/build_narratives.py`: pre-generate bn + en for demo agents and the demo date → `artifacts/narratives_cache.json` (FR-XAI-5)
 - [x] Tests: the template always works without a key; the post-check rejects an injected fake amount
-- [ ] **DoD:** explanation endpoint returns `source: cache|llm|template` and never errors
+- [x] **DoD:** explanation endpoint returns `source: cache|llm|template` and never errors
 
 ## Phase 8 — API (H+2 → H+16, 🔀) [P0] · Stream C
 

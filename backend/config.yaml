@@ -203,7 +203,7 @@ model:
   scale_window: 28
   min_history_days: 28
   train_horizons_per_origin: 3 # sample horizons per (agent, origin) to keep training fast
-  censoring: exclude           # exclude | keep — rows whose target day had a stockout
+  censoring: inflate           # keep | exclude | inflate — chosen by scripts/censoring_experiment.py
   event_window: [-7, 3]        # "event day" = within 7 days before .. 3 days after an Eid
   lgbm:
     n_estimators: 400

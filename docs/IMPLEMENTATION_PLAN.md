@@ -98,22 +98,22 @@ D starts with **mock JSON fixtures** that match the schemas, so it never waits o
 
 ## Phase 3 — Baselines & Features (H+6 → H+8) [P0] · Stream A
 
-- [ ] `features/build.py`: origin/horizon panel (t, h=1..7) with the SRS §6.2 features
-- [ ] **Leakage test** `tests/test_no_leakage.py`: corrupt all data after t and assert features at origin t are unchanged (R-ML-2)
-- [ ] `models/baselines.py`: seasonal-naive and trailing-7-day mean
-- [ ] Time split per SRS §5.2 in a single function `split_by_date()`; the test period is used only in Phase 4 final eval (R-ML-1)
+- [x] `features/build.py`: origin/horizon panel (t, h=1..7) with the SRS §6.2 features
+- [x] **Leakage test** `tests/test_no_leakage.py`: corrupt all data after t and assert features at origin t are unchanged (R-ML-2)
+- [x] `models/baselines.py`: seasonal-naive and trailing-7-day mean
+- [x] Time split per SRS §5.2 in a single function `split_by_date()`; the test period is used only in Phase 4 final eval (R-ML-1)
 - [ ] **DoD:** feature panel built for train/val; baseline metrics on validation printed
 
 ## Phase 4 — Forecast Models (H+8 → H+13) [P0] · Stream A
 
-- [ ] `models/train.py`: LightGBM quantile models for {cashout, cashin, net_outflow} × {0.1, 0.5, 0.9} (FR-FCST-2)
-- [ ] Non-crossing fix after predict (FR-FCST-4)
-- [ ] Light tuning on validation only (≤ 20 trials)
-- [ ] `models/evaluate.py`: WAPE, MAE, pinball, coverage; overall / event days / archetype / horizon; vs baselines → `artifacts/metrics.json` (FR-FCST-5)
-- [ ] Censoring handling: stockout-day feature or exclusion; evaluate against true demand (FR-FCST-6) [P1]
-- [ ] `models/predict.py`: precompute forecasts for every agent and origin in the test period → `artifacts/forecasts.parquet` (fast API reads)
-- [ ] Auto-generate `artifacts/model_card.md`
-- [ ] Final test-set evaluation run **once**; numbers recorded
+- [x] `models/train.py`: LightGBM quantile models for {cashout, cashin, net_outflow} × {0.1, 0.5, 0.9} (FR-FCST-2)
+- [x] Non-crossing fix after predict (FR-FCST-4)
+- [x] Light tuning on validation only (≤ 20 trials)
+- [x] `models/evaluate.py`: WAPE, MAE, pinball, coverage; overall / event days / archetype / horizon; vs baselines → `artifacts/metrics.json` (FR-FCST-5)
+- [x] Censoring handling: stockout-day feature or exclusion; evaluate against true demand (FR-FCST-6) [P1]
+- [x] `models/predict.py`: precompute forecasts for every agent and origin in the test period → `artifacts/forecasts.parquet` (fast API reads)
+- [x] Auto-generate `artifacts/model_card.md`
+- [x] Final test-set evaluation run **once**; numbers recorded
 - [ ] **DoD:** acceptance table in SRS §6.4 filled with real numbers (honest even if a target is missed)
 
 ## Phase 5 — Decision Engine (H+4 → H+12, 🔀 starts on generator output) [P0] · Stream B

@@ -15,6 +15,7 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
+from floatwise.api.persistence import Conflict, OperationsDB
 from floatwise.config import Config
 from floatwise.data.calendar_bd import upcoming_events
 from floatwise.data.generate import load_dataset
@@ -74,11 +75,23 @@ class Store:
 
         self.models = QuantileModels.load(cfg)
         self.metrics = _read_json(art / "metrics.json") or {}
+        if self.metrics and self.metrics.get("version") != self.models.version:
+            raise ValueError("Forecast/model metrics versions differ; run make evaluate and make simulate")
         self.simulation_default = _read_json(art / "simulation_default.json")
         self.fairness = _read_json(art / "fairness.json")
         self.policy_tuning = _read_json(art / "policy_tuning.json")
         self.narrative_cache: dict = _read_json(art / "narratives_cache.json") or {}
         self.decisions_path = art / "decisions.json"
+        self.operations = OperationsDB(art / "operations.sqlite3", self.decisions_path)
+        train_end = self.date_pos[cfg.dates.train_end]
+        self.training_reference = {}
+        for side, values in self.m.y.items():
+            prior = pd.DataFrame(values.T).shift(1).rolling(28, min_periods=1).mean().to_numpy().T
+            ratios = values[:, 28:train_end + 1] / np.maximum(prior[:, 28:train_end + 1], 1000)
+            self.training_reference[side] = float(np.mean(ratios))
+        self.artifact_model_version = self.models.version
+        from floatwise.integration.service import Integration
+        self.integration = Integration(self)
         self._lock = threading.Lock()
         self._sim_inputs = None
 
@@ -105,12 +118,70 @@ class Store:
         return PolicyParams.from_config(self.cfg, service_level=service_level)
 
     def quantiles(self, d: dt.date, h: int = 1) -> tuple[np.ndarray, np.ndarray]:
-        f = self.F[self.origin_pos[d], :, h - 1]
+        self.integration.sync_model()
+        f = self.F[self.origin_pos[d], :, h - 1].copy()
+        if self.models.version != self.artifact_model_version:
+            full = self._active_predictions(d, self.models.version)
+            f = full[:, h - 1].copy()
+        for agent, forecast in self.integration.overrides(d).items():
+            point = forecast["points"][h - 1]
+            f[self.agent_index(agent)] = [point[side][q] for side in ("cashout", "cashin") for q in ("p10", "p50", "p90")]
         return f[:, :3], f[:, 3:]
+
+    @lru_cache(maxsize=16)  # noqa: B019
+    def _active_predictions(self, d: dt.date, version: str) -> np.ndarray:
+        panel = build_panel(self.cfg, self.m, self.calendar, self.agents, np.array([self.date_pos[d]]))
+        preds = [self.models.predict_amount(panel, side) for side in ("cashout", "cashin")]
+        return np.concatenate(preds, axis=1).reshape(len(self.agents), self.cfg.model.horizons, 6)
 
     def network_rec(self, d: dt.date, service_level: float | None = None) -> dict:
         self.check_date(d)
+        self.integration.sync_model()
+        with self.operations.connect() as db:
+            rows = db.execute(
+                "SELECT agent_id, cash, efloat, version FROM balances WHERE day=?", (str(d),)
+            ).fetchall()
+        with self.operations.connect() as db:
+            integrated = db.execute("SELECT 1 FROM integration_revisions LIMIT 1").fetchone()
+        if rows or integrated or self.models.version != self.artifact_model_version:
+            t = self.date_pos[d]
+            cash, efloat = self.close_cash[:, t].copy(), self.close_efloat[:, t].copy()
+            versions = np.zeros(len(self.agents), dtype=int)
+            for agent_id, ca, ef, version in rows:
+                i = self.agent_index(agent_id)
+                cash[i], efloat[i] = ca, ef
+                versions[i] = version
+            co_q, ci_q = self.quantiles(d)
+            rec = recommend(self.params(service_level), cash, efloat, self.capacity, co_q, ci_q)
+            rec["observed_cash"], rec["observed_efloat"] = cash, efloat
+            rec["balance_version"] = versions
+            rec["band"] = risk_band(rec["p_stockout"], self.params(service_level).risk_threshold)
+            return rec
         return self._network_rec(d, service_level)
+
+    def balance(self, agent_id: str, d: dt.date) -> dict:
+        self.check_date(d)
+        i, t = self.agent_index(agent_id), self.date_pos[d]
+        return self.operations.balance(agent_id, d) or {
+            "version": 0,
+            "cash": int(self.close_cash[i, t]),
+            "efloat": int(self.close_efloat[i, t]),
+        }
+
+    def observe_balance(self, body: dict, actor: str) -> dict:
+        self.check_date(body["date"])
+        i = self.agent_index(body["agent_id"])
+        if body["cash"] + body["efloat"] != int(self.capacity[i]):
+            raise ValueError("Cash plus e-float must equal the synthetic agent's float capacity")
+        return self.operations.set_balance(
+            body["agent_id"], body["date"], body["cash"], body["efloat"], body["expected_version"], actor
+        )
+
+    def live_forecast(self, agent_id: str, d: dt.date) -> dict:
+        """Execute the loaded boosters using history available at this origin, never forecast artifacts."""
+        self.check_date(d)
+        self.agent_index(agent_id)
+        return self.integration.infer(agent_id, d)
 
     @lru_cache(maxsize=64)  # noqa: B019 — the store lives for the whole process
     def _network_rec(self, d: dt.date, service_level: float | None) -> dict:
@@ -125,6 +196,9 @@ class Store:
             ci_q,
         )
         rec["band"] = risk_band(rec["p_stockout"], self.params(service_level).risk_threshold)
+        rec["observed_cash"] = self.close_cash[:, t]
+        rec["observed_efloat"] = self.close_efloat[:, t]
+        rec["balance_version"] = np.zeros(len(self.agents), dtype=int)
         return rec
 
     def agent_summary(self, i: int, rec: dict) -> dict:
@@ -167,15 +241,30 @@ class Store:
             }
             for r in hist.sort_values("date").itertuples()
         ]  # fmt: skip
+        _, projected = self.integration.rows(agent_id, d)
+        updates = {date: (ci, co, di, do) for date, ci, co, di, do, _ in projected}
+        for point in history:
+            replacement = updates.get(str(point["date"]))
+            if replacement:
+                ci, co, di, do = replacement
+                point.update(cashin_amt=ci, cashout_amt=co, stockout_efloat=bool(di), stockout_cash=bool(do))
+                balance = self.balance(agent_id, point["date"])
+                point.update(close_cash=balance["cash"], close_efloat=balance["efloat"])
         return {
             "agent": self.agent_summary(i, rec), "date": d,
-            "close_cash": int(self.close_cash[i, t]), "close_efloat": int(self.close_efloat[i, t]),
+            "close_cash": int(rec["observed_cash"][i]), "close_efloat": int(rec["observed_efloat"][i]),
             "history": history,
         }  # fmt: skip
 
     def forecast(self, agent_id: str, d: dt.date, horizon: int) -> dict:
         i = self.agent_index(agent_id)
         self.check_date(d)
+        with self.operations.connect() as db:
+            revision = self.integration.revision(db, agent_id)
+        self.integration.sync_model()
+        if revision or self.models.version != self.artifact_model_version:
+            forecast = self.integration.infer(agent_id, d)
+            return {**forecast, "points": forecast["points"][:horizon]}
         o = self.origin_pos[d]
         points = []
         for h in range(1, horizon + 1):
@@ -187,10 +276,17 @@ class Store:
                 "actual_cashout": None if np.isnan(act[0]) else int(act[0]),
                 "actual_cashin": None if np.isnan(act[1]) else int(act[1]),
             })  # fmt: skip
-        return {"agent_id": agent_id, "origin": d, "points": points}
+        return {"agent_id": agent_id, "origin": d, "points": points, "source": "precomputed",
+                "model_version": self.artifact_model_version, "history_revision": 0,
+                "balance_revision": self.balance(agent_id, d)["version"], "policy_version": self.integration.policy_version}
 
     def recommendation(self, agent_id: str, d: dt.date, service_level: float | None = None) -> dict:
         i = self.agent_index(agent_id)
+        self.integration.sync_model()
+        before_model = self.models.version
+        with self.operations.connect() as db:
+            before_revision = self.integration.revision(db, agent_id)
+        before_balance = self.balance(agent_id, d)["version"]
         rec = self.network_rec(d, service_level)
         params = self.params(service_level)
         t = self.date_pos[d]
@@ -198,9 +294,11 @@ class Store:
 
         # 7-day outlook: risk each day if the agent does nothing from tonight's balances
         H = self.cfg.model.horizons
-        f = self.F[self.origin_pos[d], i]
-        cash = np.full(H, self.close_cash[i, t])
-        efl = np.full(H, self.close_efloat[i, t])
+        current = self.forecast(agent_id, d, H)
+        f = np.array([[p[side][q] for side in ("cashout", "cashin") for q in ("p10", "p50", "p90")]
+                      for p in current["points"]])
+        cash = np.full(H, rec["observed_cash"][i])
+        efl = np.full(H, rec["observed_efloat"][i])
         out = recommend(params, cash, efl, np.full(H, self.capacity[i]), f[:, :3], f[:, 3:])
         outlook = [
             {
@@ -213,19 +311,27 @@ class Store:
             for h in range(H)
         ]  # fmt: skip
         first_risk = next((o["date"] for o in outlook if o["at_risk"]), None)
-        recent = int(self.m.stockout["cashout"][i, max(0, t - 6) : t + 1].sum()
-                     + self.m.stockout["cashin"][i, max(0, t - 6) : t + 1].sum())  # fmt: skip
+        revision, matrix = self.integration.matrix(agent_id, d)
+        if (before_revision != revision or before_balance != self.balance(agent_id, d)["version"]
+                or before_model != self.models.version):
+            raise Conflict("Operational inputs changed; refresh the recommendation")
+        recent = int(matrix.stockout["cashout"][0, max(0, t - 6):t + 1].sum()
+                     + matrix.stockout["cashin"][0, max(0, t - 6):t + 1].sum())
         today_row = self.cal.loc[pd.Timestamp(d)]
         eff_row = self.cal.loc[pd.Timestamp(eff)] if pd.Timestamp(eff) in self.cal.index else today_row
         return {
             "agent_id": agent_id, "date": d, "effective_date": eff,
             "action": str(rec["action"][i]), "amount": int(rec["amount"][i]),
-            "open_cash": int(self.close_cash[i, t]), "open_efloat": int(self.close_efloat[i, t]),
+            "open_cash": int(rec["observed_cash"][i]), "open_efloat": int(rec["observed_efloat"][i]),
             "cash_target": int(rec["target_cash"][i]), "efloat_target": int(rec["target_efloat"][i]),
             "p_cash_stockout": round(float(rec["p_cash_stockout"][i]), 3),
             "p_efloat_stockout": round(float(rec["p_efloat_stockout"][i]), 3),
             "extra_float_needed": int(rec["extra_float_needed"][i]),
             "service_level": params.service_level,
+            "balance_version": int(rec["balance_version"][i]),
+            "history_revision": revision,
+            "model_version": self.models.version,
+            "policy_version": self.integration.policy_version,
             "reason_codes": reason_codes(today_row, eff_row, rec, i, params, recent),
             "outlook": outlook, "first_risk_date": first_risk,
         }  # fmt: skip
@@ -254,8 +360,9 @@ class Store:
         i = self.agent_index(agent_id)
         rec = self.recommendation(agent_id, d)
         target = "cashin" if rec["action"] == "TOP_UP_EFLOAT" else "cashout"
-        panel = self._panel_at(d)
-        row = panel[panel["agent_idx"] == i]
+        _, matrix = self.integration.matrix(agent_id, d)
+        row = build_panel(self.cfg, matrix, self.calendar, self.agents,
+                          np.array([self.date_pos[d]]), horizons=np.array([1]))
         ex = explain_row(self.cfg, self.models, row, target, lang)
         co_q, ci_q = self.quantiles(d)
         q = ci_q[i] if target == "cashin" else co_q[i]
@@ -374,20 +481,16 @@ class Store:
         return {**res, "source": "live"}
 
     # ---- decisions (human in the loop) ------------------------------------------------
-    def add_decision(self, decision: dict) -> dict:
+    def add_decision(self, decision: dict, actor: str = "local-demo", idem: str | None = None) -> dict:
         self.agent_index(decision["agent_id"])
-        with self._lock:
-            items = _read_json(self.decisions_path) or {"decisions": []}
-            items["decisions"].append(json.loads(json.dumps(decision, default=str)))
-            self.decisions_path.write_text(json.dumps(items, indent=2, ensure_ascii=False), encoding="utf-8")
-        return decision
+        return self.operations.add_decision(decision, actor, idem)
 
     def list_decisions(self) -> list[dict]:
-        return (_read_json(self.decisions_path) or {"decisions": []})["decisions"]
+        return self.operations.decisions()
 
-    def decision_summary(self) -> dict:
+    def decision_summary(self, items: list[dict] | None = None) -> dict:
         """Aggregate human decisions into a feedback signal for retraining (FR-HITL-3)."""
-        items = self.list_decisions()
+        items = self.list_decisions() if items is None else items
         by_decision = {"approve": 0, "modify": 0, "reject": 0}
         by_action: dict[str, int] = {}
         reasons: dict[str, int] = {}

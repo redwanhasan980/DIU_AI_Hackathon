@@ -26,7 +26,7 @@ export function Overview() {
   const { date, lang, t } = useApp();
   const summary = useApi(() => api.network(date), [date]);
   const agents = useApi(() => api.agents(date), [date]);
-  const sim = useApi(() => api.simulate(), []);
+  const sim = useApi(() => api.cachedSimulation(), []);
 
   if (summary.error) return <ErrorBox message={summary.error} />;
   if (!summary.data) return <Loading text={t.loading} />;

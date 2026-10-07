@@ -43,8 +43,8 @@ function Compare({ label, sq, fw, fmt, lowerIsBetter = true }: {
 }
 
 export function Impact() {
-  const { lang, t } = useApp();
-  const cached = useApi(() => api.simulate(), []);
+  const { lang, t, canDecide } = useApp();
+  const cached = useApi(() => api.cachedSimulation(), []);
   const [live, setLive] = useState<SimulationResult | null>(null);
   const [running, setRunning] = useState(false);
   const [runError, setRunError] = useState<string | null>(null);
@@ -82,6 +82,10 @@ export function Impact() {
         </p>
       </div>
 
+      <Card title={<>{t.assumption}<AssumptionTag /></>}>
+        <p className="text-sm text-ink-2">{t.syntheticImpactNote}</p>
+      </Card>
+
       <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
         <Compare label={t.stockoutDays} sq={a.stockout_agent_days} fw={b.stockout_agent_days} fmt={(v) => num(v, lang)} />
         <Compare label={t.failedValue} sq={a.failed_cashout_bdt + a.failed_cashin_bdt} fw={b.failed_cashout_bdt + b.failed_cashin_bdt} fmt={(v) => takaShort(v, lang)} />
@@ -89,20 +93,20 @@ export function Impact() {
         <Compare label={t.trips} sq={a.rebalancing_trips} fw={b.rebalancing_trips} fmt={(v) => num(v, lang)} />
         <Compare label={lang === "bn" ? "upay-এর হারানো ফি আয়" : "upay fee revenue lost"} sq={a.lost_upay_fee_bdt} fw={b.lost_upay_fee_bdt} fmt={(v) => takaShort(v, lang)} />
         <Compare label={lang === "bn" ? "এজেন্ট + ডিস্ট্রিবিউটরের হারানো কমিশন" : "Agent + distributor commission lost"} sq={a.lost_commission_bdt} fw={b.lost_commission_bdt} fmt={(v) => takaShort(v, lang)} />
-        <Compare label={lang === "bn" ? "ঝুঁকিতে গ্রাহক" : "Customers at risk of leaving"} sq={a.customers_at_risk} fw={b.customers_at_risk} fmt={(v) => num(v, lang)} />
+        <Compare label={t.churnProxy} sq={a.customers_at_risk} fw={b.customers_at_risk} fmt={(v) => num(v, lang)} />
         <Compare label={lang === "bn" ? "ব্যর্থ ক্যাশ আউট" : "Failed cash-outs"} sq={a.failed_cashout_count} fw={b.failed_cashout_count} fmt={(v) => num(v, lang)} />
       </div>
 
       {sim.upay_network_month?.agents ? (
-        <Card title={lang === "bn" ? `upay নেটওয়ার্কে (${num(sim.upay_network_month.agents, lang)} এজেন্ট) প্রতি মাসে` : `Across upay's network (${num(sim.upay_network_month.agents, lang)} agents), per month`}
-          subtitle={<>{lang === "bn" ? "ব্যাকটেস্টের রৈখিক হিসাব; এজেন্ট সংখ্যা ২০২৩ সালের প্রকাশিত তথ্য" : "Linear scale-up of the backtest; agent count as published for end-2023"}<AssumptionTag /></>}>
+        <Card title={`${t.scaleImpactTitle} (${num(sim.upay_network_month.agents, lang)})`}
+          subtitle={<>{t.scaleImpactNote}<AssumptionTag /></>}>
           <dl className="grid grid-cols-2 gap-x-4 gap-y-3 text-sm md:grid-cols-5">
             {[
               [lang === "bn" ? "ফেরত upay ফি আয়" : "upay fee revenue protected", taka(sim.upay_network_month.upay_fee_recovered_bdt, lang)],
               [lang === "bn" ? "রক্ষা পাওয়া লেনদেন মূল্য" : "Transaction value served", takaShort(sim.upay_network_month.failed_value_avoided_bdt, lang)],
               [lang === "bn" ? "ফেরত কমিশন" : "Agent + distributor commission", taka(sim.upay_network_month.commission_recovered_bdt, lang)],
               [lang === "bn" ? "এড়ানো ঘাটতি-দিন" : "Stockout days avoided", num(sim.upay_network_month.stockout_days_avoided, lang)],
-              [lang === "bn" ? "ধরে রাখা গ্রাহক" : "Customers retained", num(sim.upay_network_month.customers_retained, lang)],
+              [t.churnProxy, num(sim.upay_network_month.customers_retained, lang)],
             ].map(([k, v]) => (
               <div key={k}>
                 <dt className="text-xs text-muted">{k}</dt>
@@ -127,7 +131,7 @@ export function Impact() {
               [lang === "bn" ? "রক্ষা পাওয়া লেনদেন মূল্য" : "Transaction value served", taka(per.failed_value_avoided_bdt, lang)],
               [lang === "bn" ? "ফেরত কমিশন (এজেন্ট+ডিস্ট্রি.)" : "Commission recovered (agent+distributor)", taka(per.commission_recovered_bdt, lang)],
               [lang === "bn" ? "ফেরত upay ফি আয়" : "upay fee revenue protected", taka(per.upay_fee_recovered_bdt ?? 0, lang)],
-              [lang === "bn" ? "ধরে রাখা গ্রাহক" : "Customers retained", num(per.customers_retained, lang)],
+              [t.churnProxy, num(per.customers_retained, lang)],
               [lang === "bn" ? "অতিরিক্ত ট্রিপ" : "Extra rebalancing trips", num(per.extra_trips, lang)],
             ].map(([k, v]) => (
               <div key={k}>
@@ -163,12 +167,13 @@ export function Impact() {
             <input type="number" min={0} max={50} value={maxVisits} onChange={(e) => setMaxVisits(Number(e.target.value))}
               className="tabular w-16 rounded-md border border-line bg-surface px-2 py-1 text-ink" />
           </label>
-          <button type="button" disabled={running} onClick={rerun} className="rounded-md bg-accent px-3 py-1.5 font-medium text-white disabled:opacity-60">
+          <button type="button" disabled={running || !canDecide} onClick={rerun} className="rounded-md bg-accent px-3 py-1.5 font-medium text-white disabled:opacity-60">
             {running ? t.loading : t.runLive}
           </button>
           {live && <button type="button" onClick={() => setLive(null)} className="text-xs text-ink-2 underline">{lang === "bn" ? "সংরক্ষিত ফলাফলে ফিরুন" : "back to cached run"}</button>}
           {runError && <span className="text-sm" style={{ color: "var(--critical-text)" }}>{runError}</span>}
         </div>
+        {!canDecide && <p className="mt-3 text-sm text-ink-2">{t.readOnlyNotice}</p>}
       </Card>
     </div>
   );

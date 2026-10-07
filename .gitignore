@@ -27,3 +27,5 @@ artifacts/*.parquet
 .vscode/
 .idea/
 artifacts/decisions.json
+artifacts/*.sqlite3*
+artifacts/model_candidates/

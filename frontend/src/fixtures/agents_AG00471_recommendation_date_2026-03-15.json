@@ -1,1 +1,84 @@
-{"agent_id": "AG00471", "date": "2026-03-15", "effective_date": "2026-03-16", "action": "TOP_UP_CASH", "amount": 266000, "open_cash": 18501, "open_efloat": 269499, "cash_target": 321000, "efloat_target": 5000, "p_cash_stockout": 1.0, "p_efloat_stockout": 0.0, "extra_float_needed": 0, "service_level": 0.99, "reason_codes": ["EID_FITR_IN_5_DAYS", "RAMADAN", "CASH_BELOW_NEED", "RECENT_STOCKOUTS"], "outlook": [{"date": "2026-03-16", "p_cash_stockout": 1.0, "p_efloat_stockout": 0.0, "cash_need": 321000, "efloat_need": 5000, "at_risk": true}, {"date": "2026-03-17", "p_cash_stockout": 1.0, "p_efloat_stockout": 0.0, "cash_need": 330000, "efloat_need": 5000, "at_risk": true}, {"date": "2026-03-18", "p_cash_stockout": 1.0, "p_efloat_stockout": 0.0, "cash_need": 342000, "efloat_need": 5000, "at_risk": true}, {"date": "2026-03-19", "p_cash_stockout": 1.0, "p_efloat_stockout": 0.0, "cash_need": 343000, "efloat_need": 5000, "at_risk": true}, {"date": "2026-03-20", "p_cash_stockout": 0.941, "p_efloat_stockout": 0.0, "cash_need": 172000, "efloat_need": 33000, "at_risk": true}, {"date": "2026-03-21", "p_cash_stockout": 0.962, "p_efloat_stockout": 0.0, "cash_need": 141000, "efloat_need": 29000, "at_risk": true}, {"date": "2026-03-22", "p_cash_stockout": 0.963, "p_efloat_stockout": 0.0, "cash_need": 155000, "efloat_need": 36000, "at_risk": true}], "first_risk_date": "2026-03-16"}
+{
+  "agent_id": "AG00471",
+  "date": "2026-03-15",
+  "effective_date": "2026-03-16",
+  "action": "TOP_UP_CASH",
+  "amount": 266000,
+  "open_cash": 18501,
+  "open_efloat": 269499,
+  "cash_target": 321000,
+  "efloat_target": 5000,
+  "p_cash_stockout": 1.0,
+  "p_efloat_stockout": 0.0,
+  "extra_float_needed": 0,
+  "service_level": 0.99,
+  "reason_codes": [
+    "EID_FITR_IN_5_DAYS",
+    "RAMADAN",
+    "CASH_BELOW_NEED",
+    "RECENT_STOCKOUTS"
+  ],
+  "outlook": [
+    {
+      "date": "2026-03-16",
+      "p_cash_stockout": 1.0,
+      "p_efloat_stockout": 0.0,
+      "cash_need": 321000,
+      "efloat_need": 5000,
+      "at_risk": true
+    },
+    {
+      "date": "2026-03-17",
+      "p_cash_stockout": 1.0,
+      "p_efloat_stockout": 0.0,
+      "cash_need": 330000,
+      "efloat_need": 5000,
+      "at_risk": true
+    },
+    {
+      "date": "2026-03-18",
+      "p_cash_stockout": 1.0,
+      "p_efloat_stockout": 0.0,
+      "cash_need": 342000,
+      "efloat_need": 5000,
+      "at_risk": true
+    },
+    {
+      "date": "2026-03-19",
+      "p_cash_stockout": 1.0,
+      "p_efloat_stockout": 0.0,
+      "cash_need": 343000,
+      "efloat_need": 5000,
+      "at_risk": true
+    },
+    {
+      "date": "2026-03-20",
+      "p_cash_stockout": 0.941,
+      "p_efloat_stockout": 0.0,
+      "cash_need": 172000,
+      "efloat_need": 33000,
+      "at_risk": true
+    },
+    {
+      "date": "2026-03-21",
+      "p_cash_stockout": 0.962,
+      "p_efloat_stockout": 0.0,
+      "cash_need": 141000,
+      "efloat_need": 29000,
+      "at_risk": true
+    },
+    {
+      "date": "2026-03-22",
+      "p_cash_stockout": 0.963,
+      "p_efloat_stockout": 0.0,
+      "cash_need": 155000,
+      "efloat_need": 36000,
+      "at_risk": true
+    }
+  ],
+  "first_risk_date": "2026-03-16",
+  "balance_version": 1,
+  "history_revision": 0,
+  "model_version": "fw-c078f4bb",
+  "policy_version": "e6465e3a6c1b8b23"
+}

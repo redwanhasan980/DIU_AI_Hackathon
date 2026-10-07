@@ -1,0 +1,43 @@
+{
+  "simulated": true,
+  "connector": {
+    "run_id": null,
+    "agent_id": null,
+    "date": null,
+    "status": "idle",
+    "cursor": 0,
+    "total": 0,
+    "error": null
+  },
+  "worker": {
+    "heartbeat_at": null,
+    "online": false,
+    "connector_configured": false
+  },
+  "metrics": {
+    "queue_depth": 0,
+    "processed": 0,
+    "failed": 0,
+    "retries": 0,
+    "oldest_pending_seconds": 0,
+    "average_processing_seconds": 0,
+    "inference_count": 0,
+    "inference_errors": 0,
+    "inference_p95_ms": 0,
+    "reconciliation_failures": 0,
+    "stale_forecasts": 0
+  },
+  "drift": {
+    "status": "insufficient_data",
+    "sample_count": 0,
+    "minimum_samples": 20,
+    "threshold": 0.3,
+    "cashin_mean_ratio_change": null,
+    "cashout_mean_ratio_change": null,
+    "note": "Offline contract example; no live events or measured integration results."
+  },
+  "active_model": "fw-c078f4bb",
+  "models": [],
+  "events": [],
+  "tasks": []
+}

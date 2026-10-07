@@ -13,6 +13,7 @@ import re
 from fastapi.testclient import TestClient
 
 from floatwise.api.main import create_app
+from floatwise.api.store import Store
 from floatwise.config import REPO_ROOT, get_config
 
 DEMO_AGENT = "AG00471"  # Rahmania Bhandar, Sylhet — rural remittance agent for the pitch walkthrough
@@ -24,18 +25,22 @@ def key(path: str) -> str:
 
 def main() -> None:
     cfg = get_config()
+    store = Store(cfg)
     d = str(cfg.dates.demo_date)
     out = REPO_ROOT / "frontend" / "src" / "fixtures"
     out.mkdir(parents=True, exist_ok=True)
     for f in out.glob("*.json"):
         f.unlink()
-    with TestClient(create_app()) as c:
+    with TestClient(create_app(cfg, store)) as c:
         dsos = c.get(f"/api/v1/dsos?date={d}").json()
         busiest = max(dsos, key=lambda x: x["n_at_risk"])["dso_id"]
         k, m = cfg.policy.dso.max_visits, cfg.policy.dso.max_cash
         paths = [
             "/health",
+            "/auth/me",  # Contract example only; the UI never authenticates from a fixture.
             "/metrics/model",
+            "/metrics/validation",
+            "/integration/status",
             "/decisions",
             "/decisions/summary",
             f"/network/summary?date={d}",
@@ -52,8 +57,11 @@ def main() -> None:
             r = c.get("/api/v1" + p)
             r.raise_for_status()
             body = r.json() if p != "/decisions" else []  # demo starts with an empty log
+            if p == "/decisions/summary":
+                body = store.decision_summary([])  # match the empty offline log, preserve live records
             (out / f"{key(p)}.json").write_text(json.dumps(body, ensure_ascii=False), encoding="utf-8")
-        sim = c.post("/api/v1/simulate", json={})
+        sim = c.get("/api/v1/simulate")
+        sim.raise_for_status()
         (out / "simulate.json").write_text(json.dumps(sim.json(), ensure_ascii=False), encoding="utf-8")
     print(f"wrote {len(paths) + 1} fixtures to {out}")
 

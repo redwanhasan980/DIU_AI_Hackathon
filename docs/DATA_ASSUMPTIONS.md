@@ -130,3 +130,47 @@ These values come from upay's published tariffs and press coverage (checked Octo
 - The forecasts used in the backtest are computed from status-quo-world history. In the FloatWise world, fewer stockouts would make observed history slightly *higher*. This makes our results slightly conservative.
 - Customers do not move to a neighbouring agent when one stocks out. Spill-over is not modelled.
 - Eid dates are approximate and must be checked against the official announcement.
+
+## 10. Judge-feedback experiment assumptions
+
+`validation` in config fixes disjoint fit (through 2024), early-stop (Jan–Feb 2025), calibration
+(March–15 April) and assessment (16 April–June) periods. Target interval coverage is 80%; groups
+need at least 100 uncensored calibration rows, otherwise horizons pool within the same event
+status. Unsupported event groups retain raw intervals and report their lack of support.
+These are experimental design choices, not field-calibrated guarantees.
+
+The stress grid multiplies cash-out or cash-in by 1.3, adds mean-preserving lognormal noise
+with sigma 0.5, or shifts the demand sequence by three days while forecasts/history remain fixed.
+This probes generator mismatch without claiming independent observed data. No stress parameters
+are tuned on the 2026 test.
+
+Adherence values are 0%, 40%, 70% and 100%; hypothetical churn probabilities are 0%, 1%, 5% and 10%.
+Churn affects the failure-count proxy only, not demand, customer identity or measured retention.
+There is no demonstrated customer switching model. Network extrapolation uses a historical
+2023 count and assumes unchanged per-agent effects/capacity/adherence; it is an illustrative
+scenario, not an upay revenue forecast.
+
+Benchmark populations are 500, 10,000, 50,000 and 154,000 replicated synthetic feature profiles.
+Use three runs, batches of 5,000 feature rows, four inference threads and the configured agents
+per DSO. Only original-population feature construction is measured. Full ingestion, HTTP,
+DB concurrency, large-population feature generation and retraining remain unbenchmarked.
+
+The prototype rate budget is 240 requests per minute per authenticated subject or unauthenticated
+transport address; bodies are capped at 16,384 bytes. These are local engineering limits, not a
+validated production capacity claim.
+
+### Local authentication configuration
+
+The prototype session lifetime is eight hours and the separate login budget is ten requests per IP per minute (`backend/config.yaml → api`). These are local operational defaults, not measured upay requirements.
+
+## Local integration demonstration settings
+
+`config.yaml.integration` controls the simulated operational workflow. The connector emits 12 alternating served transaction events, divides the original synthetic agent-day volume across those events, multiplies cash-out by 1.5, then emits a ৳1,000 liquidity denial, a zero-cash/full-e-float capacity-conserving snapshot, and day closure. These are deterministic demonstration scenarios, not empirical upay behavior. Replayed aggregate history replaces the seeded day rather than double counting it.
+
+Events use Bangladesh day boundaries (UTC+06:00), whole taka and synthetic agent IDs. Snapshot sequence is increasing per source/agent/day. A confirmed simulated delivery exchanges cash and e-float at fixed capacity; extra-float capital injection is outside this adapter.
+
+Worker polling is 0.5 seconds; connector spacing is 1 second; processing has three attempts with two-second retry spacing. The demo freshness alert budget is 120 seconds. These are local display/recovery settings, not validated production service levels.
+
+Distribution monitoring requires 20 completed agent-days. It compares the mean served-volume ratio to each agent's previous 28-day mean (৳1,000 floor, consistent with the feature builder), against the corresponding synthetic training-window reference. A 30% relative mean shift flags human review. Samples are correlated and seasonality/censoring can affect the signal; it is not a field-validated drift test or measured forecast reliability.
+
+Candidate interval gates use the configured validation target (80%) with an eight-percentage-point tolerance, including event/rural/urban slices with configured minimum samples. Promotion also requires baseline/incumbent comparison on dates after both models' fit and early-stopping cutoffs. The existing incumbent is ineligible for the 2025 candidate assessment; the lifecycle reports that limitation and blocks promotion instead of reusing the final 2026 test for tuning.

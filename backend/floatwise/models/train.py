@@ -81,7 +81,7 @@ def _fit(
     model = lgb.LGBMRegressor(objective="quantile", alpha=q, random_state=cfg.seed, **cfg.model.lgbm)
     model.fit(
         tr[features], y, eval_X=(va[features],), eval_y=(yv,),
-        categorical_feature=CATEGORICAL_FEATURES, callbacks=[lgb.early_stopping(30, verbose=False)],
+        categorical_feature=[f for f in CATEGORICAL_FEATURES if f in features], callbacks=[lgb.early_stopping(30, verbose=False)],
     )  # fmt: skip
     return model
 
@@ -102,7 +102,13 @@ def _oof_median(
     return oof
 
 
-def train(cfg: Config, data: dict, models_dir: Path, verbose: bool = True) -> dict:
+def train(
+    cfg: Config,
+    data: dict,
+    models_dir: Path,
+    verbose: bool = True,
+    excluded_features: list[str] | None = None,
+) -> dict:
     """Train quantile models. quantile_mode:
     independent  one LightGBM per quantile on the ratio target;
     spread       P50 on the ratio target, other quantiles as multiplicative spreads around an
@@ -112,7 +118,7 @@ def train(cfg: Config, data: dict, models_dir: Path, verbose: bool = True) -> di
     m = to_matrices(data["daily"])
     train_p = split_panel(cfg, m, data, "train", sampled=True, seed=cfg.seed)
     val_p = split_panel(cfg, m, data, "val", sampled=True, seed=cfg.seed + 1)
-    features = feature_columns(train_p)
+    features = [f for f in feature_columns(train_p) if f not in (excluded_features or [])]
     mode = cfg.model.quantile_mode
     if verbose:
         print(
@@ -155,6 +161,7 @@ def train(cfg: Config, data: dict, models_dir: Path, verbose: bool = True) -> di
     meta = {
         "version": f"fw-{digest.hexdigest()[:8]}",
         "features": features,
+        "excluded_features": excluded_features or [],
         "categorical": CATEGORICAL_FEATURES,
         "quantiles": cfg.model.quantiles,
         "targets": cfg.model.targets,

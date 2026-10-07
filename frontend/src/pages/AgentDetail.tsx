@@ -9,37 +9,50 @@ import { pct, shortDate, taka, weekday } from "../lib/format";
 import { useApi, useApp } from "../lib/state";
 
 function DecisionBox({ rec }: { rec: Recommendation }) {
-  const { t } = useApp();
+  const { t, canDecide } = useApp();
   const [amount, setAmount] = useState(rec.amount);
   const [reason, setReason] = useState("");
   const [status, setStatus] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [sending, setSending] = useState(false);
+  const [requestKey, setRequestKey] = useState<{ payload: string; key: string } | null>(null);
   if (rec.action === "NO_ACTION") return null;
+  if (!canDecide) return <p className="mt-4 border-t border-line pt-4 text-sm text-ink-2">{t.readOnlyNotice}</p>;
 
   const send = async (decision: "approve" | "modify" | "reject") => {
+    if (sending) return;
     setError(null);
+    setSending(true);
+    const body = {
+      agent_id: rec.agent_id, date: rec.date, action: rec.action, recommended_amount: rec.amount,
+      balance_version: rec.balance_version,
+      history_revision: rec.history_revision, model_version: rec.model_version, policy_version: rec.policy_version,
+      final_amount: decision === "reject" ? 0 : decision === "modify" ? amount : rec.amount, decision, reason,
+    };
+    const payload = JSON.stringify(body);
+    const key = requestKey?.payload === payload ? requestKey.key : crypto.randomUUID();
+    setRequestKey({ payload, key });
     try {
-      await api.decide({
-        agent_id: rec.agent_id, date: rec.date, action: rec.action, recommended_amount: rec.amount,
-        final_amount: decision === "reject" ? 0 : decision === "modify" ? amount : rec.amount, decision, reason,
-      });
+      await api.decide(body, key);
       setStatus(`${decision === "approve" ? "✓" : decision === "modify" ? "✎" : "✕"} ${t.decisionSaved}`);
     } catch (e) {
       setError((e as Error).message);
+    } finally {
+      setSending(false);
     }
   };
   const btn = "rounded-md px-3 py-1.5 text-sm font-medium";
   return (
     <div className="mt-4 border-t border-line pt-4">
       <div className="flex flex-wrap items-center gap-2">
-        <button type="button" onClick={() => send("approve")} className={`${btn} bg-accent text-white hover:opacity-90`}>{t.approve}</button>
+        <button type="button" disabled={sending} onClick={() => send("approve")} className={`${btn} bg-accent text-white hover:opacity-90`}>{t.approve}</button>
         <label className="flex items-center gap-1 text-sm text-ink-2">
           ৳
           <input type="number" min={0} step={1000} value={amount} onChange={(e) => setAmount(Number(e.target.value))}
             aria-label={t.amount} className="tabular w-28 rounded-md border border-line bg-surface px-2 py-1 text-sm text-ink" />
         </label>
-        <button type="button" onClick={() => send("modify")} className={`${btn} border border-line text-ink hover:bg-surface-2`}>{t.modify}</button>
-        <button type="button" onClick={() => send("reject")} className={`${btn} border border-line text-ink-2 hover:bg-surface-2`}>{t.reject}</button>
+        <button type="button" disabled={sending} onClick={() => send("modify")} className={`${btn} border border-line text-ink hover:bg-surface-2`}>{t.modify}</button>
+        <button type="button" disabled={sending} onClick={() => send("reject")} className={`${btn} border border-line text-ink-2 hover:bg-surface-2`}>{t.reject}</button>
         <input value={reason} onChange={(e) => setReason(e.target.value.slice(0, 300))} placeholder={t.reasonPlaceholder}
           className="min-w-40 flex-1 rounded-md border border-line bg-surface px-2 py-1 text-sm text-ink" />
       </div>

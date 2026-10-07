@@ -1,0 +1,128 @@
+{
+  "data_kind": "replicated_synthetic",
+  "model_version": "fw-c078f4bb",
+  "machine": "Linux-6.14.0-37-generic-x86_64-with-glibc2.39",
+  "threads": 4,
+  "batch_size": 5000,
+  "repeats": 3,
+  "feature_build_500_agents_seconds": 0.3624,
+  "limitations": "Feature construction timed only at original population. Larger runs replicate existing feature rows and balances; excludes streaming ingestion, database, HTTP, concurrency and retraining.",
+  "populations": [
+    {
+      "n_agents": 500,
+      "forecast_rows": 3500,
+      "runs": [
+        {
+          "inference_seconds": 0.16738146900001993,
+          "recommendation_seconds": 0.00347260900002766,
+          "planning_seconds": 0.0451017520001642,
+          "visits": 168
+        },
+        {
+          "inference_seconds": 0.14902458799997476,
+          "recommendation_seconds": 0.003377256000021589,
+          "planning_seconds": 0.0413638960001208,
+          "visits": 168
+        },
+        {
+          "inference_seconds": 0.14161830800003372,
+          "recommendation_seconds": 0.0038093900000149006,
+          "planning_seconds": 0.04052192799986187,
+          "visits": 168
+        }
+      ],
+      "median_seconds": {
+        "inference_seconds": 0.149,
+        "recommendation_seconds": 0.0035,
+        "planning_seconds": 0.0414
+      }
+    },
+    {
+      "n_agents": 10000,
+      "forecast_rows": 70000,
+      "runs": [
+        {
+          "inference_seconds": 3.112909499000125,
+          "recommendation_seconds": 0.03513783600010356,
+          "planning_seconds": 0.6931901989999005,
+          "visits": 3360
+        },
+        {
+          "inference_seconds": 4.623253770000019,
+          "recommendation_seconds": 0.0501279049999539,
+          "planning_seconds": 1.0322605270000622,
+          "visits": 3360
+        },
+        {
+          "inference_seconds": 5.069700298000043,
+          "recommendation_seconds": 0.045860761999847455,
+          "planning_seconds": 1.1862919539998984,
+          "visits": 3360
+        }
+      ],
+      "median_seconds": {
+        "inference_seconds": 4.6233,
+        "recommendation_seconds": 0.0459,
+        "planning_seconds": 1.0323
+      }
+    },
+    {
+      "n_agents": 50000,
+      "forecast_rows": 350000,
+      "runs": [
+        {
+          "inference_seconds": 22.938487260999864,
+          "recommendation_seconds": 0.1707893600000716,
+          "planning_seconds": 5.337934535999921,
+          "visits": 16800
+        },
+        {
+          "inference_seconds": 22.996813155000154,
+          "recommendation_seconds": 0.2608782350000638,
+          "planning_seconds": 6.675338773000021,
+          "visits": 16800
+        },
+        {
+          "inference_seconds": 27.128922498999827,
+          "recommendation_seconds": 0.17536730899996655,
+          "planning_seconds": 4.885604417999957,
+          "visits": 16800
+        }
+      ],
+      "median_seconds": {
+        "inference_seconds": 22.9968,
+        "recommendation_seconds": 0.1754,
+        "planning_seconds": 5.3379
+      }
+    },
+    {
+      "n_agents": 154000,
+      "forecast_rows": 1078000,
+      "runs": [
+        {
+          "inference_seconds": 78.00488697300011,
+          "recommendation_seconds": 0.6941605870001695,
+          "planning_seconds": 15.6929464870002,
+          "visits": 51744
+        },
+        {
+          "inference_seconds": 81.13316683700009,
+          "recommendation_seconds": 0.7668289179998737,
+          "planning_seconds": 16.636540375000095,
+          "visits": 51744
+        },
+        {
+          "inference_seconds": 73.11248283999998,
+          "recommendation_seconds": 0.7811689360000855,
+          "planning_seconds": 15.039720923000004,
+          "visits": 51744
+        }
+      ],
+      "median_seconds": {
+        "inference_seconds": 78.0049,
+        "recommendation_seconds": 0.7668,
+        "planning_seconds": 15.6929
+      }
+    }
+  ]
+}

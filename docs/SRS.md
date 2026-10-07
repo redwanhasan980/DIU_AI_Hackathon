@@ -404,6 +404,9 @@ Defaults: s = 0.99, θ = 0.10 (chosen on validation by `scripts/tune_policy.py`;
 | Method | Path | Description | Pri |
 |---|---|---|---|
 | GET | `/health` | Status, model version, data date range | P0 |
+| POST | `/auth/login` | LoginRequest → AuthSession and HttpOnly session cookie | P0 |
+| POST | `/auth/logout` | Revoke session; LogoutResult `{status:"ok"}` and clear cookie | P0 |
+| GET | `/auth/me` | Authenticated AuthSession `{subject, role: viewer\|operator\|admin, auth_mode: demo\|required}`; live verification only | P0 |
 | GET | `/agents` | List; query `district`, `archetype`, `dso_id`, `risk_min`, `date` → id, name, lat/lon, archetype, risk, action | P0 |
 | GET | `/agents/{id}` | Profile + balances on `date` + last 28 days history | P0 |
 | GET | `/agents/{id}/forecast` | `date`, `horizon≤7` → per day: CO/CI/net quantiles + actuals if available | P0 |
@@ -412,6 +415,7 @@ Defaults: s = 0.99, θ = 0.10 (chosen on validation by `scripts/tune_policy.py`;
 | GET | `/dso/{dso_id}/plan` | `date`, `max_visits`, `max_cash` → ordered plan + excluded | P0 |
 | GET | `/network/summary` | `date` → counts by risk band, by district; total recommended ৳ | P0 |
 | POST | `/simulate` | Body: policy params, date range, filters → metrics for status quo vs FloatWise | P0 (cached default) |
+| GET | `/simulate` | Cached default SimulationResult, available to viewers; 503 if not generated; never starts a simulation | P0 |
 | GET | `/metrics/model` | Evaluation report JSON | P0 |
 | GET | `/calendar` | Events within a range | P1 |
 | POST | `/decisions` | Approve/modify/reject a recommendation | P0 |
@@ -557,3 +561,101 @@ UI rules:
 | Eid-ul-Adha | 2024-06-17 | 2025-06-07 | 2026-05-27 |
 | Pohela Boishakh | 04-14 | 04-14 | 04-14 |
 | Salary window | Days 1–10 each month (peak 5–8) | | |
+
+## Phase 2 judge-feedback extension
+
+See [JUDGE_RESPONSE.md](JUDGE_RESPONSE.md), [PILOT_PROTOCOL.md](PILOT_PROTOCOL.md) and
+[PRODUCTION_ARCHITECTURE.md](PRODUCTION_ARCHITECTURE.md) for evidence status and rollout design.
+Daily synthetic data and human approval remain the prototype scope.
+
+### API contract additions (`/api/v1`)
+
+| Method | Path | Contract |
+|---|---|---|
+| GET | `/health` | Existing Health plus `auth_mode: "demo" or "required"` |
+| GET | `/metrics/validation` | `{validation: generated judge_validation report or null, scale: generated scale report or null}`; typed by frontend ValidationReport |
+| POST | `/operations/forecast` | LiveForecastRequest `{agent_id, date}` → Forecast plus `{source:"live", model_version}`; actual demand fields are null |
+| GET | `/operations/balances/{agent_id}` | `date` → BalanceState `{cash:int, efloat:int, version:int}`; initial version 0 |
+| POST | `/operations/balances` | BalanceObservation `{agent_id,date,cash,efloat,expected_version}` → BalanceState; cash+efloat must equal synthetic capacity; stale version → 409 |
+| GET | `/operations/audit` | `limit` (1–1000, default 100) → newest-first audit events `{id,at,actor,event,resource,details}` |
+| POST | `/decisions` | Existing body plus `balance_version` (optional in demo, required in secured mode); optional `Idempotency-Key` (1–128 chars); duplicates return original result, conflicting reuse → 409 |
+
+All operational routes require authentication in required mode; health is public. Viewer reads,
+operator records decisions/runs simulations, admin also accesses `/operations/*`. Credentials
+are server-owned/network-wide. Missing/expired session → 401, wrong role → 403, shared rate budget → 429,
+oversized POST → 413. Standard error envelope remains `{error:{code,message}}`.
+Approval integrity in required mode checks current action/amount, approval amount equality and
+zero amount for rejection. Recommendation responses include `balance_version`; decision writes
+check the revision transactionally to reject concurrent changes. Idempotent replay returns the
+original result even after a newer balance revision. Synthetic persistence never transfers money.
+
+### Authentication UI
+
+- `/login` is public. Required mode offers Username and Password fields, password visibility,
+  and browser password-manager autocomplete. Login uses `POST /auth/login` with LoginRequest
+  `{username: string (1–64), password: secret string (1–128)}` and returns AuthSession.
+- `python run.py auth-setup` creates local `viewer`, `operator` and `admin` accounts, displays
+  their generated passwords once, and stores only salted PBKDF2-HMAC-SHA256 hashes in `.env`
+  (`FLOATWISE_USERS`). Repeating setup preserves accounts. Roles are server-assigned.
+- Login rotates any previous session. SQLite stores a hashed random session identifier, subject,
+  password fingerprint and expiry. The cookie is HttpOnly, SameSite=Lax, Secure over HTTPS,
+  scoped to `/api/v1`, and lasts `api.session_ttl_seconds` (default eight hours).
+- Protected `GET /auth/me` restores identity after page refresh and API restart. Password changes
+  or account removal invalidate sessions. Identity never falls back to fixtures.
+- `POST /auth/logout` revokes the server session and clears the cookie, returning LogoutResult
+  `{status:"ok"}`. The UI reports a failed logout rather than claiming the session was revoked.
+- Cookie mutations and login/logout require `X-FloatWise-CSRF: 1` and reject an untrusted Origin.
+  Allowed origins are the actual request origin plus configured CORS origins. CORS allows credentials
+  only for configured origins. Authentication POST bodies retain the shared size limit.
+- Sign-in has a separate shared per-IP budget (`api.login_requests_per_minute`, default ten per minute).
+  Incorrect account/password errors are generic; audit events never contain passwords or cookies.
+- Protected URLs redirect to `/login` and return to the requested local path after success. The header
+  displays the current account, role and Sign out. A current-session 401 clears protected views.
+- Viewer controls are read-only; operator can record decisions and run simulations; Operations requires
+  admin. Local demo remains clearly labelled. Offline fixtures permit read-only browsing.
+- Health and sign-in requests time out after ten seconds. A missing auth endpoint reports an outdated API.
+
+
+### Additional evidence and acceptance
+
+- Event P10–P90 coverage must meet the same 72–88% acceptance band as overall coverage.
+  Failure is displayed explicitly; an overall pass cannot conceal event unreliability.
+- Calibration uses a separate pre-test event period and is assessed on another event.
+- Feature and pipeline ablations use fixed data/capacity/seed comparisons.
+- Demand-shift and adherence/churn experiments are labelled synthetic sensitivity.
+- Benchmark describes replicated computation; no full production SLA claim.
+- New Validation evidence and Live operations pages work against the API. Read fixtures include
+  the generated validation report; operations require a live connection. Production fixture
+  fallback is disabled unless explicitly opted into offline demo mode.
+
+Production streaming infrastructure, sponsor identity/ownership, PostgreSQL, external monitoring
+and partner integration remain proposed. Section 18 records the implemented local event pipeline,
+monitoring and model lifecycle; none is represented as field-validated.
+
+## 18. Implemented local integration contract
+
+This section supersedes the earlier future-only description of transaction ingestion, local monitoring and model registration. Production infrastructure, sponsor ownership/identity controls and a real upay connection remain future work. Full behavior and demonstration steps are in [INTEGRATION_DEMO.md](INTEGRATION_DEMO.md).
+
+| Interface | Contract |
+|---|---|
+| `POST /api/v1/integration/events` | Strict version-1 typed event: source/event identity, aware event time, synthetic agent ID, transaction/snapshot/day-close/delivery payload. Integer taka; no customer identifiers. Returns durable receipt; identical duplicate is idempotent, changed payload conflicts. |
+| `GET /api/v1/integration/events` | Latest receipts, including status, attempts and processing errors. |
+| `GET /api/v1/integration/status` | Connector cursor, worker heartbeat, queue/inference/freshness/reconciliation metrics, sample-gated drift, active model/registry, receipts and tasks. |
+| `POST /api/v1/integration/connector` | Admin start/pause/resume/replay with agent/date. Replay keeps event identities. HTTP submissions use the scoped connector identity. |
+| `POST /api/v1/integration/events/{id}/retry` | Admin request to retry a quarantined failed event; audited. |
+| `POST /api/v1/integration/tasks` | Operator/admin creates task from persisted approved/modified decision ID; idempotent by decision. |
+| `GET /api/v1/integration/tasks` | Latest tasks with assignment, provenance, status, version and delivery reference. |
+| `POST /api/v1/integration/tasks/{id}/status` | Expected task version plus dispatched/accepted/rejected/cancelled; legal transitions only. Dispatch respects configured DSO daily capacity. |
+| `POST /api/v1/integration/tasks/{id}/simulate-delivery` | Current accepted task version; creates simulated DSO confirmation. Worker reconciles authoritative observation before completion. |
+
+`Recommendation` adds `history_revision`, `model_version`, `policy_version`; `DecisionIn` carries those fields plus `balance_version`. Secured and integrated approvals require matching current provenance. `Decision` adds the persisted `decision_id`. `LiveForecast` adds history/balance revision and policy version. Backend schemas, frontend types and offline examples mirror these additions.
+
+The worker commits event projection, revision and acknowledgement transactionally. Day aggregates replace replayed synthetic days, with older history retained as seed. Inference uses completed, available history and never uses hidden demand as a feature. Late transactions reopen their day. Open history or pending events block approval and stale tasks cannot dispatch/complete. Synthetic balance observations and exchange deliveries conserve capacity. No automatic money movement occurs.
+
+Model CLI supports retraining into isolated candidate directories, hash/schema registration, reviewed activation and rollback. Assessment must follow both candidate and incumbent fit/early-stopping windows; failing or ineligible candidates remain registered without promotion. The available 2025 candidate assessment cannot honestly evaluate the existing incumbent; future holdout evidence is required. Original final test results are not reused for promotion tuning.
+
+The Integration page works read-only from an explicitly labeled empty offline fixture. Mutation and identity endpoints require a live API. Viewer/operator/admin permissions and a restricted service identity are enforced at the backend.
+
+Acceptance scenarios and benchmark boundaries are recorded in the integration demo guide; they are not represented as executed tests. The scale command writes measured results only when explicitly run.
+
+Standard `Forecast` responses also expose `source` (precomputed/live), model version, history/balance revisions and policy version, so live integration provenance is visible through the ordinary forecast endpoint. Existing precomputed responses and fixtures carry their original artifact model version.

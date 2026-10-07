@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import hashlib
 import json
 from dataclasses import dataclass
 from pathlib import Path
@@ -27,23 +28,33 @@ class QuantileModels:
     targets: list[str]
     version: str
     mode: str = "independent"
+    inference_threads: int = 4
 
     @classmethod
     def load(cls, cfg: Config, models_dir: Path | None = None) -> QuantileModels:
         models_dir = models_dir or cfg.models_dir
         meta = json.loads((models_dir / "meta.json").read_text(encoding="utf-8"))
+        digest = hashlib.sha1()
+        for target in meta["targets"]:
+            for q in meta["quantiles"]:
+                digest.update(model_path(models_dir, target, q).read_bytes())
+        if meta["version"] != f"fw-{digest.hexdigest()[:8]}":
+            raise ValueError("Model binaries do not match their registered version")
         boosters = {
             (t, q): lgb.Booster(model_file=str(model_path(models_dir, t, q)))
             for t in meta["targets"]
             for q in meta["quantiles"]
         }
         return cls(boosters, meta["features"], meta["quantiles"], meta["targets"], meta["version"],
-                   meta.get("quantile_mode", "independent"))  # fmt: skip
+                   meta.get("quantile_mode", "independent"), cfg.model.inference_threads)  # fmt: skip
 
     def predict_ratio(self, panel: pd.DataFrame, target: str) -> np.ndarray:
         """(n_rows, n_quantiles) predicted ratios to the trailing scale, sorted to be non-crossing."""
         x = panel[self.features]
-        raw = {q: self.boosters[(target, q)].predict(x) for q in self.quantiles}
+        raw = {
+            q: self.boosters[(target, q)].predict(x, num_threads=self.inference_threads)
+            for q in self.quantiles
+        }
         if self.mode == "spread":
             base = np.maximum(raw[0.5], SPREAD_FLOOR)
             raw = {q: (v if q == 0.5 else v * base) for q, v in raw.items()}

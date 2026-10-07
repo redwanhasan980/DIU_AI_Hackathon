@@ -213,3 +213,43 @@ D starts with **mock JSON fixtures** that match the schemas, so it never waits o
 | LLM API unavailable | Templates + cached narratives (already P0) |
 | Backtest too slow | Run on a 100-agent subset; state it clearly |
 | Behind schedule at H+16 | Drop all P1/P2, polish the MVP path only |
+
+## Phase 2 judge-feedback improvements
+
+- [x] Independent problem evidence, including contradictory/limiting findings and historical scope
+- [x] Simulated financial outcomes, retention proxies and network extrapolation clearly labelled
+- [x] Separate fit/early-stop/calibration/assessment experiment periods before the 2026 test
+- [x] Event/horizon conformal interval experiment without changing the median or submitted model
+- [x] Retrained event calendar, event memory and stockout-history feature ablations
+- [x] Pipeline comparisons: point/quantile, greedy/exact, DSO visits, inflow credit and simple baselines
+- [x] Exogenous demand-shift stress and adherence × churn sensitivity
+- [x] Replicated computation benchmark through 154,000 synthetic agent profiles
+- [x] Live model inference and persistent synthetic balance observations with recalculation
+- [x] Transactional decision/audit storage, idempotency and optimistic balance concurrency
+- [x] Bearer authentication, server roles, protected operational endpoints and shared rate/body limits
+- [x] Validation evidence and live operations UI; protected token and fixture behavior
+- [x] Dedicated sign-in UI, verified account/role, sign-out, protected routes and role-specific controls
+- [x] Local credential setup command, explicit outdated-API sign-in error and bounded authentication requests
+- [x] Controlled pilot protocol and production integration/monitoring/retraining design
+- [ ] Current upay agent/DSO interviews and independently validated failure observations
+- [ ] Authorized anonymized partner data and real-data calibration/fairness validation
+- [ ] Controlled field pilot measuring adherence, costs, realized fees and unique retention
+- [ ] upay adapter, event pipeline, production database, identity/DSO ownership and drift monitor
+- [ ] Full production workload benchmark, security review and operational rollout approval
+
+- [x] Standard username/password login, salted password hashes, durable HttpOnly sessions, logout revocation and CSRF protection
+
+## Local integration readiness implementation
+
+- [x] Versioned typed HTTP event ingestion and scoped simulated connector service identity
+- [x] SQLite durable receipts, source/event deduplication, bounded retries and audited failed-event retry
+- [x] Separate worker, persisted connector controls/cursor and completed-day history projection
+- [x] Live forecast provenance and consistent operational agent/network/DSO inference inputs
+- [x] Revision-aware approval and DSO task state machine with reconciled simulated completion
+- [x] Integration dashboard, worker/queue/inference/freshness telemetry and sample-gated distribution monitoring
+- [x] Candidate retraining/registry commands, reviewed activation and rollback with temporal/hash gates
+- [x] Complete local ingestion/projection/feature/inference/planning benchmark command
+- [x] Schemas, frontend types, fixtures, SRS, assumptions and demo documentation updated
+- [ ] Execute integration runtime acceptance scenarios and new scale benchmark when requested
+- [ ] Fresh future holdout for an eligible incumbent/candidate comparison; no model promoted
+- [ ] Real upay connector, production database/broker, sponsor ownership/identity, external monitoring and field outcomes

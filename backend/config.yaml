@@ -220,6 +220,7 @@ business:   # upay published tariffs (sources: docs/DATA_ASSUMPTIONS.md §8) + m
   upay_agents: 154000                  # upay retail agents, end of 2023 (public)
 
 model:
+  inference_threads: 4
   quantiles: [0.1, 0.5, 0.9]
   targets: [cashout, cashin]
   horizons: 7
@@ -230,6 +231,7 @@ model:
   censoring: keep              # keep | exclude | inflate — chosen by scripts/censoring_experiment.py
   event_window: [-7, 3]        # "event day" = within 7 days before .. 3 days after an Eid
   lgbm:
+    n_jobs: 4
     n_estimators: 400
     learning_rate: 0.05
     num_leaves: 63
@@ -248,3 +250,43 @@ llm:
 
 api:
   cors_origins: ["http://localhost:5173", "http://127.0.0.1:5173"]
+  requests_per_minute: 240
+  max_body_bytes: 16384
+  login_requests_per_minute: 10
+  session_ttl_seconds: 28800
+
+# Judge-feedback experiments: three disjoint periods, all before the 2026 test.
+validation:
+  fit_end: 2024-12-31
+  early_stop_start: 2025-01-01
+  early_stop_end: 2025-02-28
+  calibration_start: 2025-03-01
+  calibration_end: 2025-04-15
+  assessment_start: 2025-04-16
+  assessment_end: 2025-06-30
+  interval_coverage: 0.8
+  min_calibration_rows: 100
+  feature_groups:
+    event_calendar: [days_to_eid_fitr, days_to_eid_adha, days_after_eid, is_ramadan, is_boishakh, is_public_holiday, is_salary_window, g2p_day_index]
+    event_memory: [co_prev_fitr_mult, co_prev_adha_mult, ci_prev_fitr_mult, ci_prev_adha_mult]
+    stockout_history: [co_stockouts_7d, ci_stockouts_7d]
+  demand_shifts: {cashout_surge: 1.3, cashin_surge: 1.3, heavy_tail_sigma: 0.5, event_shift_days: 3}
+  compliance_values: [0.0, 0.4, 0.7, 1.0]
+  churn_values: [0.0, 0.01, 0.05, 0.1]
+  benchmark_populations: [500, 10000, 50000, 154000]
+  benchmark_repeats: 3
+  benchmark_batch_size: 5000
+
+# Local integration demonstration; these are demo settings, not partner SLAs.
+integration:
+  poll_seconds: 0.5
+  max_attempts: 3
+  retry_seconds: 2
+  connector_events: 12
+  connector_interval_seconds: 1.0
+  connector_cashout_multiplier: 1.5
+  connector_denied_amount: 1000
+  drift_min_samples: 20
+  drift_mean_ratio: 0.3
+  coverage_tolerance: 0.08
+  stale_seconds: 120

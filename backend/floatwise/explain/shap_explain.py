@@ -54,7 +54,7 @@ def explain_row(
     """Drivers of the P50 forecast for a single panel row."""
     booster = models.boosters[(target, 0.5)]
     x = row[models.features]
-    contrib = booster.predict(x, pred_contrib=True)[0]
+    contrib = booster.predict(x, pred_contrib=True, num_threads=models.inference_threads)[0]
     scale = float(row[f"scale_{target}"].iloc[0])
     phi = np.asarray(contrib[:-1]) * scale
     base = float(contrib[-1]) * scale

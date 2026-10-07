@@ -4,6 +4,21 @@ export type Action = "TOP_UP_CASH" | "TOP_UP_EFLOAT" | "NO_ACTION" | "NEEDS_EXTR
 export type RiskBand = "low" | "medium" | "high";
 export type Lang = "bn" | "en";
 
+export interface AuthSession {
+  subject: string;
+  role: "viewer" | "operator" | "admin";
+  auth_mode: "demo" | "required";
+}
+
+export interface LoginRequest {
+  username: string;
+  password: string;
+}
+
+export interface LogoutResult {
+  status: "ok";
+}
+
 export interface Quantiles {
   p10: number;
   p50: number;
@@ -59,6 +74,11 @@ export interface Forecast {
   agent_id: string;
   origin: string;
   points: ForecastPoint[];
+  source: "precomputed" | "live";
+  model_version: string;
+  history_revision: number;
+  balance_revision: number;
+  policy_version: string;
 }
 
 export interface OutlookDay {
@@ -71,6 +91,10 @@ export interface OutlookDay {
 }
 
 export interface Recommendation {
+  balance_version: number;
+  history_revision: number;
+  model_version: string;
+  policy_version: string;
   agent_id: string;
   date: string;
   effective_date: string;
@@ -244,6 +268,10 @@ export interface SimulationResult {
 }
 
 export interface DecisionIn {
+  balance_version?: number | null;
+  history_revision?: number | null;
+  model_version?: string | null;
+  policy_version?: string | null;
   agent_id: string;
   date: string;
   action: Action;
@@ -255,6 +283,7 @@ export interface DecisionIn {
 
 export interface Decision extends DecisionIn {
   decided_at: string;
+  decision_id?: number | null;
 }
 
 export interface DecisionSummary {
@@ -277,6 +306,59 @@ export interface Health {
   forecast_end: string;
   demo_date: string;
   llm_available: boolean;
+  auth_mode: "demo" | "required";
+}
+
+export interface LiveForecast extends Forecast {
+  source: "live";
+  model_version: string;
+  history_revision: number;
+  balance_revision: number;
+  policy_version: string;
+}
+
+export interface BalanceState {
+  cash: number;
+  efloat: number;
+  version: number;
+}
+
+export interface AuditEvent {
+  id: number;
+  at: string;
+  actor: string;
+  event: string;
+  resource: string;
+  details: Record<string, unknown>;
+}
+
+export interface ValidationSlice {
+  n: number;
+  wape: number;
+  coverage: number;
+  width_bdt: number;
+  pinball: number;
+}
+
+type ValidationMetrics = Record<"cashout" | "cashin", Record<string, ValidationSlice>>;
+
+export interface ValidationReport {
+  validation: {
+    data_kind: "synthetic";
+    assessment_period: string[];
+    calibration_period: string[];
+    test_period_used: boolean;
+    calibration: { raw: ValidationMetrics; calibrated: ValidationMetrics; production_promoted: boolean };
+    feature_ablations: Record<string, { removed_features: string[]; metrics: ValidationMetrics }>;
+    pipeline_ablations: Record<string, PolicyMetrics>;
+    robustness: { protocol: string; scenarios: Record<string, ValidationMetrics> };
+    business_sensitivity: (PolicyMetrics & { compliance: number; churn_probability: number })[];
+    limitations: string[];
+  } | null;
+  scale: {
+    limitations: string;
+    populations: { n_agents: number; forecast_rows: number; median_seconds: Record<string, number> }[];
+  } | null;
 }
 
 export interface SliceMetrics {
@@ -314,4 +396,53 @@ export interface ModelReport {
     dso: Record<string, number>;
     policy: Record<string, number>;
   };
+}
+
+export type IntegrationPayload =
+  | { kind: "transaction"; side: "cashin" | "cashout"; outcome: "served" | "denied"; amount: number; failure_code?: "liquidity" | "network" | "identity" | "limit" | null }
+  | { kind: "balance_snapshot"; cash: number; efloat: number; sequence: number }
+  | { kind: "day_closed" }
+  | { kind: "delivery_confirmation"; task_id: number; reference: string; cash: number; efloat: number };
+export interface IntegrationEvent {
+  schema_version?: 1;
+  source: "simulated-upstream" | "simulated-dso";
+  event_id: string;
+  occurred_at: string;
+  agent_id: string;
+  payload: IntegrationPayload;
+}
+export interface EventReceipt {
+  id: number; source: string; event_id: string; agent_id: string; kind: string;
+  occurred_at: string; received_at: string; status: "pending" | "processed" | "failed";
+  attempts: number; error: string | null; processed_at: string | null; duplicate: boolean;
+}
+export interface ConnectorState {
+  run_id: string | null; agent_id: string | null; date: string | null;
+  status: "idle" | "running" | "paused" | "completed" | "failed";
+  cursor: number; total: number; error: string | null;
+}
+export interface DsoTask {
+  id: number; decision_id: number; agent_id: string; dso_id: string; date: string;
+  action: Action; amount: number;
+  status: "approved" | "dispatched" | "accepted" | "completed" | "rejected" | "cancelled";
+  version: number; history_revision: number; balance_revision: number;
+  model_version: string; policy_version: string; delivery_reference: string | null;
+  created_at: string; updated_at: string;
+}
+export interface IntegrationStatus {
+  simulated: true;
+  connector: ConnectorState;
+  worker: { heartbeat_at: string | null; online: boolean; connector_configured: boolean };
+  metrics: { queue_depth: number; processed: number; failed: number; retries: number;
+    oldest_pending_seconds: number; average_processing_seconds: number;
+    inference_count: number; inference_errors: number; inference_p95_ms: number;
+    reconciliation_failures: number; stale_forecasts: number };
+  drift: { status: "insufficient_data" | "within_reference" | "review_required";
+    sample_count: number; minimum_samples: number; threshold: number;
+    cashin_mean_ratio_change: number | null; cashout_mean_ratio_change: number | null; note: string };
+  active_model: string;
+  models: { version: string; registered_at: string; training_cutoff: string;
+    feature_schema: string; binary_sha256: string; evaluation: Record<string, unknown> }[];
+  events: EventReceipt[];
+  tasks: DsoTask[];
 }

@@ -117,6 +117,7 @@ def acceptance(test: dict, cfg: Config) -> dict:
         "event_improvement_vs_seasonal_naive_ge_35pct": co["event_days"]["improvement_vs_seasonal_naive_pct"]
         >= 35,
         "coverage_p10_p90_between_72_and_88pct": 0.72 <= co["overall"]["coverage_p10_p90"] <= 0.88,
+        "event_coverage_p10_p90_between_72_and_88pct": 0.72 <= co["event_days"]["coverage_p10_p90"] <= 0.88,
         "no_archetype_worse_than_baseline": all(arch_ok.values()),
     }
     return {"checks": checks, "archetype_beats_baseline": arch_ok, "all_passed": all(checks.values())}

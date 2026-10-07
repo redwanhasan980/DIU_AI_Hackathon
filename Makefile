@@ -1,4 +1,4 @@
-.PHONY: setup setup-py setup-web data sample train evaluate simulate plots narratives all api web demo test e2e lint clean-artifacts
+.PHONY: setup setup-py setup-web data sample train evaluate simulate plots narratives all api web demo test e2e lint clean-artifacts validate benchmark fixtures integration-worker integration-benchmark
 
 VENV   := .venv
 PY     := $(abspath $(VENV))/bin/python
@@ -37,19 +37,34 @@ narratives:      ## pre-generate bn/en explanations -> artifacts/narratives_cach
 
 all: data train evaluate simulate plots narratives
 
+validate:        ## calibration, feature/pipeline ablations, robustness and business sensitivity
+	cd $(BACK) && $(PY) scripts/judge_validation.py
+	@if [ -f artifacts/scale_benchmark.json ]; then cd $(BACK) && $(PY) scripts/summarize_validation.py; fi
+
+benchmark:       ## compute benchmark at 500 .. 154,000 replicated synthetic agents
+	cd $(BACK) && $(PY) scripts/benchmark_scale.py
+	@if [ -f artifacts/judge_validation.json ]; then cd $(BACK) && $(PY) scripts/summarize_validation.py; fi
+
+fixtures:        ## refresh offline demo responses after experiments
+	cd $(BACK) && FLOATWISE_AUTH_MODE=demo ANTHROPIC_API_KEY= $(PY) scripts/export_fixtures.py
+
 api:
 	cd $(BACK) && $(PY) -m uvicorn floatwise.api.main:app --reload --port 8000
 
 web:
 	cd $(FRONT) && npm run dev
 
-demo:            ## API + web from cached artifacts (works offline)
-	@test -f artifacts/forecasts.parquet || (echo "artifacts missing -> running 'make all' first" && $(MAKE) all)
-	cd $(FRONT) && npm run build
-	cd $(BACK) && FLOATWISE_SERVE_WEB=1 $(PY) -m uvicorn floatwise.api.main:app --port 8000
+demo:            ## API + web + durable integration worker (local simulated systems)
+	$(PY) run.py demo
+
+integration-worker: ## separate local event consumer (when starting API directly)
+	cd $(BACK) && $(PY) -m floatwise.integration.worker
+
+integration-benchmark: ## local ingestion, projection, features, inference and DSO planning
+	cd $(BACK) && $(PY) scripts/benchmark_integration.py
 
 test:
-	cd $(BACK) && $(PY) -m pytest
+	cd $(BACK) && FLOATWISE_AUTH_MODE=demo $(PY) -m pytest
 
 e2e:             ## browser walk-through of the SRS §14 demo (needs `make demo` running + playwright)
 	cd $(BACK) && $(PY) scripts/e2e_demo.py $(if $(CHROME),--chrome $(CHROME),)

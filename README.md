@@ -15,6 +15,17 @@
 
 > All data is **synthetic** but shaped on upay's public facts: tariffs, commissions, services and network size. See [`docs/DATA_ASSUMPTIONS.md`](docs/DATA_ASSUMPTIONS.md).
 
+**Judge-feedback update:** the prototype now includes a Validation evidence page with event
+calibration, feature/pipeline ablations, demand-shift stress and business sensitivity; a Live
+operations demo with model inference and persistent synthetic balance observations; transactional
+decision/audit storage; and password login with server roles and request limits. See the
+[feedback response](docs/JUDGE_RESPONSE.md) for the implemented work and remaining rollout gates.
+
+Independent Bangladesh agent research supports frequent liquidity delivery but also reports
+a median of zero denied transactions per day. That historical, multi-provider survey does not
+establish current upay stockouts. The [pilot protocol](docs/PILOT_PROTOCOL.md) specifies the
+agent/DSO evidence and controlled comparison needed to validate upay's business priority.
+
 ---
 
 ## Quick start (about 6 minutes)
@@ -37,7 +48,8 @@ python run.py demo     # 3. start the app → open http://localhost:8000        
 
 - On **Windows**, use `py run.py …` if `python` isn't found. On **macOS/Linux**, use `python3` if `python` isn't found.
 - On **macOS/Linux** you can use `make setup`, `make all` and `make demo` instead.
-- Re-running `all` reproduces exactly the same model (`fw-c078f4bb`) and numbers.
+- A fixed seed and configuration reproduce the pipeline. The submitted artifacts describe model
+  `fw-c078f4bb`; changed thread/configuration settings may produce a new model version on retraining.
 
 ### Your first 2 minutes in the app
 The app opens on **15 March 2026**, five days before Eid-ul-Fitr.
@@ -54,10 +66,62 @@ The app opens on **15 March 2026**, five days before Eid-ul-Fitr.
 4. **Impact:** the backtest against today's rule of thumb, upay fee revenue protected, and a live re-run with the service-level slider.
 5. **Model & fairness:** acceptance checks, error by area type and the fairness table.
 6. **📱 Agent mobile card** (button on an agent page): the Bangla screen an agent would see.
+7. **Validation evidence:** separately held-out calibration, ablations, shifted demand, adherence
+   sensitivity and replicated scale timings. Generate these once with the commands below.
+8. **Live operations demo:** load a synthetic agent's balances, save a revised split, and open its
+   recommendation or DSO plan to see recalculation. `Run model now` executes the loaded boosters.
+
+```bash
+python run.py validate     # separate 2025 experiments; does not tune on the submitted 2026 test
+python run.py benchmark    # batched inference/planning through 154,000 replicated profiles
+python run.py fixtures     # refresh read-only offline demo artifacts
+```
+
+The demo defaults to local loopback access. For external access set `FLOATWISE_AUTH_MODE=required`
+and configure ignored `.env` credentials as described in [JUDGE_RESPONSE.md](docs/JUDGE_RESPONSE.md).
+The dashboard has a **Sign in** page at `/login` with **Username** and **Password** fields.
+The header shows your account, server-assigned role, **Account & access**, and **Sign out**.
+An HttpOnly session cookie keeps you signed in after refresh. Signing out revokes the server
+session. No upay financial-system integration or production identity provider is connected.
+
+### Sign in as viewer, operator or admin
+
+For a local setup, run:
+
+```bash
+python run.py auth-setup
+python run.py demo
+```
+
+Stop an already running API before restarting it. `auth-setup` creates the usernames `viewer`,
+`operator` and `admin`, with a unique generated password for each, and displays the initial
+passwords once. Save those passwords. Only salted password hashes are stored in ignored `.env`
+under `FLOATWISE_USERS`; rerunning setup preserves existing accounts and passwords.
+Open `http://localhost:8000/login` and enter the username and its password.
+Roles are assigned by the server account configuration.
+
+Passwords use PBKDF2-HMAC-SHA256 with a random salt and 600,000 iterations, following the
+[OWASP password storage guidance](https://cheatsheetseries.owasp.org/cheatsheets/Password_Storage_Cheat_Sheet.html).
+Sessions expire after eight hours by default (`api.session_ttl_seconds`), are stored as token
+hashes in SQLite, and survive API restarts. Cookies are HttpOnly, SameSite=Lax, and Secure on
+HTTPS. Mutation requests include a CSRF header and have their Origin checked. Sign-in has a
+separate shared limit of ten requests per IP per minute (`api.login_requests_per_minute`).
+Changing an account's password hash or removing it invalidates its sessions.
+
+| Role | UI access |
+|---|---|
+| Viewer | Dashboards, forecasts, DSO plans, cached impact, validation and decision history |
+| Operator | Viewer access plus Approve / Modify / Reject and Re-run simulation |
+| Admin | Operator access plus Live operations demo, balance observations and audit API |
+
+The UI displays permissions and the API enforces them. Role cards on the sign-in page describe
+permissions; they do not assign roles. Local demo mode automatically grants loopback connections
+admin access and labels it **Local demo**. After signing out, **Continue local demo** reconnects.
+An offline fixture demo has read-only access and never supplies an authenticated identity.
 
 ### Optional: AI-written explanations
 Without a key, explanations come from built-in Bangla/English templates. To use Claude instead:
-1. Copy `.env.example` to `.env`.
+1. Edit `.env` if it exists; otherwise copy `.env.example` to `.env`.
 2. Set `ANTHROPIC_API_KEY`.
 3. Restart the demo.
 
@@ -70,13 +134,16 @@ Run `make narratives` (or `python run.py all`) to cache explanations for an offl
 | `npm` not found | Install Node.js 20+ and reopen the terminal |
 | Port 8000 is already in use | Stop the other program using it, then run `python run.py demo` again |
 | Page says "API is not reachable" | Start the API (`python run.py demo`). The demo path still renders from offline fixtures |
+| Sign-in says the API needs a restart / `/auth/me` returns 404 | Stop the old API and run `python run.py demo` again; refresh `/login` |
+| Unsure which credential to use | Run `python run.py auth-setup`, restart the API, then use the username/password displayed when the accounts were created |
 | LightGBM import error on macOS | `brew install libomp`, then `python run.py setup` again |
 | Want to start over | Delete `.venv`, `data/generated`, `artifacts/models` and `artifacts/forecasts.parquet`, then run the 3 steps again |
 
 ---
 
-## Results (held-out test period: Jan–Jun 2026, including both Eids)
-Same true demand for both policies; 500 agents. Every number comes from `artifacts/*.json`.
+## Synthetic results (held-out test: Jan–Jun 2026, including both Eids)
+Same synthetic ground-truth demand for both policies; 500 agents. Every number comes from
+`artifacts/*.json`. These are simulations, not measured upay operational or financial outcomes.
 
 | | Today's rule of thumb | FloatWise | Change |
 |---|---|---|---|
@@ -85,15 +152,16 @@ Same true demand for both policies; 500 agents. Every number comes from `artifac
 | Failed cash-out value | ৳52.2 crore | ৳27.8 crore | **−46.7 %** |
 | **upay fee revenue lost** (fee − commission) | ৳33.8 lakh | ৳15.6 lakh | **−53.7 %** |
 | Agent + distributor commission lost | ৳27.1 lakh | ৳14.5 lakh | **−46.6 %** |
-| Customers at risk of leaving | 10,755 | 5,467 | **−49.2 %** |
+| Assumed churn exposure (failure-count proxy) | 10,755 | 5,467 | **−49.2 %** |
 | Rebalancing trips | 49,813 | 51,860 | +4.1 % |
 | Average cash held per agent | ৳3,52,509 | ৳3,60,653 | +2.3 % (honest trade-off; target missed) |
 
-**Scaled to upay's ~1,54,000 agents, per month** (linear scale-up, an assumption):
+**Illustrative scenario at the historical 2023 network size, per month** (linear extrapolation
+to ~1,54,000 agents, assuming identical demand/capacity/adherence; not a revenue forecast):
 - **≈ ৳9.3 crore** of upay fee revenue protected.
 - ৳6.4 crore of agent and distributor commission recovered.
 - ≈ 1.7 lakh stockout days avoided.
-- ≈ 2.7 lakh customers retained.
+- ≈ 2.7 lakh reduction in the hypothetical churn-exposure proxy; this is not unique customers retained.
 
 **Forecast accuracy** (cash-out WAPE, lower is better; model `fw-c078f4bb`):
 
@@ -103,7 +171,10 @@ Same true demand for both policies; 500 agents. Every number comes from `artifac
 | Eid days (−7 … +3) | **21.2 %** | 58.9 % | 53.8 % |
 
 - **Fairness:** every area type improves, and none is worse than the baseline. Urban agents: −52 % stockouts. Rural agents: −37 %, because their total float is small for the Eid spike, which is what the "extra float" escalation flags.
-- **Known weakness:** forecast ranges are too narrow on Eid days (P10–P90 coverage 60 % vs 75 % overall). The policy compensates with a 99 % service level chosen on validation data.
+- **Known weakness:** the submitted model's event P10–P90 coverage is 60 % vs 75 % overall.
+  Event coverage now has its own acceptance check and is reported as a failure. A high policy
+  service level does not establish forecast calibration. The separate 2025 calibration experiment
+  measures coverage, width and pinball before any promotion into the operational model.
 
 Details: [`artifacts/model_card.md`](artifacts/model_card.md) · SRS [§6.4](docs/SRS.md) and [§12](docs/SRS.md).
 
@@ -164,7 +235,7 @@ Every choice was made on held-out data, never on the test period. The evidence i
 ## Testing
 | Check | Command | What it covers |
 |---|---|---|
-| Unit + integration tests (89) | `python run.py test` or `make test` | Data quality, no-leakage, models, decision engine, allocator, backtest, explanations + LLM guardrails, API contract and errors |
+| Unit + integration tests (98) | `python run.py test` or `make test` | Existing model/engine/API checks plus authentication, roles, concurrent persistence, version conflicts, idempotency, live inference, calibration and request limits |
 | Lint | `make lint` | ruff (Python) + tsc + eslint (web) |
 | Browser walk-through (21 checks) | With the demo running: `pip install playwright && playwright install chromium`, then `make e2e` | The whole demo: map, agent, Bangla, approval, DSO limits, live backtest, fairness, decisions, agent card, other date, dark mode |
 | CI | GitHub Actions on every push | Backend on Linux + Windows, frontend typecheck/lint/build |
@@ -200,7 +271,20 @@ Every choice was made on held-out data, never on the test period. The evidence i
 - Customers don't move to a neighbouring agent in the simulation.
 - Live LLM explanations need an API key.
 
-**Path to production:**
-1. **Shadow mode:** run on governed, aggregated agent-ledger data (daily cash-in/cash-out per agent; no customer data) from one distributor.
-2. **Pilot:** use the DSO plan before Eid against control distributors.
-3. **Integration:** connect to the DSO and agent apps, with a nightly retrain and per-segment drift monitoring.
+**Path to production:** governed problem validation → shadow evaluation → controlled distributor
+pilot → reviewed integration and rollout. See [PILOT_PROTOCOL.md](docs/PILOT_PROTOCOL.md) and
+[PRODUCTION_ARCHITECTURE.md](docs/PRODUCTION_ARCHITECTURE.md). Partner data, interviews, field
+outcomes, streaming integration and production monitoring remain required.
+
+## Integration readiness demo
+
+Open **Integration** (`/integration`) after starting `python run.py demo` (or `make demo`). The launcher configures a scoped local connector credential and starts the API plus a separate worker. Your existing sign-in passwords are preserved.
+
+The implemented workflow is **simulated HTTP transaction feed → durable SQLite events → updated completed-day history → live model inference → human approval → assigned DSO task → reconciled simulated delivery**. The page shows queue/worker/inference/freshness telemetry, sample-gated distribution monitoring and registered model versions. Connector replay demonstrates event deduplication; stale approvals and tasks are rejected.
+
+- Admin: controls ingestion/replay and event retries; operator: approves and manages tasks; viewer: inspects.
+- `python run.py integration-worker`: worker when starting the API separately.
+- `python run.py models list`: model registry; `retrain`, `register`, `activate --reviewed`, and `rollback --reviewed` provide the local lifecycle. Current promotion remains blocked without an eligible fresh holdout.
+- `python run.py integration-benchmark`: isolated local ingestion/projection/full-feature/inference/planning benchmark at 500, 10,000 and 50,000 synthetic agents. New measurements remain pending execution.
+
+See [the integration walkthrough and API contract](docs/INTEGRATION_DEMO.md). This demonstrates local integration readiness. It is not a real upay connection, production database/broker deployment, or measured business outcome.

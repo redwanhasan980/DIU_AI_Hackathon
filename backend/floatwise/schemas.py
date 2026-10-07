@@ -3,13 +3,28 @@
 from __future__ import annotations
 
 import datetime as dt
-from typing import Literal
+from typing import Annotated, Literal
 
-from pydantic import BaseModel, Field
+from pydantic import AwareDatetime, BaseModel, ConfigDict, Field, SecretStr
 
 Action = Literal["TOP_UP_CASH", "TOP_UP_EFLOAT", "NO_ACTION", "NEEDS_EXTRA_FLOAT"]
 RiskBand = Literal["low", "medium", "high"]
 Lang = Literal["bn", "en"]
+
+
+class AuthSession(BaseModel):
+    subject: str
+    role: Literal["viewer", "operator", "admin"]
+    auth_mode: Literal["demo", "required"]
+
+
+class LoginRequest(BaseModel):
+    username: str = Field(min_length=1, max_length=64)
+    password: SecretStr = Field(min_length=1, max_length=128)
+
+
+class LogoutResult(BaseModel):
+    status: Literal["ok"] = "ok"
 
 
 class Quantiles(BaseModel):
@@ -67,6 +82,36 @@ class Forecast(BaseModel):
     agent_id: str
     origin: dt.date
     points: list[ForecastPoint]
+    source: Literal["precomputed", "live"] = "precomputed"
+    model_version: str = ""
+    history_revision: int = 0
+    balance_revision: int = 0
+    policy_version: str = ""
+
+
+class LiveForecast(Forecast):
+    source: Literal["live"]
+    model_version: str
+    history_revision: int = 0
+    balance_revision: int = 0
+    policy_version: str = ""
+
+
+class LiveForecastRequest(BaseModel):
+    agent_id: str = Field(pattern=r"^AG\d{5}$")
+    date: dt.date
+
+
+class BalanceObservation(LiveForecastRequest):
+    cash: int = Field(ge=0, le=100_000_000)
+    efloat: int = Field(ge=0, le=100_000_000)
+    expected_version: int = Field(ge=0)
+
+
+class BalanceState(BaseModel):
+    cash: int
+    efloat: int
+    version: int
 
 
 class OutlookDay(BaseModel):
@@ -95,6 +140,10 @@ class Recommendation(BaseModel):
     reason_codes: list[str]
     outlook: list[OutlookDay]
     first_risk_date: dt.date | None
+    balance_version: int = 0
+    history_revision: int = 0
+    model_version: str = ""
+    policy_version: str = ""
 
 
 class Driver(BaseModel):
@@ -263,10 +312,15 @@ class DecisionIn(BaseModel):
     final_amount: int = Field(ge=0, le=100_000_000)
     decision: Literal["approve", "modify", "reject"]
     reason: str = Field("", max_length=300)
+    balance_version: int | None = Field(None, ge=0)
+    history_revision: int | None = Field(None, ge=0)
+    model_version: str | None = None
+    policy_version: str | None = None
 
 
 class Decision(DecisionIn):
     decided_at: dt.datetime
+    decision_id: int | None = None
 
 
 class ReasonCount(BaseModel):
@@ -298,3 +352,176 @@ class Health(BaseModel):
     forecast_end: dt.date
     demo_date: dt.date
     llm_available: bool
+    auth_mode: Literal["demo", "required"] = "demo"
+
+
+class ValidationReport(BaseModel):
+    """Generated experiment artifact payloads; nested shapes are documented in the SRS."""
+
+    validation: dict[str, object] | None
+    scale: dict[str, object] | None
+
+
+class AuditEvent(BaseModel):
+    id: int
+    at: dt.datetime
+    actor: str
+    event: str
+    resource: str
+    details: dict[str, object]
+
+
+class EventPayload(BaseModel):
+    model_config = ConfigDict(extra="forbid", strict=True)
+
+
+class TransactionPayload(EventPayload):
+    kind: Literal["transaction"]
+    side: Literal["cashin", "cashout"]
+    outcome: Literal["served", "denied"]
+    amount: int = Field(gt=0, le=100_000_000)
+    failure_code: Literal["liquidity", "network", "identity", "limit"] | None = None
+
+
+class SnapshotPayload(EventPayload):
+    kind: Literal["balance_snapshot"]
+    cash: int = Field(ge=0, le=100_000_000)
+    efloat: int = Field(ge=0, le=100_000_000)
+    sequence: int = Field(ge=0)
+
+
+class DayClosedPayload(EventPayload):
+    kind: Literal["day_closed"]
+
+
+class DeliveryPayload(EventPayload):
+    kind: Literal["delivery_confirmation"]
+    task_id: int = Field(gt=0)
+    reference: str = Field(min_length=1, max_length=128)
+    cash: int = Field(ge=0, le=100_000_000)
+    efloat: int = Field(ge=0, le=100_000_000)
+
+
+class IntegrationEvent(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    schema_version: Literal[1] = 1
+    source: Literal["simulated-upstream", "simulated-dso"]
+    event_id: str = Field(min_length=1, max_length=128, pattern=r"^[a-zA-Z0-9_.:-]+$")
+    occurred_at: AwareDatetime
+    agent_id: str = Field(pattern=r"^AG\d{5}$")
+    payload: Annotated[TransactionPayload | SnapshotPayload | DayClosedPayload | DeliveryPayload,
+                       Field(discriminator="kind")]
+
+
+class EventReceipt(BaseModel):
+    id: int
+    source: str
+    event_id: str
+    agent_id: str
+    kind: str
+    occurred_at: str
+    received_at: str
+    status: Literal["pending", "processed", "failed"]
+    attempts: int
+    error: str | None
+    processed_at: str | None
+    duplicate: bool = False
+
+
+class ConnectorRequest(BaseModel):
+    agent_id: str = Field(pattern=r"^AG\d{5}$")
+    date: dt.date
+    action: Literal["start", "pause", "resume", "replay"]
+
+
+class ConnectorState(BaseModel):
+    run_id: str | None = None
+    agent_id: str | None = None
+    date: str | None = None
+    status: Literal["idle", "running", "paused", "completed", "failed"] = "idle"
+    cursor: int = 0
+    total: int = 0
+    error: str | None = None
+
+
+class TaskCreate(BaseModel):
+    decision_id: int = Field(gt=0)
+
+
+class TaskUpdate(BaseModel):
+    status: Literal["dispatched", "accepted", "rejected", "cancelled"]
+    expected_version: int = Field(ge=1)
+
+
+class DsoTask(BaseModel):
+    id: int
+    decision_id: int
+    agent_id: str
+    dso_id: str
+    date: str
+    action: Action
+    amount: int
+    status: Literal["approved", "dispatched", "accepted", "completed", "rejected", "cancelled"]
+    version: int
+    history_revision: int
+    balance_revision: int
+    model_version: str
+    policy_version: str
+    delivery_reference: str | None = None
+    created_at: str
+    updated_at: str
+
+
+class WorkerStatus(BaseModel):
+    heartbeat_at: str | None
+    online: bool
+    connector_configured: bool
+
+
+class IntegrationMetrics(BaseModel):
+    queue_depth: int
+    processed: int
+    failed: int
+    retries: int
+    oldest_pending_seconds: float
+    average_processing_seconds: float
+    inference_count: int
+    inference_errors: int
+    inference_p95_ms: float
+    reconciliation_failures: int
+    stale_forecasts: int
+
+
+class DriftStatus(BaseModel):
+    status: Literal["insufficient_data", "within_reference", "review_required"]
+    sample_count: int
+    minimum_samples: int
+    threshold: float
+    cashin_mean_ratio_change: float | None = None
+    cashout_mean_ratio_change: float | None = None
+    note: str
+
+
+class ModelRegistryEntry(BaseModel):
+    version: str
+    registered_at: str
+    training_cutoff: str
+    feature_schema: str
+    binary_sha256: str
+    evaluation: dict
+
+
+class IntegrationStatus(BaseModel):
+    simulated: Literal[True] = True
+    connector: ConnectorState
+    worker: WorkerStatus
+    metrics: IntegrationMetrics
+    drift: DriftStatus
+    active_model: str
+    models: list[ModelRegistryEntry]
+    events: list[EventReceipt]
+    tasks: list[DsoTask]
+
+
+class DeliveryRequest(BaseModel):
+    expected_version: int = Field(ge=1)

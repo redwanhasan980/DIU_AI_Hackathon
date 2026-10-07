@@ -1,0 +1,3094 @@
+{
+  "data_kind": "synthetic",
+  "fit_end": "2024-12-31",
+  "early_stopping": [
+    "2025-01-01",
+    "2025-02-28"
+  ],
+  "calibration_period": [
+    "2025-03-01",
+    "2025-04-15"
+  ],
+  "assessment_period": [
+    "2025-04-16",
+    "2025-06-30"
+  ],
+  "test_period_used": false,
+  "feature_ablations": {
+    "event_calendar": {
+      "removed_features": [
+        "days_to_eid_fitr",
+        "days_to_eid_adha",
+        "days_after_eid",
+        "is_ramadan",
+        "is_boishakh",
+        "is_public_holiday",
+        "is_salary_window",
+        "g2p_day_index"
+      ],
+      "metrics": {
+        "cashout": {
+          "overall": {
+            "n": 266000,
+            "wape": 0.2574,
+            "coverage": 0.6901,
+            "width_bdt": 125321,
+            "pinball": 21216
+          },
+          "event_days": {
+            "n": 38500,
+            "wape": 0.5284,
+            "coverage": 0.28,
+            "width_bdt": 151950,
+            "pinball": 68041
+          },
+          "normal_days": {
+            "n": 227500,
+            "wape": 0.1895,
+            "coverage": 0.7595,
+            "width_bdt": 120814,
+            "pinball": 13291
+          },
+          "horizon:1": {
+            "n": 38000,
+            "wape": 0.2512,
+            "coverage": 0.6957,
+            "width_bdt": 124683,
+            "pinball": 20597
+          },
+          "horizon:2": {
+            "n": 38000,
+            "wape": 0.2555,
+            "coverage": 0.6933,
+            "width_bdt": 124892,
+            "pinball": 21023
+          },
+          "horizon:3": {
+            "n": 38000,
+            "wape": 0.2585,
+            "coverage": 0.6916,
+            "width_bdt": 125233,
+            "pinball": 21306
+          },
+          "horizon:4": {
+            "n": 38000,
+            "wape": 0.2593,
+            "coverage": 0.6904,
+            "width_bdt": 125278,
+            "pinball": 21410
+          },
+          "horizon:5": {
+            "n": 38000,
+            "wape": 0.259,
+            "coverage": 0.6891,
+            "width_bdt": 125385,
+            "pinball": 21376
+          },
+          "horizon:6": {
+            "n": 38000,
+            "wape": 0.2589,
+            "coverage": 0.6864,
+            "width_bdt": 125821,
+            "pinball": 21382
+          },
+          "horizon:7": {
+            "n": 38000,
+            "wape": 0.2594,
+            "coverage": 0.6839,
+            "width_bdt": 125953,
+            "pinball": 21416
+          },
+          "archetype:urban_residential": {
+            "n": 66500,
+            "wape": 0.2196,
+            "coverage": 0.7289,
+            "width_bdt": 108824,
+            "pinball": 14187
+          },
+          "archetype:garment_belt": {
+            "n": 53200,
+            "wape": 0.2794,
+            "coverage": 0.6569,
+            "width_bdt": 203918,
+            "pinball": 39855
+          },
+          "archetype:rural_remittance": {
+            "n": 79800,
+            "wape": 0.2805,
+            "coverage": 0.6761,
+            "width_bdt": 69693,
+            "pinball": 11913
+          },
+          "archetype:market_hub": {
+            "n": 39900,
+            "wape": 0.2448,
+            "coverage": 0.6903,
+            "width_bdt": 211607,
+            "pinball": 36476
+          },
+          "archetype:university_area": {
+            "n": 26600,
+            "wape": 0.2649,
+            "coverage": 0.7008,
+            "width_bdt": 46822,
+            "pinball": 6525
+          }
+        },
+        "cashin": {
+          "overall": {
+            "n": 266000,
+            "wape": 0.2435,
+            "coverage": 0.7177,
+            "width_bdt": 93081,
+            "pinball": 14158
+          },
+          "event_days": {
+            "n": 38500,
+            "wape": 0.5172,
+            "coverage": 0.4519,
+            "width_bdt": 108163,
+            "pinball": 40339
+          },
+          "normal_days": {
+            "n": 227500,
+            "wape": 0.1862,
+            "coverage": 0.7627,
+            "width_bdt": 90529,
+            "pinball": 9728
+          },
+          "horizon:1": {
+            "n": 38000,
+            "wape": 0.234,
+            "coverage": 0.7264,
+            "width_bdt": 94213,
+            "pinball": 13433
+          },
+          "horizon:2": {
+            "n": 38000,
+            "wape": 0.2413,
+            "coverage": 0.7233,
+            "width_bdt": 93742,
+            "pinball": 14001
+          },
+          "horizon:3": {
+            "n": 38000,
+            "wape": 0.2456,
+            "coverage": 0.7221,
+            "width_bdt": 93037,
+            "pinball": 14374
+          },
+          "horizon:4": {
+            "n": 38000,
+            "wape": 0.2484,
+            "coverage": 0.7172,
+            "width_bdt": 92674,
+            "pinball": 14505
+          },
+          "horizon:5": {
+            "n": 38000,
+            "wape": 0.2469,
+            "coverage": 0.7154,
+            "width_bdt": 92640,
+            "pinball": 14368
+          },
+          "horizon:6": {
+            "n": 38000,
+            "wape": 0.2449,
+            "coverage": 0.7108,
+            "width_bdt": 92553,
+            "pinball": 14255
+          },
+          "horizon:7": {
+            "n": 38000,
+            "wape": 0.2433,
+            "coverage": 0.7087,
+            "width_bdt": 92707,
+            "pinball": 14173
+          },
+          "archetype:urban_residential": {
+            "n": 66500,
+            "wape": 0.2769,
+            "coverage": 0.6637,
+            "width_bdt": 130172,
+            "pinball": 24491
+          },
+          "archetype:garment_belt": {
+            "n": 53200,
+            "wape": 0.2236,
+            "coverage": 0.7274,
+            "width_bdt": 77251,
+            "pinball": 9722
+          },
+          "archetype:rural_remittance": {
+            "n": 79800,
+            "wape": 0.2112,
+            "coverage": 0.7661,
+            "width_bdt": 31669,
+            "pinball": 3308
+          },
+          "archetype:market_hub": {
+            "n": 39900,
+            "wape": 0.2237,
+            "coverage": 0.7079,
+            "width_bdt": 212951,
+            "pinball": 30801
+          },
+          "archetype:university_area": {
+            "n": 26600,
+            "wape": 0.2598,
+            "coverage": 0.7029,
+            "width_bdt": 36445,
+            "pinball": 4787
+          }
+        }
+      }
+    },
+    "event_memory": {
+      "removed_features": [
+        "co_prev_fitr_mult",
+        "co_prev_adha_mult",
+        "ci_prev_fitr_mult",
+        "ci_prev_adha_mult"
+      ],
+      "metrics": {
+        "cashout": {
+          "overall": {
+            "n": 266000,
+            "wape": 0.2481,
+            "coverage": 0.6991,
+            "width_bdt": 125126,
+            "pinball": 19116
+          },
+          "event_days": {
+            "n": 38500,
+            "wape": 0.4516,
+            "coverage": 0.4962,
+            "width_bdt": 167745,
+            "pinball": 50442
+          },
+          "normal_days": {
+            "n": 227500,
+            "wape": 0.197,
+            "coverage": 0.7334,
+            "width_bdt": 117913,
+            "pinball": 13815
+          },
+          "horizon:1": {
+            "n": 38000,
+            "wape": 0.2464,
+            "coverage": 0.7022,
+            "width_bdt": 125239,
+            "pinball": 18841
+          },
+          "horizon:2": {
+            "n": 38000,
+            "wape": 0.2476,
+            "coverage": 0.7016,
+            "width_bdt": 125233,
+            "pinball": 18986
+          },
+          "horizon:3": {
+            "n": 38000,
+            "wape": 0.2483,
+            "coverage": 0.7001,
+            "width_bdt": 125088,
+            "pinball": 19094
+          },
+          "horizon:4": {
+            "n": 38000,
+            "wape": 0.2483,
+            "coverage": 0.6986,
+            "width_bdt": 124951,
+            "pinball": 19154
+          },
+          "horizon:5": {
+            "n": 38000,
+            "wape": 0.2484,
+            "coverage": 0.6988,
+            "width_bdt": 125132,
+            "pinball": 19206
+          },
+          "horizon:6": {
+            "n": 38000,
+            "wape": 0.2487,
+            "coverage": 0.6959,
+            "width_bdt": 125055,
+            "pinball": 19250
+          },
+          "horizon:7": {
+            "n": 38000,
+            "wape": 0.2489,
+            "coverage": 0.6964,
+            "width_bdt": 125182,
+            "pinball": 19281
+          },
+          "archetype:urban_residential": {
+            "n": 66500,
+            "wape": 0.2103,
+            "coverage": 0.7429,
+            "width_bdt": 105438,
+            "pinball": 12699
+          },
+          "archetype:garment_belt": {
+            "n": 53200,
+            "wape": 0.265,
+            "coverage": 0.6474,
+            "width_bdt": 194820,
+            "pinball": 35607
+          },
+          "archetype:rural_remittance": {
+            "n": 79800,
+            "wape": 0.2829,
+            "coverage": 0.6905,
+            "width_bdt": 72989,
+            "pinball": 11712
+          },
+          "archetype:market_hub": {
+            "n": 39900,
+            "wape": 0.2361,
+            "coverage": 0.7068,
+            "width_bdt": 223485,
+            "pinball": 31555
+          },
+          "archetype:university_area": {
+            "n": 26600,
+            "wape": 0.2479,
+            "coverage": 0.7067,
+            "width_bdt": 43826,
+            "pinball": 5731
+          }
+        },
+        "cashin": {
+          "overall": {
+            "n": 266000,
+            "wape": 0.2114,
+            "coverage": 0.7439,
+            "width_bdt": 91148,
+            "pinball": 11738
+          },
+          "event_days": {
+            "n": 38500,
+            "wape": 0.3318,
+            "coverage": 0.6213,
+            "width_bdt": 103876,
+            "pinball": 24196
+          },
+          "normal_days": {
+            "n": 227500,
+            "wape": 0.1863,
+            "coverage": 0.7647,
+            "width_bdt": 88994,
+            "pinball": 9630
+          },
+          "horizon:1": {
+            "n": 38000,
+            "wape": 0.2094,
+            "coverage": 0.7497,
+            "width_bdt": 91346,
+            "pinball": 11531
+          },
+          "horizon:2": {
+            "n": 38000,
+            "wape": 0.2105,
+            "coverage": 0.7453,
+            "width_bdt": 91211,
+            "pinball": 11654
+          },
+          "horizon:3": {
+            "n": 38000,
+            "wape": 0.2113,
+            "coverage": 0.7419,
+            "width_bdt": 91132,
+            "pinball": 11751
+          },
+          "horizon:4": {
+            "n": 38000,
+            "wape": 0.2119,
+            "coverage": 0.7414,
+            "width_bdt": 91062,
+            "pinball": 11789
+          },
+          "horizon:5": {
+            "n": 38000,
+            "wape": 0.212,
+            "coverage": 0.7429,
+            "width_bdt": 91021,
+            "pinball": 11802
+          },
+          "horizon:6": {
+            "n": 38000,
+            "wape": 0.2123,
+            "coverage": 0.7429,
+            "width_bdt": 91087,
+            "pinball": 11817
+          },
+          "horizon:7": {
+            "n": 38000,
+            "wape": 0.2124,
+            "coverage": 0.7434,
+            "width_bdt": 91174,
+            "pinball": 11822
+          },
+          "archetype:urban_residential": {
+            "n": 66500,
+            "wape": 0.2329,
+            "coverage": 0.7169,
+            "width_bdt": 133506,
+            "pinball": 19557
+          },
+          "archetype:garment_belt": {
+            "n": 53200,
+            "wape": 0.1924,
+            "coverage": 0.7465,
+            "width_bdt": 71399,
+            "pinball": 8044
+          },
+          "archetype:rural_remittance": {
+            "n": 79800,
+            "wape": 0.2067,
+            "coverage": 0.7753,
+            "width_bdt": 31052,
+            "pinball": 3250
+          },
+          "archetype:market_hub": {
+            "n": 39900,
+            "wape": 0.1976,
+            "coverage": 0.7322,
+            "width_bdt": 204621,
+            "pinball": 25781
+          },
+          "archetype:university_area": {
+            "n": 26600,
+            "wape": 0.2213,
+            "coverage": 0.7302,
+            "width_bdt": 34825,
+            "pinball": 3978
+          }
+        }
+      }
+    },
+    "stockout_history": {
+      "removed_features": [
+        "co_stockouts_7d",
+        "ci_stockouts_7d"
+      ],
+      "metrics": {
+        "cashout": {
+          "overall": {
+            "n": 266000,
+            "wape": 0.2487,
+            "coverage": 0.6908,
+            "width_bdt": 123685,
+            "pinball": 19163
+          },
+          "event_days": {
+            "n": 38500,
+            "wape": 0.4482,
+            "coverage": 0.4338,
+            "width_bdt": 153114,
+            "pinball": 51036
+          },
+          "normal_days": {
+            "n": 227500,
+            "wape": 0.1986,
+            "coverage": 0.7343,
+            "width_bdt": 118705,
+            "pinball": 13769
+          },
+          "horizon:1": {
+            "n": 38000,
+            "wape": 0.2467,
+            "coverage": 0.6955,
+            "width_bdt": 123768,
+            "pinball": 18885
+          },
+          "horizon:2": {
+            "n": 38000,
+            "wape": 0.248,
+            "coverage": 0.6933,
+            "width_bdt": 123780,
+            "pinball": 19040
+          },
+          "horizon:3": {
+            "n": 38000,
+            "wape": 0.2489,
+            "coverage": 0.6919,
+            "width_bdt": 123691,
+            "pinball": 19156
+          },
+          "horizon:4": {
+            "n": 38000,
+            "wape": 0.249,
+            "coverage": 0.6896,
+            "width_bdt": 123577,
+            "pinball": 19207
+          },
+          "horizon:5": {
+            "n": 38000,
+            "wape": 0.2492,
+            "coverage": 0.6892,
+            "width_bdt": 123680,
+            "pinball": 19250
+          },
+          "horizon:6": {
+            "n": 38000,
+            "wape": 0.2494,
+            "coverage": 0.6882,
+            "width_bdt": 123644,
+            "pinball": 19286
+          },
+          "horizon:7": {
+            "n": 38000,
+            "wape": 0.2495,
+            "coverage": 0.6879,
+            "width_bdt": 123655,
+            "pinball": 19315
+          },
+          "archetype:urban_residential": {
+            "n": 66500,
+            "wape": 0.2091,
+            "coverage": 0.7309,
+            "width_bdt": 105385,
+            "pinball": 12697
+          },
+          "archetype:garment_belt": {
+            "n": 53200,
+            "wape": 0.2626,
+            "coverage": 0.6337,
+            "width_bdt": 191981,
+            "pinball": 35406
+          },
+          "archetype:rural_remittance": {
+            "n": 79800,
+            "wape": 0.2874,
+            "coverage": 0.6859,
+            "width_bdt": 71909,
+            "pinball": 11745
+          },
+          "archetype:market_hub": {
+            "n": 39900,
+            "wape": 0.2397,
+            "coverage": 0.7061,
+            "width_bdt": 219577,
+            "pinball": 32083
+          },
+          "archetype:university_area": {
+            "n": 26600,
+            "wape": 0.2472,
+            "coverage": 0.6965,
+            "width_bdt": 44335,
+            "pinball": 5712
+          }
+        },
+        "cashin": {
+          "overall": {
+            "n": 266000,
+            "wape": 0.2104,
+            "coverage": 0.7349,
+            "width_bdt": 90060,
+            "pinball": 11757
+          },
+          "event_days": {
+            "n": 38500,
+            "wape": 0.3379,
+            "coverage": 0.5844,
+            "width_bdt": 95130,
+            "pinball": 24715
+          },
+          "normal_days": {
+            "n": 227500,
+            "wape": 0.1838,
+            "coverage": 0.7604,
+            "width_bdt": 89202,
+            "pinball": 9564
+          },
+          "horizon:1": {
+            "n": 38000,
+            "wape": 0.2086,
+            "coverage": 0.7438,
+            "width_bdt": 90669,
+            "pinball": 11520
+          },
+          "horizon:2": {
+            "n": 38000,
+            "wape": 0.2095,
+            "coverage": 0.7387,
+            "width_bdt": 90431,
+            "pinball": 11652
+          },
+          "horizon:3": {
+            "n": 38000,
+            "wape": 0.2102,
+            "coverage": 0.7342,
+            "width_bdt": 90095,
+            "pinball": 11766
+          },
+          "horizon:4": {
+            "n": 38000,
+            "wape": 0.2107,
+            "coverage": 0.7324,
+            "width_bdt": 89820,
+            "pinball": 11812
+          },
+          "horizon:5": {
+            "n": 38000,
+            "wape": 0.2111,
+            "coverage": 0.7315,
+            "width_bdt": 89760,
+            "pinball": 11835
+          },
+          "horizon:6": {
+            "n": 38000,
+            "wape": 0.2114,
+            "coverage": 0.7318,
+            "width_bdt": 89768,
+            "pinball": 11852
+          },
+          "horizon:7": {
+            "n": 38000,
+            "wape": 0.2115,
+            "coverage": 0.7318,
+            "width_bdt": 89879,
+            "pinball": 11859
+          },
+          "archetype:urban_residential": {
+            "n": 66500,
+            "wape": 0.2311,
+            "coverage": 0.6925,
+            "width_bdt": 128069,
+            "pinball": 19652
+          },
+          "archetype:garment_belt": {
+            "n": 53200,
+            "wape": 0.192,
+            "coverage": 0.7454,
+            "width_bdt": 73113,
+            "pinball": 8015
+          },
+          "archetype:rural_remittance": {
+            "n": 79800,
+            "wape": 0.2071,
+            "coverage": 0.7685,
+            "width_bdt": 31031,
+            "pinball": 3250
+          },
+          "archetype:market_hub": {
+            "n": 39900,
+            "wape": 0.1968,
+            "coverage": 0.7265,
+            "width_bdt": 203654,
+            "pinball": 25783
+          },
+          "archetype:university_area": {
+            "n": 26600,
+            "wape": 0.2217,
+            "coverage": 0.7314,
+            "width_bdt": 35631,
+            "pinball": 3981
+          }
+        }
+      }
+    }
+  },
+  "calibration": {
+    "method": "normalised conformal expansion by event and horizon; uncensored served labels only",
+    "target_coverage": 0.8,
+    "adjustments": {
+      "cashout:0:1": {
+        "expansion": 0.021380431091293558,
+        "n": 16595,
+        "supported": true,
+        "pooled_horizons": false
+      },
+      "cashout:0:2": {
+        "expansion": 0.022429176485906366,
+        "n": 16595,
+        "supported": true,
+        "pooled_horizons": false
+      },
+      "cashout:0:3": {
+        "expansion": 0.023495323652058187,
+        "n": 16595,
+        "supported": true,
+        "pooled_horizons": false
+      },
+      "cashout:0:4": {
+        "expansion": 0.023837693865093795,
+        "n": 16595,
+        "supported": true,
+        "pooled_horizons": false
+      },
+      "cashout:0:5": {
+        "expansion": 0.025932791928979522,
+        "n": 16595,
+        "supported": true,
+        "pooled_horizons": false
+      },
+      "cashout:0:6": {
+        "expansion": 0.02539251029327321,
+        "n": 16595,
+        "supported": true,
+        "pooled_horizons": false
+      },
+      "cashout:0:7": {
+        "expansion": 0.026435771408480278,
+        "n": 16595,
+        "supported": true,
+        "pooled_horizons": false
+      },
+      "cashout:1:1": {
+        "expansion": 0.1347457140402881,
+        "n": 4451,
+        "supported": true,
+        "pooled_horizons": false
+      },
+      "cashout:1:2": {
+        "expansion": 0.1447989919768174,
+        "n": 4451,
+        "supported": true,
+        "pooled_horizons": false
+      },
+      "cashout:1:3": {
+        "expansion": 0.14343706607664178,
+        "n": 4451,
+        "supported": true,
+        "pooled_horizons": false
+      },
+      "cashout:1:4": {
+        "expansion": 0.1513417925366,
+        "n": 4451,
+        "supported": true,
+        "pooled_horizons": false
+      },
+      "cashout:1:5": {
+        "expansion": 0.15618484462473955,
+        "n": 4451,
+        "supported": true,
+        "pooled_horizons": false
+      },
+      "cashout:1:6": {
+        "expansion": 0.15145343995463692,
+        "n": 4451,
+        "supported": true,
+        "pooled_horizons": false
+      },
+      "cashout:1:7": {
+        "expansion": 0.15474356942032305,
+        "n": 4451,
+        "supported": true,
+        "pooled_horizons": false
+      },
+      "cashin:0:1": {
+        "expansion": 0.019870645469014417,
+        "n": 17488,
+        "supported": true,
+        "pooled_horizons": false
+      },
+      "cashin:0:2": {
+        "expansion": 0.01822791700320659,
+        "n": 17488,
+        "supported": true,
+        "pooled_horizons": false
+      },
+      "cashin:0:3": {
+        "expansion": 0.018791382389892683,
+        "n": 17488,
+        "supported": true,
+        "pooled_horizons": false
+      },
+      "cashin:0:4": {
+        "expansion": 0.018904854437772494,
+        "n": 17488,
+        "supported": true,
+        "pooled_horizons": false
+      },
+      "cashin:0:5": {
+        "expansion": 0.020077665353460117,
+        "n": 17488,
+        "supported": true,
+        "pooled_horizons": false
+      },
+      "cashin:0:6": {
+        "expansion": 0.021340954720941815,
+        "n": 17488,
+        "supported": true,
+        "pooled_horizons": false
+      },
+      "cashin:0:7": {
+        "expansion": 0.02262912658237646,
+        "n": 17488,
+        "supported": true,
+        "pooled_horizons": false
+      },
+      "cashin:1:1": {
+        "expansion": 0.30690899931260357,
+        "n": 5445,
+        "supported": true,
+        "pooled_horizons": false
+      },
+      "cashin:1:2": {
+        "expansion": 0.3213554439810268,
+        "n": 5445,
+        "supported": true,
+        "pooled_horizons": false
+      },
+      "cashin:1:3": {
+        "expansion": 0.34284397771228164,
+        "n": 5445,
+        "supported": true,
+        "pooled_horizons": false
+      },
+      "cashin:1:4": {
+        "expansion": 0.3505494676740097,
+        "n": 5445,
+        "supported": true,
+        "pooled_horizons": false
+      },
+      "cashin:1:5": {
+        "expansion": 0.36362707115156107,
+        "n": 5445,
+        "supported": true,
+        "pooled_horizons": false
+      },
+      "cashin:1:6": {
+        "expansion": 0.37751058123560693,
+        "n": 5445,
+        "supported": true,
+        "pooled_horizons": false
+      },
+      "cashin:1:7": {
+        "expansion": 0.38492431694309726,
+        "n": 5445,
+        "supported": true,
+        "pooled_horizons": false
+      }
+    },
+    "raw": {
+      "cashout": {
+        "overall": {
+          "n": 266000,
+          "wape": 0.2463,
+          "coverage": 0.694,
+          "width_bdt": 122425,
+          "pinball": 18991
+        },
+        "event_days": {
+          "n": 38500,
+          "wape": 0.444,
+          "coverage": 0.4746,
+          "width_bdt": 156937,
+          "pinball": 50112
+        },
+        "normal_days": {
+          "n": 227500,
+          "wape": 0.1967,
+          "coverage": 0.7311,
+          "width_bdt": 116584,
+          "pinball": 13725
+        },
+        "horizon:1": {
+          "n": 38000,
+          "wape": 0.2441,
+          "coverage": 0.6966,
+          "width_bdt": 122402,
+          "pinball": 18703
+        },
+        "horizon:2": {
+          "n": 38000,
+          "wape": 0.2454,
+          "coverage": 0.6944,
+          "width_bdt": 122380,
+          "pinball": 18865
+        },
+        "horizon:3": {
+          "n": 38000,
+          "wape": 0.2465,
+          "coverage": 0.695,
+          "width_bdt": 122507,
+          "pinball": 18993
+        },
+        "horizon:4": {
+          "n": 38000,
+          "wape": 0.2467,
+          "coverage": 0.6939,
+          "width_bdt": 122476,
+          "pinball": 19031
+        },
+        "horizon:5": {
+          "n": 38000,
+          "wape": 0.247,
+          "coverage": 0.6929,
+          "width_bdt": 122463,
+          "pinball": 19079
+        },
+        "horizon:6": {
+          "n": 38000,
+          "wape": 0.2471,
+          "coverage": 0.6927,
+          "width_bdt": 122387,
+          "pinball": 19119
+        },
+        "horizon:7": {
+          "n": 38000,
+          "wape": 0.2471,
+          "coverage": 0.6923,
+          "width_bdt": 122357,
+          "pinball": 19151
+        },
+        "archetype:urban_residential": {
+          "n": 66500,
+          "wape": 0.2082,
+          "coverage": 0.7496,
+          "width_bdt": 107865,
+          "pinball": 12519
+        },
+        "archetype:garment_belt": {
+          "n": 53200,
+          "wape": 0.2652,
+          "coverage": 0.6414,
+          "width_bdt": 192138,
+          "pinball": 35634
+        },
+        "archetype:rural_remittance": {
+          "n": 79800,
+          "wape": 0.2813,
+          "coverage": 0.6761,
+          "width_bdt": 69718,
+          "pinball": 11649
+        },
+        "archetype:market_hub": {
+          "n": 39900,
+          "wape": 0.2319,
+          "coverage": 0.6937,
+          "width_bdt": 210607,
+          "pinball": 31174
+        },
+        "archetype:university_area": {
+          "n": 26600,
+          "wape": 0.2453,
+          "coverage": 0.714,
+          "width_bdt": 45242,
+          "pinball": 5643
+        }
+      },
+      "cashin": {
+        "overall": {
+          "n": 266000,
+          "wape": 0.2067,
+          "coverage": 0.7373,
+          "width_bdt": 90028,
+          "pinball": 11579
+        },
+        "event_days": {
+          "n": 38500,
+          "wape": 0.3229,
+          "coverage": 0.6138,
+          "width_bdt": 98200,
+          "pinball": 23773
+        },
+        "normal_days": {
+          "n": 227500,
+          "wape": 0.1824,
+          "coverage": 0.7582,
+          "width_bdt": 88646,
+          "pinball": 9515
+        },
+        "horizon:1": {
+          "n": 38000,
+          "wape": 0.2049,
+          "coverage": 0.7454,
+          "width_bdt": 90419,
+          "pinball": 11400
+        },
+        "horizon:2": {
+          "n": 38000,
+          "wape": 0.2058,
+          "coverage": 0.7392,
+          "width_bdt": 90217,
+          "pinball": 11503
+        },
+        "horizon:3": {
+          "n": 38000,
+          "wape": 0.2066,
+          "coverage": 0.7357,
+          "width_bdt": 89987,
+          "pinball": 11582
+        },
+        "horizon:4": {
+          "n": 38000,
+          "wape": 0.2071,
+          "coverage": 0.7348,
+          "width_bdt": 89805,
+          "pinball": 11620
+        },
+        "horizon:5": {
+          "n": 38000,
+          "wape": 0.2073,
+          "coverage": 0.735,
+          "width_bdt": 89831,
+          "pinball": 11636
+        },
+        "horizon:6": {
+          "n": 38000,
+          "wape": 0.2076,
+          "coverage": 0.7353,
+          "width_bdt": 89922,
+          "pinball": 11650
+        },
+        "horizon:7": {
+          "n": 38000,
+          "wape": 0.2077,
+          "coverage": 0.7357,
+          "width_bdt": 90018,
+          "pinball": 11661
+        },
+        "archetype:urban_residential": {
+          "n": 66500,
+          "wape": 0.2253,
+          "coverage": 0.6976,
+          "width_bdt": 127982,
+          "pinball": 19333
+        },
+        "archetype:garment_belt": {
+          "n": 53200,
+          "wape": 0.1896,
+          "coverage": 0.7464,
+          "width_bdt": 72808,
+          "pinball": 7932
+        },
+        "archetype:rural_remittance": {
+          "n": 79800,
+          "wape": 0.2073,
+          "coverage": 0.7672,
+          "width_bdt": 30879,
+          "pinball": 3253
+        },
+        "archetype:market_hub": {
+          "n": 39900,
+          "wape": 0.1934,
+          "coverage": 0.7332,
+          "width_bdt": 204377,
+          "pinball": 25265
+        },
+        "archetype:university_area": {
+          "n": 26600,
+          "wape": 0.2198,
+          "coverage": 0.7347,
+          "width_bdt": 35511,
+          "pinball": 3938
+        }
+      }
+    },
+    "calibrated": {
+      "cashout": {
+        "overall": {
+          "n": 266000,
+          "wape": 0.2463,
+          "coverage": 0.7602,
+          "width_bdt": 142316,
+          "pinball": 18506
+        },
+        "event_days": {
+          "n": 38500,
+          "wape": 0.444,
+          "coverage": 0.666,
+          "width_bdt": 227204,
+          "pinball": 47292
+        },
+        "normal_days": {
+          "n": 227500,
+          "wape": 0.1967,
+          "coverage": 0.7761,
+          "width_bdt": 127951,
+          "pinball": 13634
+        },
+        "horizon:1": {
+          "n": 38000,
+          "wape": 0.2441,
+          "coverage": 0.7579,
+          "width_bdt": 140404,
+          "pinball": 18248
+        },
+        "horizon:2": {
+          "n": 38000,
+          "wape": 0.2454,
+          "coverage": 0.759,
+          "width_bdt": 141481,
+          "pinball": 18378
+        },
+        "horizon:3": {
+          "n": 38000,
+          "wape": 0.2465,
+          "coverage": 0.7599,
+          "width_bdt": 141896,
+          "pinball": 18508
+        },
+        "horizon:4": {
+          "n": 38000,
+          "wape": 0.2467,
+          "coverage": 0.7605,
+          "width_bdt": 142488,
+          "pinball": 18540
+        },
+        "horizon:5": {
+          "n": 38000,
+          "wape": 0.247,
+          "coverage": 0.7624,
+          "width_bdt": 143571,
+          "pinball": 18578
+        },
+        "horizon:6": {
+          "n": 38000,
+          "wape": 0.2471,
+          "coverage": 0.7607,
+          "width_bdt": 142899,
+          "pinball": 18631
+        },
+        "horizon:7": {
+          "n": 38000,
+          "wape": 0.2471,
+          "coverage": 0.7609,
+          "width_bdt": 143475,
+          "pinball": 18656
+        },
+        "archetype:urban_residential": {
+          "n": 66500,
+          "wape": 0.2082,
+          "coverage": 0.8156,
+          "width_bdt": 124481,
+          "pinball": 12480
+        },
+        "archetype:garment_belt": {
+          "n": 53200,
+          "wape": 0.2652,
+          "coverage": 0.7141,
+          "width_bdt": 225730,
+          "pinball": 34521
+        },
+        "archetype:rural_remittance": {
+          "n": 79800,
+          "wape": 0.2813,
+          "coverage": 0.7286,
+          "width_bdt": 79741,
+          "pinball": 11362
+        },
+        "archetype:market_hub": {
+          "n": 39900,
+          "wape": 0.2319,
+          "coverage": 0.7762,
+          "width_bdt": 246454,
+          "pinball": 30097
+        },
+        "archetype:university_area": {
+          "n": 26600,
+          "wape": 0.2453,
+          "coverage": 0.7843,
+          "width_bdt": 51595,
+          "pinball": 5583
+        }
+      },
+      "cashin": {
+        "overall": {
+          "n": 266000,
+          "wape": 0.2067,
+          "coverage": 0.8084,
+          "width_bdt": 113675,
+          "pinball": 11349
+        },
+        "event_days": {
+          "n": 38500,
+          "wape": 0.3229,
+          "coverage": 0.8944,
+          "width_bdt": 220370,
+          "pinball": 22313
+        },
+        "normal_days": {
+          "n": 227500,
+          "wape": 0.1824,
+          "coverage": 0.7939,
+          "width_bdt": 95619,
+          "pinball": 9494
+        },
+        "horizon:1": {
+          "n": 38000,
+          "wape": 0.2049,
+          "coverage": 0.8096,
+          "width_bdt": 112177,
+          "pinball": 11220
+        },
+        "horizon:2": {
+          "n": 38000,
+          "wape": 0.2058,
+          "coverage": 0.8068,
+          "width_bdt": 112188,
+          "pinball": 11285
+        },
+        "horizon:3": {
+          "n": 38000,
+          "wape": 0.2066,
+          "coverage": 0.8073,
+          "width_bdt": 113218,
+          "pinball": 11339
+        },
+        "horizon:4": {
+          "n": 38000,
+          "wape": 0.2071,
+          "coverage": 0.8065,
+          "width_bdt": 113284,
+          "pinball": 11373
+        },
+        "horizon:5": {
+          "n": 38000,
+          "wape": 0.2073,
+          "coverage": 0.8077,
+          "width_bdt": 114086,
+          "pinball": 11391
+        },
+        "horizon:6": {
+          "n": 38000,
+          "wape": 0.2076,
+          "coverage": 0.8094,
+          "width_bdt": 115035,
+          "pinball": 11413
+        },
+        "horizon:7": {
+          "n": 38000,
+          "wape": 0.2077,
+          "coverage": 0.8116,
+          "width_bdt": 115737,
+          "pinball": 11424
+        },
+        "archetype:urban_residential": {
+          "n": 66500,
+          "wape": 0.2253,
+          "coverage": 0.7729,
+          "width_bdt": 163250,
+          "pinball": 18439
+        },
+        "archetype:garment_belt": {
+          "n": 53200,
+          "wape": 0.1896,
+          "coverage": 0.8186,
+          "width_bdt": 91059,
+          "pinball": 8150
+        },
+        "archetype:rural_remittance": {
+          "n": 79800,
+          "wape": 0.2073,
+          "coverage": 0.8232,
+          "width_bdt": 37630,
+          "pinball": 3356
+        },
+        "archetype:market_hub": {
+          "n": 39900,
+          "wape": 0.1934,
+          "coverage": 0.8255,
+          "width_bdt": 260204,
+          "pinball": 24660
+        },
+        "archetype:university_area": {
+          "n": 26600,
+          "wape": 0.2198,
+          "coverage": 0.807,
+          "width_bdt": 43312,
+          "pinball": 4037
+        }
+      }
+    },
+    "production_promoted": false,
+    "limitation": "Temporal dependence, censored labels and event shifts can defeat coverage; field validation required."
+  },
+  "baselines": {
+    "seasonal_naive": {
+      "cashout": 0.4188,
+      "cashin": 0.3705
+    },
+    "trailing_mean7": {
+      "cashout": 0.3492,
+      "cashin": 0.299
+    }
+  },
+  "robustness": {
+    "protocol": "Exogenous demand shifts with frozen histories/forecasts; sensitivity, not independent field data or a closed-loop backtest",
+    "scenarios": {
+      "cashout_surge": {
+        "cashout": {
+          "overall": {
+            "n": 266000,
+            "wape": 0.3209,
+            "coverage": 0.5448,
+            "width_bdt": 142316,
+            "pinball": 34353
+          },
+          "event_days": {
+            "n": 38500,
+            "wape": 0.5065,
+            "coverage": 0.4852,
+            "width_bdt": 227204,
+            "pinball": 81133
+          },
+          "normal_days": {
+            "n": 227500,
+            "wape": 0.2744,
+            "coverage": 0.5548,
+            "width_bdt": 127951,
+            "pinball": 26437
+          },
+          "horizon:1": {
+            "n": 38000,
+            "wape": 0.3202,
+            "coverage": 0.5377,
+            "width_bdt": 140404,
+            "pinball": 34235
+          },
+          "horizon:2": {
+            "n": 38000,
+            "wape": 0.321,
+            "coverage": 0.5393,
+            "width_bdt": 141481,
+            "pinball": 34346
+          },
+          "horizon:3": {
+            "n": 38000,
+            "wape": 0.3214,
+            "coverage": 0.5423,
+            "width_bdt": 141896,
+            "pinball": 34405
+          },
+          "horizon:4": {
+            "n": 38000,
+            "wape": 0.3211,
+            "coverage": 0.5451,
+            "width_bdt": 142488,
+            "pinball": 34375
+          },
+          "horizon:5": {
+            "n": 38000,
+            "wape": 0.321,
+            "coverage": 0.5492,
+            "width_bdt": 143571,
+            "pinball": 34336
+          },
+          "horizon:6": {
+            "n": 38000,
+            "wape": 0.3209,
+            "coverage": 0.5485,
+            "width_bdt": 142899,
+            "pinball": 34389
+          },
+          "horizon:7": {
+            "n": 38000,
+            "wape": 0.3209,
+            "coverage": 0.5512,
+            "width_bdt": 143475,
+            "pinball": 34385
+          },
+          "archetype:urban_residential": {
+            "n": 66500,
+            "wape": 0.2999,
+            "coverage": 0.5502,
+            "width_bdt": 124481,
+            "pinball": 24910
+          },
+          "archetype:garment_belt": {
+            "n": 53200,
+            "wape": 0.3406,
+            "coverage": 0.4718,
+            "width_bdt": 225730,
+            "pinball": 64678
+          },
+          "archetype:rural_remittance": {
+            "n": 79800,
+            "wape": 0.3311,
+            "coverage": 0.5919,
+            "width_bdt": 79741,
+            "pinball": 18650
+          },
+          "archetype:market_hub": {
+            "n": 39900,
+            "wape": 0.3058,
+            "coverage": 0.5338,
+            "width_bdt": 246454,
+            "pinball": 56928
+          },
+          "archetype:university_area": {
+            "n": 26600,
+            "wape": 0.3271,
+            "coverage": 0.5521,
+            "width_bdt": 51595,
+            "pinball": 10560
+          }
+        },
+        "cashin": {
+          "overall": {
+            "n": 266000,
+            "wape": 0.2067,
+            "coverage": 0.8084,
+            "width_bdt": 113675,
+            "pinball": 11349
+          },
+          "event_days": {
+            "n": 38500,
+            "wape": 0.3229,
+            "coverage": 0.8944,
+            "width_bdt": 220370,
+            "pinball": 22313
+          },
+          "normal_days": {
+            "n": 227500,
+            "wape": 0.1824,
+            "coverage": 0.7939,
+            "width_bdt": 95619,
+            "pinball": 9494
+          },
+          "horizon:1": {
+            "n": 38000,
+            "wape": 0.2049,
+            "coverage": 0.8096,
+            "width_bdt": 112177,
+            "pinball": 11220
+          },
+          "horizon:2": {
+            "n": 38000,
+            "wape": 0.2058,
+            "coverage": 0.8068,
+            "width_bdt": 112188,
+            "pinball": 11285
+          },
+          "horizon:3": {
+            "n": 38000,
+            "wape": 0.2066,
+            "coverage": 0.8073,
+            "width_bdt": 113218,
+            "pinball": 11339
+          },
+          "horizon:4": {
+            "n": 38000,
+            "wape": 0.2071,
+            "coverage": 0.8065,
+            "width_bdt": 113284,
+            "pinball": 11373
+          },
+          "horizon:5": {
+            "n": 38000,
+            "wape": 0.2073,
+            "coverage": 0.8077,
+            "width_bdt": 114086,
+            "pinball": 11391
+          },
+          "horizon:6": {
+            "n": 38000,
+            "wape": 0.2076,
+            "coverage": 0.8094,
+            "width_bdt": 115035,
+            "pinball": 11413
+          },
+          "horizon:7": {
+            "n": 38000,
+            "wape": 0.2077,
+            "coverage": 0.8116,
+            "width_bdt": 115737,
+            "pinball": 11424
+          },
+          "archetype:urban_residential": {
+            "n": 66500,
+            "wape": 0.2253,
+            "coverage": 0.7729,
+            "width_bdt": 163250,
+            "pinball": 18439
+          },
+          "archetype:garment_belt": {
+            "n": 53200,
+            "wape": 0.1896,
+            "coverage": 0.8186,
+            "width_bdt": 91059,
+            "pinball": 8150
+          },
+          "archetype:rural_remittance": {
+            "n": 79800,
+            "wape": 0.2073,
+            "coverage": 0.8232,
+            "width_bdt": 37630,
+            "pinball": 3356
+          },
+          "archetype:market_hub": {
+            "n": 39900,
+            "wape": 0.1934,
+            "coverage": 0.8255,
+            "width_bdt": 260204,
+            "pinball": 24660
+          },
+          "archetype:university_area": {
+            "n": 26600,
+            "wape": 0.2198,
+            "coverage": 0.807,
+            "width_bdt": 43312,
+            "pinball": 4037
+          }
+        }
+      },
+      "cashin_surge": {
+        "cashout": {
+          "overall": {
+            "n": 266000,
+            "wape": 0.2463,
+            "coverage": 0.7602,
+            "width_bdt": 142316,
+            "pinball": 18506
+          },
+          "event_days": {
+            "n": 38500,
+            "wape": 0.444,
+            "coverage": 0.666,
+            "width_bdt": 227204,
+            "pinball": 47292
+          },
+          "normal_days": {
+            "n": 227500,
+            "wape": 0.1967,
+            "coverage": 0.7761,
+            "width_bdt": 127951,
+            "pinball": 13634
+          },
+          "horizon:1": {
+            "n": 38000,
+            "wape": 0.2441,
+            "coverage": 0.7579,
+            "width_bdt": 140404,
+            "pinball": 18248
+          },
+          "horizon:2": {
+            "n": 38000,
+            "wape": 0.2454,
+            "coverage": 0.759,
+            "width_bdt": 141481,
+            "pinball": 18378
+          },
+          "horizon:3": {
+            "n": 38000,
+            "wape": 0.2465,
+            "coverage": 0.7599,
+            "width_bdt": 141896,
+            "pinball": 18508
+          },
+          "horizon:4": {
+            "n": 38000,
+            "wape": 0.2467,
+            "coverage": 0.7605,
+            "width_bdt": 142488,
+            "pinball": 18540
+          },
+          "horizon:5": {
+            "n": 38000,
+            "wape": 0.247,
+            "coverage": 0.7624,
+            "width_bdt": 143571,
+            "pinball": 18578
+          },
+          "horizon:6": {
+            "n": 38000,
+            "wape": 0.2471,
+            "coverage": 0.7607,
+            "width_bdt": 142899,
+            "pinball": 18631
+          },
+          "horizon:7": {
+            "n": 38000,
+            "wape": 0.2471,
+            "coverage": 0.7609,
+            "width_bdt": 143475,
+            "pinball": 18656
+          },
+          "archetype:urban_residential": {
+            "n": 66500,
+            "wape": 0.2082,
+            "coverage": 0.8156,
+            "width_bdt": 124481,
+            "pinball": 12480
+          },
+          "archetype:garment_belt": {
+            "n": 53200,
+            "wape": 0.2652,
+            "coverage": 0.7141,
+            "width_bdt": 225730,
+            "pinball": 34521
+          },
+          "archetype:rural_remittance": {
+            "n": 79800,
+            "wape": 0.2813,
+            "coverage": 0.7286,
+            "width_bdt": 79741,
+            "pinball": 11362
+          },
+          "archetype:market_hub": {
+            "n": 39900,
+            "wape": 0.2319,
+            "coverage": 0.7762,
+            "width_bdt": 246454,
+            "pinball": 30097
+          },
+          "archetype:university_area": {
+            "n": 26600,
+            "wape": 0.2453,
+            "coverage": 0.7843,
+            "width_bdt": 51595,
+            "pinball": 5583
+          }
+        },
+        "cashin": {
+          "overall": {
+            "n": 266000,
+            "wape": 0.2904,
+            "coverage": 0.5753,
+            "width_bdt": 113675,
+            "pinball": 22074
+          },
+          "event_days": {
+            "n": 38500,
+            "wape": 0.4134,
+            "coverage": 0.725,
+            "width_bdt": 220370,
+            "pinball": 39256
+          },
+          "normal_days": {
+            "n": 227500,
+            "wape": 0.2647,
+            "coverage": 0.5499,
+            "width_bdt": 95619,
+            "pinball": 19167
+          },
+          "horizon:1": {
+            "n": 38000,
+            "wape": 0.2899,
+            "coverage": 0.572,
+            "width_bdt": 112177,
+            "pinball": 22043
+          },
+          "horizon:2": {
+            "n": 38000,
+            "wape": 0.2901,
+            "coverage": 0.57,
+            "width_bdt": 112188,
+            "pinball": 22108
+          },
+          "horizon:3": {
+            "n": 38000,
+            "wape": 0.2905,
+            "coverage": 0.5726,
+            "width_bdt": 113218,
+            "pinball": 22117
+          },
+          "horizon:4": {
+            "n": 38000,
+            "wape": 0.2905,
+            "coverage": 0.5727,
+            "width_bdt": 113284,
+            "pinball": 22126
+          },
+          "horizon:5": {
+            "n": 38000,
+            "wape": 0.2907,
+            "coverage": 0.5759,
+            "width_bdt": 114086,
+            "pinball": 22097
+          },
+          "horizon:6": {
+            "n": 38000,
+            "wape": 0.2906,
+            "coverage": 0.5806,
+            "width_bdt": 115035,
+            "pinball": 22041
+          },
+          "horizon:7": {
+            "n": 38000,
+            "wape": 0.2905,
+            "coverage": 0.5832,
+            "width_bdt": 115737,
+            "pinball": 21988
+          },
+          "archetype:urban_residential": {
+            "n": 66500,
+            "wape": 0.3089,
+            "coverage": 0.5232,
+            "width_bdt": 163250,
+            "pinball": 35702
+          },
+          "archetype:garment_belt": {
+            "n": 53200,
+            "wape": 0.2728,
+            "coverage": 0.5707,
+            "width_bdt": 91059,
+            "pinball": 15844
+          },
+          "archetype:rural_remittance": {
+            "n": 79800,
+            "wape": 0.2804,
+            "coverage": 0.6309,
+            "width_bdt": 37630,
+            "pinball": 5935
+          },
+          "archetype:market_hub": {
+            "n": 39900,
+            "wape": 0.2816,
+            "coverage": 0.5379,
+            "width_bdt": 260204,
+            "pinball": 49823
+          },
+          "archetype:university_area": {
+            "n": 26600,
+            "wape": 0.2859,
+            "coverage": 0.6038,
+            "width_bdt": 43312,
+            "pinball": 7263
+          }
+        }
+      },
+      "heavy_tail": {
+        "cashout": {
+          "overall": {
+            "n": 266000,
+            "wape": 0.462,
+            "coverage": 0.4287,
+            "width_bdt": 142316,
+            "pinball": 40085
+          },
+          "event_days": {
+            "n": 38500,
+            "wape": 0.5584,
+            "coverage": 0.5463,
+            "width_bdt": 227204,
+            "pinball": 66077
+          },
+          "normal_days": {
+            "n": 227500,
+            "wape": 0.4377,
+            "coverage": 0.4088,
+            "width_bdt": 127951,
+            "pinball": 35687
+          },
+          "horizon:1": {
+            "n": 38000,
+            "wape": 0.4599,
+            "coverage": 0.4239,
+            "width_bdt": 140404,
+            "pinball": 39674
+          },
+          "horizon:2": {
+            "n": 38000,
+            "wape": 0.4608,
+            "coverage": 0.429,
+            "width_bdt": 141481,
+            "pinball": 40225
+          },
+          "horizon:3": {
+            "n": 38000,
+            "wape": 0.4605,
+            "coverage": 0.4278,
+            "width_bdt": 141896,
+            "pinball": 39953
+          },
+          "horizon:4": {
+            "n": 38000,
+            "wape": 0.4633,
+            "coverage": 0.4284,
+            "width_bdt": 142488,
+            "pinball": 40025
+          },
+          "horizon:5": {
+            "n": 38000,
+            "wape": 0.4599,
+            "coverage": 0.4319,
+            "width_bdt": 143571,
+            "pinball": 39493
+          },
+          "horizon:6": {
+            "n": 38000,
+            "wape": 0.4652,
+            "coverage": 0.4293,
+            "width_bdt": 142899,
+            "pinball": 40603
+          },
+          "horizon:7": {
+            "n": 38000,
+            "wape": 0.4643,
+            "coverage": 0.4306,
+            "width_bdt": 143475,
+            "pinball": 40623
+          },
+          "archetype:urban_residential": {
+            "n": 66500,
+            "wape": 0.4439,
+            "coverage": 0.4364,
+            "width_bdt": 124481,
+            "pinball": 31393
+          },
+          "archetype:garment_belt": {
+            "n": 53200,
+            "wape": 0.4692,
+            "coverage": 0.4046,
+            "width_bdt": 225730,
+            "pinball": 70217
+          },
+          "archetype:rural_remittance": {
+            "n": 79800,
+            "wape": 0.4768,
+            "coverage": 0.4394,
+            "width_bdt": 79741,
+            "pinball": 21138
+          },
+          "archetype:market_hub": {
+            "n": 39900,
+            "wape": 0.459,
+            "coverage": 0.4007,
+            "width_bdt": 246454,
+            "pinball": 70959
+          },
+          "archetype:university_area": {
+            "n": 26600,
+            "wape": 0.4568,
+            "coverage": 0.4674,
+            "width_bdt": 51595,
+            "pinball": 12084
+          }
+        },
+        "cashin": {
+          "overall": {
+            "n": 266000,
+            "wape": 0.4376,
+            "coverage": 0.4672,
+            "width_bdt": 113675,
+            "pinball": 27396
+          },
+          "event_days": {
+            "n": 38500,
+            "wape": 0.4706,
+            "coverage": 0.7951,
+            "width_bdt": 220370,
+            "pinball": 33839
+          },
+          "normal_days": {
+            "n": 227500,
+            "wape": 0.4308,
+            "coverage": 0.4117,
+            "width_bdt": 95619,
+            "pinball": 26306
+          },
+          "horizon:1": {
+            "n": 38000,
+            "wape": 0.4352,
+            "coverage": 0.4689,
+            "width_bdt": 112177,
+            "pinball": 27203
+          },
+          "horizon:2": {
+            "n": 38000,
+            "wape": 0.4352,
+            "coverage": 0.4651,
+            "width_bdt": 112188,
+            "pinball": 27306
+          },
+          "horizon:3": {
+            "n": 38000,
+            "wape": 0.441,
+            "coverage": 0.4645,
+            "width_bdt": 113218,
+            "pinball": 27508
+          },
+          "horizon:4": {
+            "n": 38000,
+            "wape": 0.4364,
+            "coverage": 0.4672,
+            "width_bdt": 113284,
+            "pinball": 27154
+          },
+          "horizon:5": {
+            "n": 38000,
+            "wape": 0.4383,
+            "coverage": 0.4617,
+            "width_bdt": 114086,
+            "pinball": 27502
+          },
+          "horizon:6": {
+            "n": 38000,
+            "wape": 0.4385,
+            "coverage": 0.4688,
+            "width_bdt": 115035,
+            "pinball": 27281
+          },
+          "horizon:7": {
+            "n": 38000,
+            "wape": 0.4388,
+            "coverage": 0.4743,
+            "width_bdt": 115737,
+            "pinball": 27817
+          },
+          "archetype:urban_residential": {
+            "n": 66500,
+            "wape": 0.4422,
+            "coverage": 0.4409,
+            "width_bdt": 163250,
+            "pinball": 41442
+          },
+          "archetype:garment_belt": {
+            "n": 53200,
+            "wape": 0.4351,
+            "coverage": 0.4636,
+            "width_bdt": 91059,
+            "pinball": 20760
+          },
+          "archetype:rural_remittance": {
+            "n": 79800,
+            "wape": 0.4404,
+            "coverage": 0.4934,
+            "width_bdt": 37630,
+            "pinball": 7769
+          },
+          "archetype:market_hub": {
+            "n": 39900,
+            "wape": 0.4325,
+            "coverage": 0.4375,
+            "width_bdt": 260204,
+            "pinball": 64380
+          },
+          "archetype:university_area": {
+            "n": 26600,
+            "wape": 0.4461,
+            "coverage": 0.5064,
+            "width_bdt": 43312,
+            "pinball": 8958
+          }
+        }
+      },
+      "shifted_event": {
+        "cashout": {
+          "overall": {
+            "n": 266000,
+            "wape": 0.2822,
+            "coverage": 0.6655,
+            "width_bdt": 142316,
+            "pinball": 22484
+          },
+          "event_days": {
+            "n": 38500,
+            "wape": 0.4118,
+            "coverage": 0.5507,
+            "width_bdt": 227204,
+            "pinball": 54358
+          },
+          "normal_days": {
+            "n": 227500,
+            "wape": 0.2463,
+            "coverage": 0.6849,
+            "width_bdt": 127951,
+            "pinball": 17090
+          },
+          "horizon:1": {
+            "n": 38000,
+            "wape": 0.28,
+            "coverage": 0.6655,
+            "width_bdt": 140404,
+            "pinball": 22311
+          },
+          "horizon:2": {
+            "n": 38000,
+            "wape": 0.2789,
+            "coverage": 0.6683,
+            "width_bdt": 141481,
+            "pinball": 22144
+          },
+          "horizon:3": {
+            "n": 38000,
+            "wape": 0.2784,
+            "coverage": 0.6698,
+            "width_bdt": 141896,
+            "pinball": 22093
+          },
+          "horizon:4": {
+            "n": 38000,
+            "wape": 0.2837,
+            "coverage": 0.6637,
+            "width_bdt": 142488,
+            "pinball": 22585
+          },
+          "horizon:5": {
+            "n": 38000,
+            "wape": 0.2845,
+            "coverage": 0.6644,
+            "width_bdt": 143571,
+            "pinball": 22671
+          },
+          "horizon:6": {
+            "n": 38000,
+            "wape": 0.2848,
+            "coverage": 0.6631,
+            "width_bdt": 142899,
+            "pinball": 22781
+          },
+          "horizon:7": {
+            "n": 38000,
+            "wape": 0.2852,
+            "coverage": 0.6635,
+            "width_bdt": 143475,
+            "pinball": 22805
+          },
+          "archetype:urban_residential": {
+            "n": 66500,
+            "wape": 0.2245,
+            "coverage": 0.7254,
+            "width_bdt": 124481,
+            "pinball": 14299
+          },
+          "archetype:garment_belt": {
+            "n": 53200,
+            "wape": 0.3242,
+            "coverage": 0.5755,
+            "width_bdt": 225730,
+            "pinball": 44777
+          },
+          "archetype:rural_remittance": {
+            "n": 79800,
+            "wape": 0.3015,
+            "coverage": 0.6821,
+            "width_bdt": 79741,
+            "pinball": 12313
+          },
+          "archetype:market_hub": {
+            "n": 39900,
+            "wape": 0.2579,
+            "coverage": 0.696,
+            "width_bdt": 246454,
+            "pinball": 36356
+          },
+          "archetype:university_area": {
+            "n": 26600,
+            "wape": 0.3243,
+            "coverage": 0.5998,
+            "width_bdt": 51595,
+            "pinball": 8069
+          }
+        },
+        "cashin": {
+          "overall": {
+            "n": 266000,
+            "wape": 0.2609,
+            "coverage": 0.7267,
+            "width_bdt": 113675,
+            "pinball": 14471
+          },
+          "event_days": {
+            "n": 38500,
+            "wape": 0.425,
+            "coverage": 0.8132,
+            "width_bdt": 220370,
+            "pinball": 32805
+          },
+          "normal_days": {
+            "n": 227500,
+            "wape": 0.2214,
+            "coverage": 0.7121,
+            "width_bdt": 95619,
+            "pinball": 11369
+          },
+          "horizon:1": {
+            "n": 38000,
+            "wape": 0.2588,
+            "coverage": 0.7304,
+            "width_bdt": 112177,
+            "pinball": 14342
+          },
+          "horizon:2": {
+            "n": 38000,
+            "wape": 0.2585,
+            "coverage": 0.7298,
+            "width_bdt": 112188,
+            "pinball": 14275
+          },
+          "horizon:3": {
+            "n": 38000,
+            "wape": 0.2584,
+            "coverage": 0.7305,
+            "width_bdt": 113218,
+            "pinball": 14247
+          },
+          "horizon:4": {
+            "n": 38000,
+            "wape": 0.2624,
+            "coverage": 0.7202,
+            "width_bdt": 113284,
+            "pinball": 14530
+          },
+          "horizon:5": {
+            "n": 38000,
+            "wape": 0.2628,
+            "coverage": 0.7212,
+            "width_bdt": 114086,
+            "pinball": 14608
+          },
+          "horizon:6": {
+            "n": 38000,
+            "wape": 0.2629,
+            "coverage": 0.7261,
+            "width_bdt": 115035,
+            "pinball": 14652
+          },
+          "horizon:7": {
+            "n": 38000,
+            "wape": 0.2627,
+            "coverage": 0.7291,
+            "width_bdt": 115737,
+            "pinball": 14644
+          },
+          "archetype:urban_residential": {
+            "n": 66500,
+            "wape": 0.2749,
+            "coverage": 0.7013,
+            "width_bdt": 163250,
+            "pinball": 22847
+          },
+          "archetype:garment_belt": {
+            "n": 53200,
+            "wape": 0.2755,
+            "coverage": 0.6687,
+            "width_bdt": 91059,
+            "pinball": 11593
+          },
+          "archetype:rural_remittance": {
+            "n": 79800,
+            "wape": 0.215,
+            "coverage": 0.8161,
+            "width_bdt": 37630,
+            "pinball": 3414
+          },
+          "archetype:market_hub": {
+            "n": 39900,
+            "wape": 0.2448,
+            "coverage": 0.7415,
+            "width_bdt": 260204,
+            "pinball": 32029
+          },
+          "archetype:university_area": {
+            "n": 26600,
+            "wape": 0.3304,
+            "coverage": 0.6165,
+            "width_bdt": 43312,
+            "pinball": 6123
+          }
+        }
+      }
+    }
+  },
+  "pipeline_ablations": {
+    "status_quo": {
+      "stockout_agent_days": 2388,
+      "cash_stockout_days": 2335,
+      "efloat_stockout_days": 66,
+      "failed_cashout_count": 93393,
+      "failed_cashout_bdt": 234375607,
+      "failed_cashin_count": 1890,
+      "failed_cashin_bdt": 3890519,
+      "lost_commission_bdt": 1215157,
+      "lost_upay_fee_bdt": 1354576,
+      "customers_at_risk": 4670,
+      "avg_cash_held_bdt": 341491,
+      "rebalancing_trips": 17647,
+      "served_share": 0.9844
+    },
+    "full_raw": {
+      "stockout_agent_days": 1539,
+      "cash_stockout_days": 1462,
+      "efloat_stockout_days": 78,
+      "failed_cashout_count": 67648,
+      "failed_cashout_bdt": 176016521,
+      "failed_cashin_count": 2941,
+      "failed_cashin_bdt": 5886677,
+      "lost_commission_bdt": 927706,
+      "lost_upay_fee_bdt": 945398,
+      "customers_at_risk": 3382,
+      "avg_cash_held_bdt": 348650,
+      "rebalancing_trips": 19937,
+      "served_share": 0.9881
+    },
+    "full_calibrated": {
+      "stockout_agent_days": 1488,
+      "cash_stockout_days": 1430,
+      "efloat_stockout_days": 59,
+      "failed_cashout_count": 69772,
+      "failed_cashout_bdt": 181962504,
+      "failed_cashin_count": 1796,
+      "failed_cashin_bdt": 3627219,
+      "lost_commission_bdt": 946508,
+      "lost_upay_fee_bdt": 975238,
+      "customers_at_risk": 3489,
+      "avg_cash_held_bdt": 348483,
+      "rebalancing_trips": 19795,
+      "served_share": 0.9878
+    },
+    "greedy_allocation": {
+      "stockout_agent_days": 1542,
+      "cash_stockout_days": 1465,
+      "efloat_stockout_days": 78,
+      "failed_cashout_count": 67506,
+      "failed_cashout_bdt": 175702599,
+      "failed_cashin_count": 2941,
+      "failed_cashin_bdt": 5886677,
+      "lost_commission_bdt": 926105,
+      "lost_upay_fee_bdt": 943108,
+      "customers_at_risk": 3375,
+      "avg_cash_held_bdt": 348497,
+      "rebalancing_trips": 19908,
+      "served_share": 0.9881
+    },
+    "no_dso_visits": {
+      "stockout_agent_days": 1662,
+      "cash_stockout_days": 1596,
+      "efloat_stockout_days": 69,
+      "failed_cashout_count": 70579,
+      "failed_cashout_bdt": 182309727,
+      "failed_cashin_count": 2800,
+      "failed_cashin_bdt": 5626248,
+      "lost_commission_bdt": 958473,
+      "lost_upay_fee_bdt": 994648,
+      "customers_at_risk": 3529,
+      "avg_cash_held_bdt": 347283,
+      "rebalancing_trips": 18737,
+      "served_share": 0.9877
+    },
+    "median_only": {
+      "stockout_agent_days": 7115,
+      "cash_stockout_days": 6582,
+      "efloat_stockout_days": 533,
+      "failed_cashout_count": 187741,
+      "failed_cashout_bdt": 485541355,
+      "failed_cashin_count": 20921,
+      "failed_cashin_bdt": 41865345,
+      "lost_commission_bdt": 2689774,
+      "lost_upay_fee_bdt": 2752852,
+      "customers_at_risk": 9387,
+      "avg_cash_held_bdt": 315810,
+      "rebalancing_trips": 25281,
+      "served_share": 0.9654
+    },
+    "engine_with_seasonal_naive": {
+      "stockout_agent_days": 8140,
+      "cash_stockout_days": 7397,
+      "efloat_stockout_days": 743,
+      "failed_cashout_count": 307406,
+      "failed_cashout_bdt": 789804135,
+      "failed_cashin_count": 36538,
+      "failed_cashin_bdt": 73111437,
+      "lost_commission_bdt": 4400869,
+      "lost_upay_fee_bdt": 4342312,
+      "customers_at_risk": 15370,
+      "avg_cash_held_bdt": 316314,
+      "rebalancing_trips": 22422,
+      "served_share": 0.9434
+    },
+    "engine_with_trailing_mean7": {
+      "stockout_agent_days": 7089,
+      "cash_stockout_days": 6615,
+      "efloat_stockout_days": 474,
+      "failed_cashout_count": 230367,
+      "failed_cashout_bdt": 591715941,
+      "failed_cashin_count": 17800,
+      "failed_cashin_bdt": 35607418,
+      "lost_commission_bdt": 3199349,
+      "lost_upay_fee_bdt": 3242158,
+      "customers_at_risk": 11518,
+      "avg_cash_held_bdt": 315688,
+      "rebalancing_trips": 24613,
+      "served_share": 0.9589
+    },
+    "seasonal_naive_empirical_intervals": {
+      "stockout_agent_days": 1658,
+      "cash_stockout_days": 1578,
+      "efloat_stockout_days": 81,
+      "failed_cashout_count": 84992,
+      "failed_cashout_bdt": 220834924,
+      "failed_cashin_count": 2892,
+      "failed_cashin_bdt": 5828791,
+      "lost_commission_bdt": 1155985,
+      "lost_upay_fee_bdt": 1173110,
+      "customers_at_risk": 4250,
+      "avg_cash_held_bdt": 362322,
+      "rebalancing_trips": 22277,
+      "served_share": 0.9851
+    },
+    "trailing_mean7_empirical_intervals": {
+      "stockout_agent_days": 1511,
+      "cash_stockout_days": 1459,
+      "efloat_stockout_days": 53,
+      "failed_cashout_count": 72539,
+      "failed_cashout_bdt": 188075292,
+      "failed_cashin_count": 1779,
+      "failed_cashin_bdt": 3607440,
+      "lost_commission_bdt": 977582,
+      "lost_upay_fee_bdt": 997878,
+      "customers_at_risk": 3627,
+      "avg_cash_held_bdt": 356978,
+      "rebalancing_trips": 19188,
+      "served_share": 0.9874
+    },
+    "no_same_day_inflow_credit": {
+      "stockout_agent_days": 1897,
+      "cash_stockout_days": 1806,
+      "efloat_stockout_days": 91,
+      "failed_cashout_count": 98076,
+      "failed_cashout_bdt": 255292618,
+      "failed_cashin_count": 3676,
+      "failed_cashin_bdt": 7401866,
+      "lost_commission_bdt": 1339742,
+      "lost_upay_fee_bdt": 1338726,
+      "customers_at_risk": 4904,
+      "avg_cash_held_bdt": 337981,
+      "rebalancing_trips": 25187,
+      "served_share": 0.9828
+    }
+  },
+  "business_sensitivity": [
+    {
+      "compliance": 0.0,
+      "churn_probability": 0.0,
+      "stockout_agent_days": 1889,
+      "cash_stockout_days": 1817,
+      "efloat_stockout_days": 77,
+      "failed_cashout_count": 77850,
+      "failed_cashout_bdt": 201582537,
+      "failed_cashin_count": 2899,
+      "failed_cashin_bdt": 5801556,
+      "lost_commission_bdt": 1057659,
+      "lost_upay_fee_bdt": 1075716,
+      "customers_at_risk": 0,
+      "avg_cash_held_bdt": 349890,
+      "rebalancing_trips": 18373,
+      "served_share": 0.9864
+    },
+    {
+      "compliance": 0.0,
+      "churn_probability": 0.01,
+      "stockout_agent_days": 1889,
+      "cash_stockout_days": 1817,
+      "efloat_stockout_days": 77,
+      "failed_cashout_count": 77850,
+      "failed_cashout_bdt": 201582537,
+      "failed_cashin_count": 2899,
+      "failed_cashin_bdt": 5801556,
+      "lost_commission_bdt": 1057659,
+      "lost_upay_fee_bdt": 1075716,
+      "customers_at_risk": 779,
+      "avg_cash_held_bdt": 349890,
+      "rebalancing_trips": 18373,
+      "served_share": 0.9864
+    },
+    {
+      "compliance": 0.0,
+      "churn_probability": 0.05,
+      "stockout_agent_days": 1889,
+      "cash_stockout_days": 1817,
+      "efloat_stockout_days": 77,
+      "failed_cashout_count": 77850,
+      "failed_cashout_bdt": 201582537,
+      "failed_cashin_count": 2899,
+      "failed_cashin_bdt": 5801556,
+      "lost_commission_bdt": 1057659,
+      "lost_upay_fee_bdt": 1075716,
+      "customers_at_risk": 3893,
+      "avg_cash_held_bdt": 349890,
+      "rebalancing_trips": 18373,
+      "served_share": 0.9864
+    },
+    {
+      "compliance": 0.0,
+      "churn_probability": 0.1,
+      "stockout_agent_days": 1889,
+      "cash_stockout_days": 1817,
+      "efloat_stockout_days": 77,
+      "failed_cashout_count": 77850,
+      "failed_cashout_bdt": 201582537,
+      "failed_cashin_count": 2899,
+      "failed_cashin_bdt": 5801556,
+      "lost_commission_bdt": 1057659,
+      "lost_upay_fee_bdt": 1075716,
+      "customers_at_risk": 7785,
+      "avg_cash_held_bdt": 349890,
+      "rebalancing_trips": 18373,
+      "served_share": 0.9864
+    },
+    {
+      "compliance": 0.4,
+      "churn_probability": 0.0,
+      "stockout_agent_days": 1685,
+      "cash_stockout_days": 1609,
+      "efloat_stockout_days": 78,
+      "failed_cashout_count": 72179,
+      "failed_cashout_bdt": 187387222,
+      "failed_cashin_count": 2903,
+      "failed_cashin_bdt": 5809001,
+      "lost_commission_bdt": 985301,
+      "lost_upay_fee_bdt": 997426,
+      "customers_at_risk": 0,
+      "avg_cash_held_bdt": 349216,
+      "rebalancing_trips": 19209,
+      "served_share": 0.9873
+    },
+    {
+      "compliance": 0.4,
+      "churn_probability": 0.01,
+      "stockout_agent_days": 1685,
+      "cash_stockout_days": 1609,
+      "efloat_stockout_days": 78,
+      "failed_cashout_count": 72179,
+      "failed_cashout_bdt": 187387222,
+      "failed_cashin_count": 2903,
+      "failed_cashin_bdt": 5809001,
+      "lost_commission_bdt": 985301,
+      "lost_upay_fee_bdt": 997426,
+      "customers_at_risk": 722,
+      "avg_cash_held_bdt": 349216,
+      "rebalancing_trips": 19209,
+      "served_share": 0.9873
+    },
+    {
+      "compliance": 0.4,
+      "churn_probability": 0.05,
+      "stockout_agent_days": 1685,
+      "cash_stockout_days": 1609,
+      "efloat_stockout_days": 78,
+      "failed_cashout_count": 72179,
+      "failed_cashout_bdt": 187387222,
+      "failed_cashin_count": 2903,
+      "failed_cashin_bdt": 5809001,
+      "lost_commission_bdt": 985301,
+      "lost_upay_fee_bdt": 997426,
+      "customers_at_risk": 3609,
+      "avg_cash_held_bdt": 349216,
+      "rebalancing_trips": 19209,
+      "served_share": 0.9873
+    },
+    {
+      "compliance": 0.4,
+      "churn_probability": 0.1,
+      "stockout_agent_days": 1685,
+      "cash_stockout_days": 1609,
+      "efloat_stockout_days": 78,
+      "failed_cashout_count": 72179,
+      "failed_cashout_bdt": 187387222,
+      "failed_cashin_count": 2903,
+      "failed_cashin_bdt": 5809001,
+      "lost_commission_bdt": 985301,
+      "lost_upay_fee_bdt": 997426,
+      "customers_at_risk": 7218,
+      "avg_cash_held_bdt": 349216,
+      "rebalancing_trips": 19209,
+      "served_share": 0.9873
+    },
+    {
+      "compliance": 0.7,
+      "churn_probability": 0.0,
+      "stockout_agent_days": 1539,
+      "cash_stockout_days": 1462,
+      "efloat_stockout_days": 78,
+      "failed_cashout_count": 67648,
+      "failed_cashout_bdt": 176016521,
+      "failed_cashin_count": 2941,
+      "failed_cashin_bdt": 5886677,
+      "lost_commission_bdt": 927706,
+      "lost_upay_fee_bdt": 945398,
+      "customers_at_risk": 0,
+      "avg_cash_held_bdt": 348650,
+      "rebalancing_trips": 19937,
+      "served_share": 0.9881
+    },
+    {
+      "compliance": 0.7,
+      "churn_probability": 0.01,
+      "stockout_agent_days": 1539,
+      "cash_stockout_days": 1462,
+      "efloat_stockout_days": 78,
+      "failed_cashout_count": 67648,
+      "failed_cashout_bdt": 176016521,
+      "failed_cashin_count": 2941,
+      "failed_cashin_bdt": 5886677,
+      "lost_commission_bdt": 927706,
+      "lost_upay_fee_bdt": 945398,
+      "customers_at_risk": 676,
+      "avg_cash_held_bdt": 348650,
+      "rebalancing_trips": 19937,
+      "served_share": 0.9881
+    },
+    {
+      "compliance": 0.7,
+      "churn_probability": 0.05,
+      "stockout_agent_days": 1539,
+      "cash_stockout_days": 1462,
+      "efloat_stockout_days": 78,
+      "failed_cashout_count": 67648,
+      "failed_cashout_bdt": 176016521,
+      "failed_cashin_count": 2941,
+      "failed_cashin_bdt": 5886677,
+      "lost_commission_bdt": 927706,
+      "lost_upay_fee_bdt": 945398,
+      "customers_at_risk": 3382,
+      "avg_cash_held_bdt": 348650,
+      "rebalancing_trips": 19937,
+      "served_share": 0.9881
+    },
+    {
+      "compliance": 0.7,
+      "churn_probability": 0.1,
+      "stockout_agent_days": 1539,
+      "cash_stockout_days": 1462,
+      "efloat_stockout_days": 78,
+      "failed_cashout_count": 67648,
+      "failed_cashout_bdt": 176016521,
+      "failed_cashin_count": 2941,
+      "failed_cashin_bdt": 5886677,
+      "lost_commission_bdt": 927706,
+      "lost_upay_fee_bdt": 945398,
+      "customers_at_risk": 6765,
+      "avg_cash_held_bdt": 348650,
+      "rebalancing_trips": 19937,
+      "served_share": 0.9881
+    },
+    {
+      "compliance": 1.0,
+      "churn_probability": 0.0,
+      "stockout_agent_days": 1404,
+      "cash_stockout_days": 1326,
+      "efloat_stockout_days": 79,
+      "failed_cashout_count": 63319,
+      "failed_cashout_bdt": 165495133,
+      "failed_cashin_count": 3084,
+      "failed_cashin_bdt": 6168683,
+      "lost_commission_bdt": 875485,
+      "lost_upay_fee_bdt": 892963,
+      "customers_at_risk": 0,
+      "avg_cash_held_bdt": 347870,
+      "rebalancing_trips": 20789,
+      "served_share": 0.9887
+    },
+    {
+      "compliance": 1.0,
+      "churn_probability": 0.01,
+      "stockout_agent_days": 1404,
+      "cash_stockout_days": 1326,
+      "efloat_stockout_days": 79,
+      "failed_cashout_count": 63319,
+      "failed_cashout_bdt": 165495133,
+      "failed_cashin_count": 3084,
+      "failed_cashin_bdt": 6168683,
+      "lost_commission_bdt": 875485,
+      "lost_upay_fee_bdt": 892963,
+      "customers_at_risk": 633,
+      "avg_cash_held_bdt": 347870,
+      "rebalancing_trips": 20789,
+      "served_share": 0.9887
+    },
+    {
+      "compliance": 1.0,
+      "churn_probability": 0.05,
+      "stockout_agent_days": 1404,
+      "cash_stockout_days": 1326,
+      "efloat_stockout_days": 79,
+      "failed_cashout_count": 63319,
+      "failed_cashout_bdt": 165495133,
+      "failed_cashin_count": 3084,
+      "failed_cashin_bdt": 6168683,
+      "lost_commission_bdt": 875485,
+      "lost_upay_fee_bdt": 892963,
+      "customers_at_risk": 3166,
+      "avg_cash_held_bdt": 347870,
+      "rebalancing_trips": 20789,
+      "served_share": 0.9887
+    },
+    {
+      "compliance": 1.0,
+      "churn_probability": 0.1,
+      "stockout_agent_days": 1404,
+      "cash_stockout_days": 1326,
+      "efloat_stockout_days": 79,
+      "failed_cashout_count": 63319,
+      "failed_cashout_bdt": 165495133,
+      "failed_cashin_count": 3084,
+      "failed_cashin_bdt": 6168683,
+      "lost_commission_bdt": 875485,
+      "lost_upay_fee_bdt": 892963,
+      "customers_at_risk": 6332,
+      "avg_cash_held_bdt": 347870,
+      "rebalancing_trips": 20789,
+      "served_share": 0.9887
+    }
+  ],
+  "limitations": [
+    "No measured upay agent, DSO, revenue or retention outcomes.",
+    "Customers-at-risk is a failure-count proxy, not distinct customers or observed churn.",
+    "Synthetic feature and pipeline ablations do not establish causal value in production."
+  ],
+  "baseline_intervals": {
+    "seasonal_naive_empirical_intervals": {
+      "forecast": {
+        "cashout": {
+          "overall": {
+            "n": 266000,
+            "wape": 0.4188,
+            "coverage": 0.8227,
+            "width_bdt": 309629,
+            "pinball": 33156
+          },
+          "event_days": {
+            "n": 38500,
+            "wape": 0.6596,
+            "coverage": 0.5518,
+            "width_bdt": 387282,
+            "pinball": 69941
+          },
+          "normal_days": {
+            "n": 227500,
+            "wape": 0.3584,
+            "coverage": 0.8685,
+            "width_bdt": 296488,
+            "pinball": 26931
+          },
+          "horizon:1": {
+            "n": 38000,
+            "wape": 0.4188,
+            "coverage": 0.8209,
+            "width_bdt": 308329,
+            "pinball": 33196
+          },
+          "horizon:2": {
+            "n": 38000,
+            "wape": 0.4188,
+            "coverage": 0.8216,
+            "width_bdt": 309180,
+            "pinball": 33205
+          },
+          "horizon:3": {
+            "n": 38000,
+            "wape": 0.4188,
+            "coverage": 0.8224,
+            "width_bdt": 309429,
+            "pinball": 33177
+          },
+          "horizon:4": {
+            "n": 38000,
+            "wape": 0.4188,
+            "coverage": 0.8229,
+            "width_bdt": 310143,
+            "pinball": 33151
+          },
+          "horizon:5": {
+            "n": 38000,
+            "wape": 0.4188,
+            "coverage": 0.8233,
+            "width_bdt": 310230,
+            "pinball": 33120
+          },
+          "horizon:6": {
+            "n": 38000,
+            "wape": 0.4188,
+            "coverage": 0.8236,
+            "width_bdt": 310037,
+            "pinball": 33109
+          },
+          "horizon:7": {
+            "n": 38000,
+            "wape": 0.4188,
+            "coverage": 0.8239,
+            "width_bdt": 310054,
+            "pinball": 33132
+          },
+          "archetype:urban_residential": {
+            "n": 66500,
+            "wape": 0.3376,
+            "coverage": 0.8831,
+            "width_bdt": 256247,
+            "pinball": 21240
+          },
+          "archetype:garment_belt": {
+            "n": 53200,
+            "wape": 0.4971,
+            "coverage": 0.7457,
+            "width_bdt": 517696,
+            "pinball": 68565
+          },
+          "archetype:rural_remittance": {
+            "n": 79800,
+            "wape": 0.4261,
+            "coverage": 0.8143,
+            "width_bdt": 161557,
+            "pinball": 17430
+          },
+          "archetype:market_hub": {
+            "n": 39900,
+            "wape": 0.3775,
+            "coverage": 0.8566,
+            "width_bdt": 559689,
+            "pinball": 52563
+          },
+          "archetype:university_area": {
+            "n": 26600,
+            "wape": 0.4283,
+            "coverage": 0.7994,
+            "width_bdt": 96073,
+            "pinball": 10195
+          }
+        },
+        "cashin": {
+          "overall": {
+            "n": 266000,
+            "wape": 0.3705,
+            "coverage": 0.8422,
+            "width_bdt": 205579,
+            "pinball": 20771
+          },
+          "event_days": {
+            "n": 38500,
+            "wape": 0.6169,
+            "coverage": 0.7714,
+            "width_bdt": 296231,
+            "pinball": 38651
+          },
+          "normal_days": {
+            "n": 227500,
+            "wape": 0.319,
+            "coverage": 0.8542,
+            "width_bdt": 190238,
+            "pinball": 17745
+          },
+          "horizon:1": {
+            "n": 38000,
+            "wape": 0.3705,
+            "coverage": 0.8417,
+            "width_bdt": 204675,
+            "pinball": 20761
+          },
+          "horizon:2": {
+            "n": 38000,
+            "wape": 0.3705,
+            "coverage": 0.8426,
+            "width_bdt": 205311,
+            "pinball": 20773
+          },
+          "horizon:3": {
+            "n": 38000,
+            "wape": 0.3705,
+            "coverage": 0.8432,
+            "width_bdt": 205913,
+            "pinball": 20773
+          },
+          "horizon:4": {
+            "n": 38000,
+            "wape": 0.3705,
+            "coverage": 0.8422,
+            "width_bdt": 205728,
+            "pinball": 20766
+          },
+          "horizon:5": {
+            "n": 38000,
+            "wape": 0.3705,
+            "coverage": 0.8415,
+            "width_bdt": 205704,
+            "pinball": 20766
+          },
+          "horizon:6": {
+            "n": 38000,
+            "wape": 0.3705,
+            "coverage": 0.8414,
+            "width_bdt": 205673,
+            "pinball": 20770
+          },
+          "horizon:7": {
+            "n": 38000,
+            "wape": 0.3705,
+            "coverage": 0.8427,
+            "width_bdt": 206050,
+            "pinball": 20786
+          },
+          "archetype:urban_residential": {
+            "n": 66500,
+            "wape": 0.4304,
+            "coverage": 0.7981,
+            "width_bdt": 306691,
+            "pinball": 36647
+          },
+          "archetype:garment_belt": {
+            "n": 53200,
+            "wape": 0.3368,
+            "coverage": 0.8394,
+            "width_bdt": 155346,
+            "pinball": 14078
+          },
+          "archetype:rural_remittance": {
+            "n": 79800,
+            "wape": 0.2848,
+            "coverage": 0.8871,
+            "width_bdt": 58938,
+            "pinball": 4638
+          },
+          "archetype:market_hub": {
+            "n": 39900,
+            "wape": 0.3442,
+            "coverage": 0.858,
+            "width_bdt": 490738,
+            "pinball": 44993
+          },
+          "archetype:university_area": {
+            "n": 26600,
+            "wape": 0.3656,
+            "coverage": 0.7995,
+            "width_bdt": 65451,
+            "pinball": 6531
+          }
+        }
+      },
+      "operations": {
+        "stockout_agent_days": 1658,
+        "cash_stockout_days": 1578,
+        "efloat_stockout_days": 81,
+        "failed_cashout_count": 84992,
+        "failed_cashout_bdt": 220834924,
+        "failed_cashin_count": 2892,
+        "failed_cashin_bdt": 5828791,
+        "lost_commission_bdt": 1155985,
+        "lost_upay_fee_bdt": 1173110,
+        "customers_at_risk": 4250,
+        "avg_cash_held_bdt": 362322,
+        "rebalancing_trips": 22277,
+        "served_share": 0.9851
+      }
+    },
+    "trailing_mean7_empirical_intervals": {
+      "forecast": {
+        "cashout": {
+          "overall": {
+            "n": 266000,
+            "wape": 0.3492,
+            "coverage": 0.8029,
+            "width_bdt": 243010,
+            "pinball": 27273
+          },
+          "event_days": {
+            "n": 38500,
+            "wape": 0.6118,
+            "coverage": 0.5533,
+            "width_bdt": 359243,
+            "pinball": 65535
+          },
+          "normal_days": {
+            "n": 227500,
+            "wape": 0.2833,
+            "coverage": 0.8451,
+            "width_bdt": 223339,
+            "pinball": 20798
+          },
+          "horizon:1": {
+            "n": 38000,
+            "wape": 0.3048,
+            "coverage": 0.7989,
+            "width_bdt": 212261,
+            "pinball": 23637
+          },
+          "horizon:2": {
+            "n": 38000,
+            "wape": 0.3284,
+            "coverage": 0.8022,
+            "width_bdt": 228077,
+            "pinball": 25438
+          },
+          "horizon:3": {
+            "n": 38000,
+            "wape": 0.3459,
+            "coverage": 0.7986,
+            "width_bdt": 237583,
+            "pinball": 26877
+          },
+          "horizon:4": {
+            "n": 38000,
+            "wape": 0.3583,
+            "coverage": 0.7977,
+            "width_bdt": 246482,
+            "pinball": 27997
+          },
+          "horizon:5": {
+            "n": 38000,
+            "wape": 0.3659,
+            "coverage": 0.8029,
+            "width_bdt": 253242,
+            "pinball": 28709
+          },
+          "horizon:6": {
+            "n": 38000,
+            "wape": 0.3699,
+            "coverage": 0.8079,
+            "width_bdt": 259599,
+            "pinball": 29094
+          },
+          "horizon:7": {
+            "n": 38000,
+            "wape": 0.3711,
+            "coverage": 0.8119,
+            "width_bdt": 263823,
+            "pinball": 29158
+          },
+          "archetype:urban_residential": {
+            "n": 66500,
+            "wape": 0.267,
+            "coverage": 0.8866,
+            "width_bdt": 200616,
+            "pinball": 16536
+          },
+          "archetype:garment_belt": {
+            "n": 53200,
+            "wape": 0.4304,
+            "coverage": 0.7033,
+            "width_bdt": 408623,
+            "pinball": 58623
+          },
+          "archetype:rural_remittance": {
+            "n": 79800,
+            "wape": 0.3597,
+            "coverage": 0.7969,
+            "width_bdt": 125930,
+            "pinball": 14512
+          },
+          "archetype:market_hub": {
+            "n": 39900,
+            "wape": 0.302,
+            "coverage": 0.8471,
+            "width_bdt": 438304,
+            "pinball": 41302
+          },
+          "archetype:university_area": {
+            "n": 26600,
+            "wape": 0.3675,
+            "coverage": 0.7442,
+            "width_bdt": 76065,
+            "pinball": 8656
+          }
+        },
+        "cashin": {
+          "overall": {
+            "n": 266000,
+            "wape": 0.299,
+            "coverage": 0.8248,
+            "width_bdt": 164335,
+            "pinball": 16412
+          },
+          "event_days": {
+            "n": 38500,
+            "wape": 0.5706,
+            "coverage": 0.7764,
+            "width_bdt": 281048,
+            "pinball": 35668
+          },
+          "normal_days": {
+            "n": 227500,
+            "wape": 0.2423,
+            "coverage": 0.833,
+            "width_bdt": 144584,
+            "pinball": 13154
+          },
+          "horizon:1": {
+            "n": 38000,
+            "wape": 0.2672,
+            "coverage": 0.8109,
+            "width_bdt": 148599,
+            "pinball": 14571
+          },
+          "horizon:2": {
+            "n": 38000,
+            "wape": 0.2846,
+            "coverage": 0.8112,
+            "width_bdt": 156566,
+            "pinball": 15453
+          },
+          "horizon:3": {
+            "n": 38000,
+            "wape": 0.2978,
+            "coverage": 0.8165,
+            "width_bdt": 161789,
+            "pinball": 16213
+          },
+          "horizon:4": {
+            "n": 38000,
+            "wape": 0.3064,
+            "coverage": 0.8217,
+            "width_bdt": 165358,
+            "pinball": 16757
+          },
+          "horizon:5": {
+            "n": 38000,
+            "wape": 0.311,
+            "coverage": 0.8293,
+            "width_bdt": 169231,
+            "pinball": 17156
+          },
+          "horizon:6": {
+            "n": 38000,
+            "wape": 0.3128,
+            "coverage": 0.8397,
+            "width_bdt": 173087,
+            "pinball": 17348
+          },
+          "horizon:7": {
+            "n": 38000,
+            "wape": 0.3135,
+            "coverage": 0.8443,
+            "width_bdt": 175716,
+            "pinball": 17389
+          },
+          "archetype:urban_residential": {
+            "n": 66500,
+            "wape": 0.3516,
+            "coverage": 0.7735,
+            "width_bdt": 245157,
+            "pinball": 29154
+          },
+          "archetype:garment_belt": {
+            "n": 53200,
+            "wape": 0.2796,
+            "coverage": 0.818,
+            "width_bdt": 124458,
+            "pinball": 11471
+          },
+          "archetype:rural_remittance": {
+            "n": 79800,
+            "wape": 0.2227,
+            "coverage": 0.8818,
+            "width_bdt": 46875,
+            "pinball": 3655
+          },
+          "archetype:market_hub": {
+            "n": 39900,
+            "wape": 0.2697,
+            "coverage": 0.8564,
+            "width_bdt": 392129,
+            "pinball": 34453
+          },
+          "archetype:university_area": {
+            "n": 26600,
+            "wape": 0.3183,
+            "coverage": 0.748,
+            "width_bdt": 52725,
+            "pinball": 5651
+          }
+        }
+      },
+      "operations": {
+        "stockout_agent_days": 1511,
+        "cash_stockout_days": 1459,
+        "efloat_stockout_days": 53,
+        "failed_cashout_count": 72539,
+        "failed_cashout_bdt": 188075292,
+        "failed_cashin_count": 1779,
+        "failed_cashin_bdt": 3607440,
+        "lost_commission_bdt": 977582,
+        "lost_upay_fee_bdt": 997878,
+        "customers_at_risk": 3627,
+        "avg_cash_held_bdt": 356978,
+        "rebalancing_trips": 19188,
+        "served_share": 0.9874
+      }
+    }
+  }
+}

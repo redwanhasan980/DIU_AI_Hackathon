@@ -47,7 +47,10 @@ def main() -> None:
                 y = panel[f"demand_{target}"].to_numpy()
                 pred = models.predict_amount(panel, target)
                 x = panel[models.features]
-                raw = {q: models.boosters[(target, q)].predict(x) for q in models.quantiles}
+                raw = {
+                    q: models.boosters[(target, q)].predict(x, num_threads=models.inference_threads)
+                    for q in models.quantiles
+                }
                 if mode == "spread":
                     raw = {q: v if q == 0.5 else v * np.maximum(raw[0.5], 0.05) for q, v in raw.items()}
                 crossing = float(np.mean((raw[0.1] > raw[0.5]) | (raw[0.5] > raw[0.9])))

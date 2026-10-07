@@ -1067,6 +1067,7 @@
       "overall_improvement_vs_seasonal_naive_ge_20pct": true,
       "event_improvement_vs_seasonal_naive_ge_35pct": true,
       "coverage_p10_p90_between_72_and_88pct": true,
+      "event_coverage_p10_p90_between_72_and_88pct": false,
       "no_archetype_worse_than_baseline": true
     },
     "archetype_beats_baseline": {
@@ -1076,6 +1077,6 @@
       "market_hub": true,
       "university_area": true
     },
-    "all_passed": true
+    "all_passed": false
   }
 }

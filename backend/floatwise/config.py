@@ -8,7 +8,7 @@ from pathlib import Path
 from typing import Any
 
 import yaml
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field
 
 BACKEND_DIR = Path(__file__).resolve().parent.parent
 REPO_ROOT = BACKEND_DIR.parent
@@ -159,6 +159,7 @@ class BusinessCfg(_Strict):
 
 
 class ModelCfg(_Strict):
+    inference_threads: int = 4
     quantiles: list[float]
     targets: list[str]
     horizons: int
@@ -181,6 +182,43 @@ class LlmCfg(_Strict):
 
 class ApiCfg(_Strict):
     cors_origins: list[str]
+    requests_per_minute: int = 240
+    max_body_bytes: int = 16384
+    login_requests_per_minute: int = 10
+    session_ttl_seconds: int = 28800
+
+
+class ValidationCfg(_Strict):
+    fit_end: dt.date
+    early_stop_start: dt.date
+    early_stop_end: dt.date
+    calibration_start: dt.date
+    calibration_end: dt.date
+    assessment_start: dt.date
+    assessment_end: dt.date
+    interval_coverage: float
+    min_calibration_rows: int
+    feature_groups: dict[str, list[str]]
+    demand_shifts: dict[str, float]
+    compliance_values: list[float]
+    churn_values: list[float]
+    benchmark_populations: list[int]
+    benchmark_repeats: int
+    benchmark_batch_size: int
+
+
+class IntegrationCfg(_Strict):
+    poll_seconds: float = Field(0.5, gt=0)
+    max_attempts: int = Field(3, ge=1)
+    retry_seconds: int = Field(2, ge=0)
+    connector_events: int = Field(12, ge=2, le=1000)
+    connector_interval_seconds: float = Field(1.0, gt=0)
+    connector_cashout_multiplier: float = Field(1.5, gt=0)
+    connector_denied_amount: int = Field(1000, gt=0)
+    drift_min_samples: int = Field(20, ge=1)
+    drift_mean_ratio: float = Field(0.3, gt=0)
+    coverage_tolerance: float = Field(0.08, gt=0, lt=0.2)
+    stale_seconds: int = Field(120, ge=1)
 
 
 class Config(_Strict):
@@ -197,6 +235,8 @@ class Config(_Strict):
     model: ModelCfg
     llm: LlmCfg
     api: ApiCfg
+    validation: ValidationCfg
+    integration: IntegrationCfg = Field(default_factory=IntegrationCfg)
 
     # ---- resolved paths -------------------------------------------------
     @property

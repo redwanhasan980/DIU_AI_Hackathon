@@ -86,15 +86,22 @@ def test_required_decisions_check_server_recommendation(secured_client):
         "final_amount": 0,
         "decision": "reject",
         "balance_version": rec["balance_version"],
+        "history_revision": rec["history_revision"],
+        "model_version": rec["model_version"],
+        "policy_version": rec["policy_version"],
     }
     assert client.post("/api/v1/decisions", json=body, headers=headers("operator")).status_code == 200
     invalid = {**body, "recommended_amount": rec["amount"] + 1}
     assert client.post("/api/v1/decisions", json=invalid, headers=headers("operator")).status_code == 409
+    for field in ("history_revision", "model_version", "policy_version"):
+        stale = {**body, field: None}
+        assert client.post("/api/v1/decisions", json=stale, headers=headers("operator")).status_code == 409
 
 
 def test_authentication_fails_closed(monkeypatch):
     monkeypatch.setenv("FLOATWISE_AUTH_MODE", "required")
     monkeypatch.delenv("FLOATWISE_CREDENTIALS", raising=False)
+    monkeypatch.delenv("FLOATWISE_USERS", raising=False)
     with pytest.raises(ValueError):
         AccessControl()
     monkeypatch.setenv("FLOATWISE_AUTH_MODE", "demo")

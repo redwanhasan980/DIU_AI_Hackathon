@@ -335,7 +335,10 @@ def create_app(cfg: Config | None = None, store: Store | None = None) -> FastAPI
     @app.post(f"{p}/integration/connector", response_model=S.ConnectorState)
     def connector(body: S.ConnectorRequest, request: Request):
         if body.action in {"start", "resume", "replay"} and not os.environ.get("FLOATWISE_INTEGRATION_TOKEN"):
-            raise HTTPException(503, "Configure the local connector with python run.py integration-setup and restart API/worker")
+            raise HTTPException(
+                503,
+                "Configure the local connector with python run.py integration-setup and restart API/worker",
+            )
         return st().integration.connector(body.model_dump(), request.state.principal.subject)
 
     @app.get(f"{p}/integration/tasks", response_model=list[S.DsoTask])
@@ -348,13 +351,17 @@ def create_app(cfg: Config | None = None, store: Store | None = None) -> FastAPI
 
     @app.post(f"{p}/integration/tasks/{{task_id}}/status", response_model=S.DsoTask)
     def update_task(task_id: int, body: S.TaskUpdate, request: Request):
-        return st().integration.transition(task_id, body.status, body.expected_version, request.state.principal.subject)
+        return st().integration.transition(
+            task_id, body.status, body.expected_version, request.state.principal.subject
+        )
 
     @app.post(f"{p}/integration/tasks/{{task_id}}/simulate-delivery", response_model=S.EventReceipt)
     def simulate_delivery(task_id: int, body: S.DeliveryRequest, request: Request):
         with st().operations.connect() as db:
-            replay = db.execute("SELECT id FROM integration_events WHERE source='simulated-dso' AND event_id=?",
-                                (f"delivery:{task_id}:{body.expected_version}",)).fetchone()
+            replay = db.execute(
+                "SELECT id FROM integration_events WHERE source='simulated-dso' AND event_id=?",
+                (f"delivery:{task_id}:{body.expected_version}",),
+            ).fetchone()
             if replay:
                 return st().integration.receipt(db, replay[0], True)
         event = st().integration.delivery_event(task_id, body.expected_version)

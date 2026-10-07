@@ -87,10 +87,11 @@ class Store:
         self.training_reference = {}
         for side, values in self.m.y.items():
             prior = pd.DataFrame(values.T).shift(1).rolling(28, min_periods=1).mean().to_numpy().T
-            ratios = values[:, 28:train_end + 1] / np.maximum(prior[:, 28:train_end + 1], 1000)
+            ratios = values[:, 28 : train_end + 1] / np.maximum(prior[:, 28 : train_end + 1], 1000)
             self.training_reference[side] = float(np.mean(ratios))
         self.artifact_model_version = self.models.version
         from floatwise.integration.service import Integration
+
         self.integration = Integration(self)
         self._lock = threading.Lock()
         self._sim_inputs = None
@@ -125,7 +126,9 @@ class Store:
             f = full[:, h - 1].copy()
         for agent, forecast in self.integration.overrides(d).items():
             point = forecast["points"][h - 1]
-            f[self.agent_index(agent)] = [point[side][q] for side in ("cashout", "cashin") for q in ("p10", "p50", "p90")]
+            f[self.agent_index(agent)] = [
+                point[side][q] for side in ("cashout", "cashin") for q in ("p10", "p50", "p90")
+            ]
         return f[:, :3], f[:, 3:]
 
     @lru_cache(maxsize=16)  # noqa: B019
@@ -276,9 +279,16 @@ class Store:
                 "actual_cashout": None if np.isnan(act[0]) else int(act[0]),
                 "actual_cashin": None if np.isnan(act[1]) else int(act[1]),
             })  # fmt: skip
-        return {"agent_id": agent_id, "origin": d, "points": points, "source": "precomputed",
-                "model_version": self.artifact_model_version, "history_revision": 0,
-                "balance_revision": self.balance(agent_id, d)["version"], "policy_version": self.integration.policy_version}
+        return {
+            "agent_id": agent_id,
+            "origin": d,
+            "points": points,
+            "source": "precomputed",
+            "model_version": self.artifact_model_version,
+            "history_revision": 0,
+            "balance_revision": self.balance(agent_id, d)["version"],
+            "policy_version": self.integration.policy_version,
+        }
 
     def recommendation(self, agent_id: str, d: dt.date, service_level: float | None = None) -> dict:
         i = self.agent_index(agent_id)
@@ -295,8 +305,12 @@ class Store:
         # 7-day outlook: risk each day if the agent does nothing from tonight's balances
         H = self.cfg.model.horizons
         current = self.forecast(agent_id, d, H)
-        f = np.array([[p[side][q] for side in ("cashout", "cashin") for q in ("p10", "p50", "p90")]
-                      for p in current["points"]])
+        f = np.array(
+            [
+                [p[side][q] for side in ("cashout", "cashin") for q in ("p10", "p50", "p90")]
+                for p in current["points"]
+            ]
+        )
         cash = np.full(H, rec["observed_cash"][i])
         efl = np.full(H, rec["observed_efloat"][i])
         out = recommend(params, cash, efl, np.full(H, self.capacity[i]), f[:, :3], f[:, 3:])
@@ -312,11 +326,16 @@ class Store:
         ]  # fmt: skip
         first_risk = next((o["date"] for o in outlook if o["at_risk"]), None)
         revision, matrix = self.integration.matrix(agent_id, d)
-        if (before_revision != revision or before_balance != self.balance(agent_id, d)["version"]
-                or before_model != self.models.version):
+        if (
+            before_revision != revision
+            or before_balance != self.balance(agent_id, d)["version"]
+            or before_model != self.models.version
+        ):
             raise Conflict("Operational inputs changed; refresh the recommendation")
-        recent = int(matrix.stockout["cashout"][0, max(0, t - 6):t + 1].sum()
-                     + matrix.stockout["cashin"][0, max(0, t - 6):t + 1].sum())
+        recent = int(
+            matrix.stockout["cashout"][0, max(0, t - 6) : t + 1].sum()
+            + matrix.stockout["cashin"][0, max(0, t - 6) : t + 1].sum()
+        )
         today_row = self.cal.loc[pd.Timestamp(d)]
         eff_row = self.cal.loc[pd.Timestamp(eff)] if pd.Timestamp(eff) in self.cal.index else today_row
         return {
@@ -361,8 +380,9 @@ class Store:
         rec = self.recommendation(agent_id, d)
         target = "cashin" if rec["action"] == "TOP_UP_EFLOAT" else "cashout"
         _, matrix = self.integration.matrix(agent_id, d)
-        row = build_panel(self.cfg, matrix, self.calendar, self.agents,
-                          np.array([self.date_pos[d]]), horizons=np.array([1]))
+        row = build_panel(
+            self.cfg, matrix, self.calendar, self.agents, np.array([self.date_pos[d]]), horizons=np.array([1])
+        )
         ex = explain_row(self.cfg, self.models, row, target, lang)
         co_q, ci_q = self.quantiles(d)
         q = ci_q[i] if target == "cashin" else co_q[i]

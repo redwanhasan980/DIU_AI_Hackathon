@@ -26,7 +26,7 @@ def encode(value: dict) -> str:
 
 def fingerprint(decision: dict) -> str:
     return hashlib.sha256(
-        encode({k: v for k, v in decision.items() if k != "decided_at"}).encode()
+        encode({k: v for k, v in decision.items() if k not in {"decided_at", "decision_id"}}).encode()
     ).hexdigest()
 
 
@@ -151,15 +151,27 @@ class OperationsDB:
                     raise Conflict("Balance changed; reload the recommendation before recording a decision")
             revision = decision.get("history_revision")
             if revision is not None:
-                if db.execute("SELECT 1 FROM integration_events WHERE agent_id=? AND status='pending' LIMIT 1",
-                              (decision["agent_id"],)).fetchone():
+                if db.execute(
+                    "SELECT 1 FROM integration_events WHERE agent_id=? AND status='pending' LIMIT 1",
+                    (decision["agent_id"],),
+                ).fetchone():
                     raise Conflict("Wait for pending operational events before recording a decision")
-                row = db.execute("SELECT revision FROM integration_revisions WHERE agent_id=?", (decision["agent_id"],)).fetchone()
-                active = db.execute("SELECT value FROM integration_control WHERE key='active_model'").fetchone()
-                if revision != (row[0] if row else 0) or not active or json.loads(active[0]) != decision.get("model_version"):
+                row = db.execute(
+                    "SELECT revision FROM integration_revisions WHERE agent_id=?", (decision["agent_id"],)
+                ).fetchone()
+                active = db.execute(
+                    "SELECT value FROM integration_control WHERE key='active_model'"
+                ).fetchone()
+                if (
+                    revision != (row[0] if row else 0)
+                    or not active
+                    or json.loads(active[0]) != decision.get("model_version")
+                ):
                     raise Conflict("History or model changed; reload the recommendation before approval")
-                if db.execute("SELECT 1 FROM integration_days WHERE agent_id=? AND day<=? AND closed=0",
-                              (decision["agent_id"], str(decision["date"]))).fetchone():
+                if db.execute(
+                    "SELECT 1 FROM integration_days WHERE agent_id=? AND day<=? AND closed=0",
+                    (decision["agent_id"], str(decision["date"])),
+                ).fetchone():
                     raise Conflict("History is open; close the day and reload before approval")
             cur = db.execute(
                 "INSERT INTO decisions(actor, idem, fingerprint, payload) VALUES (?, ?, ?, ?)",
@@ -185,7 +197,10 @@ class OperationsDB:
 
     def decisions(self) -> list[dict]:
         with self.connect() as db:
-            return [{**json.loads(row[1]), "decision_id": row[0]} for row in db.execute("SELECT id,payload FROM decisions ORDER BY id")]
+            return [
+                {**json.loads(row[1]), "decision_id": row[0]}
+                for row in db.execute("SELECT id,payload FROM decisions ORDER BY id")
+            ]
 
     def audit_events(self, limit: int = 100) -> list[dict]:
         with self.connect() as db:

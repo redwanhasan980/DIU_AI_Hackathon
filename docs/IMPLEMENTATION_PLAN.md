@@ -226,6 +226,7 @@ D starts with **mock JSON fixtures** that match the schemas, so it never waits o
 - [x] Replicated computation benchmark through 154,000 synthetic agent profiles
 - [x] Live model inference and persistent synthetic balance observations with recalculation
 - [x] Transactional decision/audit storage, idempotency and optimistic balance concurrency
+- [x] Preserve idempotent replay of persisted decisions and verify secured provenance and missing-authentication configuration in regression tests
 - [x] Bearer authentication, server roles, protected operational endpoints and shared rate/body limits
 - [x] Validation evidence and live operations UI; protected token and fixture behavior
 - [x] Dedicated sign-in UI, verified account/role, sign-out, protected routes and role-specific controls

@@ -409,8 +409,9 @@ class IntegrationEvent(BaseModel):
     event_id: str = Field(min_length=1, max_length=128, pattern=r"^[a-zA-Z0-9_.:-]+$")
     occurred_at: AwareDatetime
     agent_id: str = Field(pattern=r"^AG\d{5}$")
-    payload: Annotated[TransactionPayload | SnapshotPayload | DayClosedPayload | DeliveryPayload,
-                       Field(discriminator="kind")]
+    payload: Annotated[
+        TransactionPayload | SnapshotPayload | DayClosedPayload | DeliveryPayload, Field(discriminator="kind")
+    ]
 
 
 class EventReceipt(BaseModel):

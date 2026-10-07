@@ -26,6 +26,8 @@ a median of zero denied transactions per day. That historical, multi-provider su
 establish current upay stockouts. The [pilot protocol](docs/PILOT_PROTOCOL.md) specifies the
 agent/DSO evidence and controlled comparison needed to validate upay's business priority.
 
+> **Full project report** (problem, solution, architecture, workflow, results, execution; 35 pages with charts and cited sources): [PDF](docs/report/FloatWise_Project_Report.pdf) · [Word](docs/report/FloatWise_Project_Report.docx)
+
 ---
 
 ## Quick start (about 6 minutes)
@@ -247,6 +249,7 @@ Every choice was made on held-out data, never on the test period. The evidence i
 | [`docs/SRS.md`](docs/SRS.md) | Requirements, formulas, API and UI spec, results next to targets |
 | [`docs/IMPLEMENTATION_PLAN.md`](docs/IMPLEMENTATION_PLAN.md) | Phased checklist (ticked as built) |
 | [`docs/DATA_ASSUMPTIONS.md`](docs/DATA_ASSUMPTIONS.md) | Every synthetic assumption, plus upay facts with sources |
+| [`docs/report/`](docs/report/) | Full project report as PDF and Word, with charts |
 | [`CLAUDE.md`](CLAUDE.md), [`RULES.md`](RULES.md) | Guide and mandatory rules for AI coding agents |
 | `backend/floatwise/` | `data/` → `features/` → `models/` → `engine/` → `simulation/` / `explain/` → `api/` |
 | `backend/scripts/` | Experiments, policy tuning, narrative cache, fixture export, e2e walk-through |
